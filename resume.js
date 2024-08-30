@@ -121,16 +121,12 @@ function hoverSkillBar() {
       if (!bar.classList.contains("filled")) {
         const percentage = bar.getAttribute("data-percentage");
         bar.style.setProperty("--percentage", percentage + "%");
-        bar.classList.add("filled");
         animateSkillBar(bar, percentage);
       }
     });
 
     bar.addEventListener("mouseleave", () => {
-      if (bar.classList.contains("filled")) {
-        reverseSkillBar(bar);
-        bar.classList.remove("filled");
-      }
+      reverseSkillBar(bar);
     });
   });
 }
