@@ -11,7 +11,7 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0px;
+  padding: 0;
   background-color: #222;
   border-bottom: 4px solid #4fff4f; /* Bright, arcade-like color */
 }
