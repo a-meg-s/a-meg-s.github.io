@@ -1,8 +1,7 @@
 body {
-  font-family: "Press Start 2P", cursive;
+  font-family: "Press Start 2P", cursive, 0.5em;
   background-color: #111;
   color: #fff;
-  font-size: 0.5em;
   margin: 0;
   padding: 0;
   line-height: 1.0;
