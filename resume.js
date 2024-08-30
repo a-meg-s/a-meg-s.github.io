@@ -86,12 +86,12 @@ function reverseSkillBar(bar) {
   const id = setInterval(() => {
     if (width <= 0) {
       clearInterval(id);
-      bar.style.width = "0%";
+      bar.style.width = "25%";
     } else {
       width--;
       bar.style.width = width + "%";
     }
-  }, 25);
+  }, 0);
 }
 
 function hoverSkillBar() {
