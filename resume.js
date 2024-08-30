@@ -122,11 +122,15 @@ function hoverSkillBar() {
         const percentage = bar.getAttribute("data-percentage");
         bar.style.setProperty("--percentage", percentage + "%");
         animateSkillBar(bar, percentage);
+        bar.classList.add("filled");
       }
     });
 
     bar.addEventListener("mouseleave", () => {
-      reverseSkillBar(bar);
+      setTimeout(() => {
+        reverseSkillBar(bar);
+        bar.classList.remove("filled");
+      }, 1000); // Reverses after 1 second
     });
   });
 }
