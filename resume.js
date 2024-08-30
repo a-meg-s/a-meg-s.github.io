@@ -11,7 +11,7 @@ function typeWriter(text, n) {
   }
 }
 
-//canva profile pic
+// Canvas profile pic
 function draw() {
   const canvas = document.getElementById("profile-pic");
   if (canvas.getContext) {
@@ -20,22 +20,22 @@ function draw() {
     ctx.fillStyle = "rgb(245,207,186)";
     ctx.fillRect(54, 45, 91, 90);
 
-    //mouth
+    // Mouth
     ctx.fillStyle = "rgb(240,168,137)";
     ctx.fillRect(93, 117, 15, 5);
     ctx.fillRect(88, 112, 5, 5);
     ctx.fillRect(108, 112, 5, 5);
 
-    //nose
+    // Nose
     ctx.fillStyle = "rgb(240,168,137)";
     ctx.fillRect(97, 95, 6, 10);
 
-    //blush
+    // Blush
     ctx.fillStyle = "rgb(252,144,157)";
     ctx.fillRect(65, 97, 15, 8);
     ctx.fillRect(120, 97, 15, 8);
 
-    //hair
+    // Hair
     ctx.fillStyle = "rgb(150,99,57)";
     ctx.fillRect(70, 30, 60, 15);
     ctx.fillRect(50, 40, 30, 20);
@@ -61,7 +61,7 @@ function drawEyes(ctx) {
 }
 
 function blinkEyes(ctx) {
-  // blinked eyes
+  // Blinking eyes
   ctx.fillStyle = "rgb(245,207,186)"; // Background color to clear old eyes
   ctx.fillRect(72, 85, 12, 12);
   ctx.fillRect(117, 85, 12, 12);
@@ -70,7 +70,7 @@ function blinkEyes(ctx) {
   ctx.fillRect(72, 93, 12, 4);
   ctx.fillRect(117, 93, 12, 4);
 
-  // blink time
+  // Blink time
   setTimeout(function () {
     drawEyes(ctx);
   }, 200);
@@ -83,6 +83,7 @@ window.addEventListener("click", function () {
     blinkEyes(ctx);
   }
 });
+
 function isInViewport(element) {
   const rect = element.getBoundingClientRect();
   return (
@@ -115,10 +116,27 @@ function fillSkillBar() {
     if (isInViewport(bar) && !bar.classList.contains("filled")) {
       const percentage = bar.getAttribute("data-percentage");
       bar.classList.add("filled");
+      animateSkillBar(bar, percentage);
     }
+  });
+}
+
+function hoverSkillBar() {
+  const skillBars = document.querySelectorAll("#language");
+
+  skillBars.forEach((bar) => {
+    bar.addEventListener("mouseenter", () => {
+      if (!bar.classList.contains("filled")) {
+        const percentage = bar.getAttribute("data-percentage");
+        bar.style.setProperty("--percentage", percentage + "%");
+        bar.classList.add("filled");
+        animateSkillBar(bar, percentage);
+      }
+    });
   });
 }
 
 draw();
 typeWriter("Andrea Megan Sustic", 0);
-window.addEventListener("hover", fillSkillBar);
+window.addEventListener("scroll", fillSkillBar);
+hoverSkillBar(); 
