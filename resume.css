@@ -1,0 +1,167 @@
+body {
+  font-family: "Press Start 2P", cursive;
+  background-color: #111;
+  color: white;
+  margin: 0;
+  padding: 0;
+}
+
+#profile-pic {
+  max-width: 100%;
+  height: auto;
+  margin: 1px;
+}
+
+h1 {
+  font-size: 1.8em;
+  font-family: "Press Start 2P", cursive;
+  color: white;
+}
+
+h2 {
+  font-size: 1.3em;
+  font-family: "Press Start 2P", cursive;
+  color: chartreuse;
+  margin: 10px;
+}
+
+h3 {
+  font-size: 1.2em;
+  font-family: "Press Start 2P", cursive;
+  color: white;
+  margin: 20px 0;
+}
+
+#header-content {
+  display: flexbox;
+  flex-wrap: wrap;
+}
+
+#navbar {
+  background-color: #333;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 10px;
+}
+
+#navbar a {
+  font-size: 1rem;
+  text-decoration: none;
+  text-align: justify;
+  padding: 5px;
+}
+
+#navbar a:hover {
+  color: #ffcc00;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+.img {
+  width: 10%;
+  height: auto;
+  margin: 5px;
+}
+
+/* Section Styles */
+section {
+  box-sizing: border-box;
+  margin: 20px;
+  padding: 20px;
+  border: 2px dashed #fff;
+  background-color: #222;
+}
+
+.section-divider {
+  border: 0;
+  height: 16px;
+  background: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 4px,
+    #fff 4px,
+    #fff 8px
+  );
+}
+
+/* Warning and Success Section Styles */
+#warningSection,
+#successSection {
+  display: none;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+  text-align: left;
+  font-size: 0.7rem;
+}
+
+#warningSection {
+  background-color: #ffcc00;
+  color: #000;
+  border: 2px solid #ff4500;
+}
+
+#successSection {
+  background-color: #32cd32;
+  color: #fff;
+  border: 2px solid #008000;
+}
+
+.closeWarningSection,
+.closeSuccessSection {
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: #fff;
+  text-align: end;
+}
+
+/* Form Styles */
+.recommendationForm p {
+  display: block;
+  width: 100%;
+}
+
+input,
+textarea {
+  padding: 1em;
+  width: 100%;
+  border: solid #000;
+}
+
+button {
+  background: #92cd41;
+  padding: 10px;
+  font-size: medium;
+  font-family: "Press Start 2P", cursive;
+  color: white;
+  border: 2px #008000 solid;
+  display: block;
+  width: 100%;
+}
+
+button:hover,
+button:focus {
+  background: gold;
+}
+
+#language {
+  background-color: #25c70190;
+  color: white;
+  padding: 5px 0;
+  margin-bottom: 5px;
+  width: 0;
+  transition: width 2s ease;
+}
+
+footer {
+  background-color: #222;
+  color: white;
+  text-align: center;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
