@@ -21,6 +21,11 @@ header {
   align-items: center;
 }
 
+#profile-pic {
+  max-width: 100%;
+  height: auto;
+}
+
 h1 {
   font-size: 2em;
   color: #ffcc00;
