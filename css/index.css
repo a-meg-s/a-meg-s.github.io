@@ -1,0 +1,188 @@
+body {
+  font-family: "Press Start 2P", cursive;
+  background-color: #111;
+  color: white;
+  margin: 0;
+  padding: 0;
+}
+
+#profile-pic {
+  max-width: 100%;
+  height: auto;
+}
+
+h1 {
+  font-size: 1.6em;
+  font-family: "Press Start 2P", cursive;
+}
+
+h2 {
+  font-size: 1.3em;
+  font-family: "Press Start 2P", cursive;
+  color: chartreuse;
+}
+
+h3 {
+  font-size: 1em;
+  font-family: "Press Start 2P", cursive;
+}
+
+#header-content {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#navbar {
+  background-color: #333;
+  padding: 10px;
+}
+
+#navbar a {
+  font-size: 0.8rem;
+  display: block;
+  text-decoration: none;
+  padding: 5px;
+}
+
+.img {
+  width: 20%;
+  height: auto;
+}
+#warningSection,
+#successSection {
+  display: none;
+}
+
+#warningSection {
+  background-color: #ffcc00;
+  color: #000;
+  border: 2px solid #ff4500;
+}
+
+#successSection {
+  background-color: #32cd32;
+  color: #fff;
+  border: 2px solid #008000;
+}
+
+section {
+  box-sizing: border-box;
+  margin: 2%;
+  padding: 2%;
+  border: 2px dashed #fff;
+  background-color: #222;
+}
+
+.section-divider {
+  border: 0;
+  height: 16px;
+  background: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 4px,
+    #fff 4px,
+    #fff 8px
+  );
+}
+
+.recommendationForm p {
+  display: block;
+  width: 100%;
+}
+
+input,
+textarea {
+  padding: 2em;
+  width: 100%;
+}
+
+button {
+  display: block;
+  width: 100%;
+}
+
+@media (min-width: 600px) {
+  #header-content {
+    display: flexbox;
+    flex-wrap: wrap;
+  }
+
+  #profile-pic {
+    max-width: 100%;
+    height: auto;
+    margin: 1px;
+  }
+
+  #navbar {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 10px;
+  }
+
+  #navbar a {
+    font-size: 1rem;
+    text-align: justify;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  #info-box li {
+    margin-bottom: 10px;
+  }
+
+  .img {
+    width: 10%;
+  }
+}
+
+.recommendationForm p {
+  display: block;
+  width: 100%;
+}
+
+input,
+textarea {
+  padding: 1em;
+  width: 100%;
+  border: solid #000;
+}
+
+button {
+  background: #92cd41;
+  padding: 10px;
+  font-size: medium;
+  font-family: "Press Start 2P", cursive;
+  color: white;
+  border: 2px #008000 solid;
+  display: block;
+  width: 100%;
+}
+
+button:hover,
+button:focus {
+  background: gold;
+}
+
+#existing-recommendations {
+  padding: 20px;
+}
+
+#language {
+  background-color: #25c70190;
+  color: white;
+  padding: 5px 0;
+  margin-bottom: 5px;
+  width: 0;
+  transition: width 2s ease;
+}
+
+footer {
+  position: relative;
+  text-align: center;
+  background-color: #333;
+  bottom: 0;
+  width: 100%;
+}
