@@ -99,7 +99,6 @@ section {
   left: 0;
   height: 100%;
   background-color: #4fff4f;
-  font-size: 0.9rem;
   width: 0;
   transition: width 2s ease;
 }
