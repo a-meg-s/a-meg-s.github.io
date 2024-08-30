@@ -42,7 +42,7 @@ h3 {
   background-color: #333;
   display: flex;
   justify-content: center;
-  padding: 15px 0;
+  padding: 10px 0;
   border-bottom: 4px solid #4fff4f;
 }
 
@@ -50,7 +50,7 @@ h3 {
   font-size: 0.8rem;
   color: #4fff4f;
   text-decoration: none;
-  margin: 0 15px;
+  margin: 0 10px;
   transition: color 0.3s;
 }
 
@@ -79,7 +79,7 @@ section {
     #ffcc00 75%,
     #ff4f4f 75%
   );
-  margin: 20px 0;
+  margin: 15px 0;
 }
 
 #language {
