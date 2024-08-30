@@ -98,6 +98,21 @@ function animateSkillBar(bar, percentage) {
   }
 }
 
+function reverseSkillBar(bar) {
+  var width = parseInt(bar.style.width, 10);
+  var id = setInterval(frame, 10);
+
+  function frame() {
+    if (width <= 0) {
+      clearInterval(id);
+      bar.style.width = "0%";
+    } else {
+      width--;
+      bar.style.width = width + "%";
+    }
+  }
+}
+
 function hoverSkillBar() {
   const skillBars = document.querySelectorAll("#language");
 
@@ -108,6 +123,13 @@ function hoverSkillBar() {
         bar.style.setProperty("--percentage", percentage + "%");
         bar.classList.add("filled");
         animateSkillBar(bar, percentage);
+      }
+    });
+
+    bar.addEventListener("mouseleave", () => {
+      if (bar.classList.contains("filled")) {
+        reverseSkillBar(bar);
+        bar.classList.remove("filled");
       }
     });
   });
