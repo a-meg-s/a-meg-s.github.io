@@ -10,7 +10,7 @@ body {
 header {
   display: flex;
   justify-content: space-between;
-  align-items: start;
+  align-items: center;
   padding: 20px;
   background-color: #222;
   border-bottom: 4px solid #4fff4f; /* Bright, arcade-like color */
@@ -22,7 +22,7 @@ header {
 }
 
 #profile-pic {
-  max-width: fit-content;
+  max-width: 100%;
   height: auto;
 }
 
