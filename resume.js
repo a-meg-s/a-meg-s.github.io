@@ -119,12 +119,6 @@ function fillSkillBar() {
   });
 }
 
-function scrollToSection(sectionId) {
-  document.getElementById(sectionId).scrollIntoView({
-    behavior: "smooth",
-  });
-}
-
 draw();
 typeWriter("Andrea Megan Sustic", 0);
-window.addEventListener("scroll", fillSkillBar);
+window.addEventListener("hover", fillSkillBar);
