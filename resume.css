@@ -13,7 +13,7 @@ header {
   align-items: center;
   padding: 20px;
   background-color: #222;
-  border-bottom: 4px solid #ffcc00; /* Bright, arcade-like color */
+  border-bottom: 4px solid #4fff4f; /* Bright, arcade-like color */
 }
 
 #header-content {
@@ -28,7 +28,7 @@ header {
 
 h1 {
   font-size: 2em;
-  color: #ffcc00;
+  color: #4fff4f;
   margin-left: 20px;
 }
 
@@ -42,19 +42,19 @@ h3 {
   display: flex;
   justify-content: center;
   padding: 15px 0;
-  border-bottom: 4px solid #ffcc00;
+  border-bottom: 4px solid #4fff4f;
 }
 
 #navbar a {
   font-size: 1.2rem;
-  color: #ffcc00;
+  color: #4fff4f;
   text-decoration: none;
   margin: 0 15px;
   transition: color 0.3s;
 }
 
 #navbar a:hover {
-  color: #4fff4f; /* Neon green on hover */
+  color: #ffcc00; /* Neon yellow on hover */
 }
 
 section {
@@ -116,14 +116,14 @@ footer {
   color: #fff;
   padding: 10px;
   text-align: center;
-  border-top: 4px solid #ffcc00;
+  border-top: 4px solid #4fff4f;
 }
 
 footer p a {
-  color: #ffcc00;
+  color: #4fff4f;
   text-decoration: none;
 }
 
 footer p a:hover {
-  color: #4fff4f;
+  color: #ffcc00;
 }
