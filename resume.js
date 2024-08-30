@@ -84,14 +84,14 @@ function animateSkillBar(bar, percentage) {
 function reverseSkillBar(bar) {
   let width = parseInt(bar.style.width, 50);
   const id = setInterval(() => {
-    if (width <= 0) {
+    if (width <= 25) {
       clearInterval(id);
-      bar.style.width = "0%";
+      bar.style.width = "25%";
     } else {
       width--;
       bar.style.width = width + "%";
     }
-  }, 0);
+  }, 5000);
 }
 
 function hoverSkillBar() {
