@@ -114,7 +114,6 @@ function fillSkillBar() {
   skillBars.forEach((bar) => {
     if (isInViewport(bar) && !bar.classList.contains("filled")) {
       const percentage = bar.getAttribute("data-percentage");
-      animateSkillBar(bar, percentage);
       bar.classList.add("filled");
     }
   });
