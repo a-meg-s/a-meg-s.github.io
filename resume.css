@@ -34,7 +34,7 @@ h1 {
 
 h2,
 h3 {
-  color: #ff4f4f; /* Bright red for a retro feel */
+  color: #00ccff; /* Bright blue for a retro feel */
 }
 
 #navbar {
@@ -71,12 +71,12 @@ section {
   height: 4px;
   background: linear-gradient(
     90deg,
-    #ff4f4f 25%,
-    #ffcc00 25%,
-    #ffcc00 50%,
+    #00ccff 25%,
+    #4fff4f 25%,
     #4fff4f 50%,
-    #4fff4f 75%,
-    #00ccff 75%
+    #ffcc00 50%,
+    #ffcc00 75%,
+    #ff4f4f 75%
   );
   margin: 20px 0;
 }
