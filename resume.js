@@ -2,17 +2,14 @@ function typeWriter(text, n) {
   if (n < text.length) {
     document.getElementById("typewriter").innerHTML =
       text.substring(0, n + 1) + '<span class="blinking-cursor">|</span>';
-    setTimeout(function () {
-      typeWriter(text, n + 1);
-    }, 100);
+    setTimeout(() => typeWriter(text, n + 1), 100);
   } else {
     document.getElementById("typewriter").innerHTML =
       text + '<span class="blinking-cursor">|</span>';
   }
 }
 
-// Canva profile pic
-function draw() {
+function drawProfilePic() {
   const canvas = document.getElementById("profile-pic");
   if (canvas.getContext) {
     const ctx = canvas.getContext("2d");
@@ -61,8 +58,7 @@ function drawEyes(ctx) {
 }
 
 function blinkEyes(ctx) {
-  // Blinking eyes
-  ctx.fillStyle = "rgb(245,207,186)"; // Background color to clear old eyes
+  ctx.fillStyle = "rgb(245,207,186)";
   ctx.fillRect(72, 85, 12, 12);
   ctx.fillRect(117, 85, 12, 12);
 
@@ -70,39 +66,24 @@ function blinkEyes(ctx) {
   ctx.fillRect(72, 93, 12, 4);
   ctx.fillRect(117, 93, 12, 4);
 
-  // Blink time
-  setTimeout(function () {
-    drawEyes(ctx);
-  }, 200);
+  setTimeout(() => drawEyes(ctx), 200);
 }
 
-window.addEventListener("click", function () {
-  const canvas = document.getElementById("profile-pic");
-  if (canvas && canvas.getContext) {
-    const ctx = canvas.getContext("2d");
-    blinkEyes(ctx);
-  }
-});
-
 function animateSkillBar(bar, percentage) {
-  var width = 1;
-  var id = setInterval(frame, 10);
-
-  function frame() {
+  let width = 1;
+  const id = setInterval(() => {
     if (width >= percentage) {
       clearInterval(id);
     } else {
       width++;
       bar.style.width = width + "%";
     }
-  }
+  }, 10);
 }
 
 function reverseSkillBar(bar) {
-  var width = parseInt(bar.style.width, 10);
-  var id = setInterval(frame, 10);
-
-  function frame() {
+  let width = parseInt(bar.style.width, 10);
+  const id = setInterval(() => {
     if (width <= 0) {
       clearInterval(id);
       bar.style.width = "0%";
@@ -110,7 +91,7 @@ function reverseSkillBar(bar) {
       width--;
       bar.style.width = width + "%";
     }
-  }
+  }, 10);
 }
 
 function hoverSkillBar() {
@@ -120,7 +101,6 @@ function hoverSkillBar() {
     bar.addEventListener("mouseenter", () => {
       if (!bar.classList.contains("filled")) {
         const percentage = bar.getAttribute("data-percentage");
-        bar.style.setProperty("--percentage", percentage + "%");
         animateSkillBar(bar, percentage);
         bar.classList.add("filled");
       }
@@ -130,11 +110,19 @@ function hoverSkillBar() {
       setTimeout(() => {
         reverseSkillBar(bar);
         bar.classList.remove("filled");
-      }, 1000); // Reverses after 1 second
+      }, 1000);
     });
   });
 }
 
-draw();
+window.addEventListener("click", () => {
+  const canvas = document.getElementById("profile-pic");
+  if (canvas && canvas.getContext) {
+    const ctx = canvas.getContext("2d");
+    blinkEyes(ctx);
+  }
+});
+
+drawProfilePic();
 typeWriter("Andrea Megan Sustic", 0);
 hoverSkillBar();
