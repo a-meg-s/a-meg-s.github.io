@@ -22,7 +22,7 @@ header {
 }
 
 #profile-pic {
-  max-width: 80%;
+  max-width: fit-content;
   height: auto;
 }
 
