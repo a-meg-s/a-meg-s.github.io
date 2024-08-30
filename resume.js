@@ -91,7 +91,7 @@ function reverseSkillBar(bar) {
       width--;
       bar.style.width = width + "%";
     }
-  }, 10);
+  }, 25);
 }
 
 function hoverSkillBar() {
