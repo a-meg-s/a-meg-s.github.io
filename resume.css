@@ -160,6 +160,7 @@ button:focus {
 footer {
   background-color: #222;
   color: white;
+  border: 2px dashed #fff;
   text-align: center;
   position: fixed;
   bottom: 0;
