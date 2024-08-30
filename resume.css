@@ -82,7 +82,7 @@ section {
 }
 
 #language {
-  background-color: #4fff4f;
+  background-color: #ffcc00;
   color: #111;
   padding: 10px;
   margin-bottom: 10px;
@@ -98,13 +98,17 @@ section {
   top: 0;
   left: 0;
   height: 100%;
-  background-color: #ffcc00;
+  background-color: #4fff4f;
+  color: #111;
+  font-size: 0.9rem;
+  position: relative;
+  overflow: hidden;
   width: 0;
   transition: width 2s ease;
 }
 
 #language.filled:before {
-  width: 80%;
+  width: 100%;
 }
 
 footer {
