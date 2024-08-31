@@ -8,6 +8,22 @@ body {
   line-height: 1.5; /* Consistent line height for readability */
 }
 
+.blinking-cursor {
+  font-weight: bold;
+  font-size: 1.2em; /* Adjust size as needed */
+  color: #4fff4f; /* Cursor color */
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  from, to {
+    visibility: visible;
+  }
+  50% {
+    visibility: hidden;
+  }
+}
+
 header {
   display: flex;
   justify-content: space-between;
