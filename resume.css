@@ -1,66 +1,71 @@
 body {
   font-family: "Press Start 2P", cursive;
-  font-size: 0.5em;
+  font-size: 0.7em; /* Adjusted font size for better readability */
   background-color: #111;
   color: #fff;
   margin: 0;
   padding: 0;
-  line-height: 1;
+  line-height: 1.4; /* Increased line height slightly */
 }
 
 header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0;
+  padding: 10px; /* Added padding for better spacing */
   background-color: #222;
-  border-bottom: 4px solid #4fff4f; /* Bright, arcade-like color */
+  border-bottom: 4px solid #4fff4f;
 }
 
 #header-content {
   display: flex;
   align-items: center;
+  flex-direction: column; /* Stack items vertically on smaller screens */
+  text-align: center;
 }
 
 #profile-pic {
-  max-width: 100%;
+  max-width: 100px; /* Reduced size for compact design */
   height: auto;
+  margin-bottom: 10px;
 }
 
 h1 {
-  font-size: 1em;
+  font-size: 1.2em; /* Adjusted font size */
   color: #4fff4f;
-  margin-left: 20px;
+  margin: 0;
 }
 
 h2,
 h3 {
-  color: #00ccff; /* Bright blue for a retro feel */
+  color: #00ccff;
+  font-size: 1em; /* Adjusted font size for consistency */
 }
 
 #navbar {
   background-color: #333;
   display: flex;
-  justify-content: center;
+  justify-content: space-around; /* Spaced out navbar items */
   padding: 10px 0;
   border-bottom: 4px solid #4fff4f;
+  flex-wrap: wrap; /* Wrap navbar items on smaller screens */
 }
 
 #navbar a {
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   color: #4fff4f;
   text-decoration: none;
-  margin: 0 10px;
+  margin: 5px;
   transition: color 0.3s;
 }
 
 #navbar a:hover {
-  color: #ffcc00; /* Neon yellow on hover */
+  color: #ffcc00;
 }
 
 section {
-  margin: 20px;
-  padding: 20px;
+  margin: 15px;
+  padding: 15px;
   background-color: #222;
   border: 2px dashed #fff;
   border-radius: 8px;
@@ -79,16 +84,16 @@ section {
     #ffcc00 75%,
     #ff4f4f 75%
   );
-  margin: 15px 0;
+  margin: 10px 0; /* Reduced margin */
 }
 
 #language {
   background-color: #00ccff;
   color: #111;
-  padding: 10px;
-  margin-bottom: 10px;
+  padding: 8px;
+  margin-bottom: 8px;
   border-radius: 5px;
-  font-size: 0.5rem;
+  font-size: 0.8rem; /* Adjusted for readability */
   position: relative;
   overflow: hidden;
 }
@@ -122,4 +127,47 @@ footer p a {
 
 footer p a:hover {
   color: #ffcc00;
+}
+
+/* Responsive Layout */
+@media (max-width: 768px) {
+  body {
+    font-size: 0.6em;
+  }
+
+  header {
+    flex-direction: column;
+  }
+
+  #profile-pic {
+    max-width: 80px;
+  }
+
+  h1 {
+    font-size: 1em;
+  }
+
+  section {
+    margin: 10px;
+    padding: 10px;
+  }
+
+  #navbar a {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    font-size: 0.5em;
+  }
+
+  section {
+    margin: 5px;
+    padding: 5px;
+  }
+
+  #navbar {
+    flex-direction: column;
+  }
 }
