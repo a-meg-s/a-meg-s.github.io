@@ -124,8 +124,7 @@ section {
   left: 0;
   height: 100%;
   background-color: #4fff4f;
-  transition: width 2s ease;
-  transition: color 0.3s;
+  transition: width 2s ease color 0.3s;
 }
 
 #language.filled:before {
