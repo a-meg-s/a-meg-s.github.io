@@ -1,61 +1,62 @@
 body {
   font-family: "Press Start 2P", cursive;
-  font-size: 0.7em; /* Adjusted font size for better readability */
+  font-size: 0.9em; /* Uniform font size */
   background-color: #111;
   color: #fff;
   margin: 0;
   padding: 0;
-  line-height: 1.4; /* Increased line height slightly */
+  line-height: 1.5; /* Consistent line height for readability */
 }
 
 header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px; /* Added padding for better spacing */
+  padding: 10px 20px; /* Balanced padding */
   background-color: #222;
   border-bottom: 4px solid #4fff4f;
+  flex-wrap: wrap; /* Allow wrapping for smaller screens */
 }
 
 #header-content {
   display: flex;
   align-items: center;
-  flex-direction: column; /* Stack items vertically on smaller screens */
-  text-align: center;
+  flex-direction: row;
+  text-align: left;
+  flex-wrap: wrap; /* Ensure it adjusts for smaller screens */
 }
 
 #profile-pic {
-  max-width: 100px; /* Reduced size for compact design */
+  max-width: 120px; /* Set a uniform size */
   height: auto;
-  margin-bottom: 10px;
+  margin-right: 20px; /* Space between image and text */
 }
 
 h1 {
-  font-size: 1.2em; /* Adjusted font size */
+  font-size: 1.5em; /* Slightly larger for prominence */
   color: #4fff4f;
   margin: 0;
 }
 
-h2,
-h3 {
+h2, h3 {
   color: #00ccff;
-  font-size: 1em; /* Adjusted font size for consistency */
+  font-size: 1.2em; /* Consistent headings */
 }
 
 #navbar {
   background-color: #333;
   display: flex;
-  justify-content: space-around; /* Spaced out navbar items */
-  padding: 10px 0;
+  justify-content: space-around; /* Space out items evenly */
+  padding: 10px;
   border-bottom: 4px solid #4fff4f;
-  flex-wrap: wrap; /* Wrap navbar items on smaller screens */
+  flex-wrap: wrap; /* Wrap for small screens */
 }
 
 #navbar a {
-  font-size: 0.9rem;
+  font-size: 1em;
   color: #4fff4f;
   text-decoration: none;
-  margin: 5px;
+  margin: 5px 10px; /* Consistent spacing */
   transition: color 0.3s;
 }
 
@@ -64,12 +65,13 @@ h3 {
 }
 
 section {
-  margin: 15px;
-  padding: 15px;
+  margin: 20px auto; /* Center sections with auto margins */
+  padding: 15px 20px; /* Adjust padding for consistent spacing */
   background-color: #222;
   border: 2px dashed #fff;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  max-width: 800px; /* Limit the section width for readability */
 }
 
 .section-divider {
@@ -84,7 +86,7 @@ section {
     #ffcc00 75%,
     #ff4f4f 75%
   );
-  margin: 10px 0; /* Reduced margin */
+  margin: 10px 0;
 }
 
 #language {
@@ -93,7 +95,7 @@ section {
   padding: 8px;
   margin-bottom: 8px;
   border-radius: 5px;
-  font-size: 0.8rem; /* Adjusted for readability */
+  font-size: 1em; /* Uniform font size */
   position: relative;
   overflow: hidden;
 }
@@ -115,9 +117,10 @@ section {
 footer {
   background-color: #222;
   color: #fff;
-  padding: 10px;
+  padding: 15px 20px; /* Adjusted padding for better spacing */
   text-align: center;
   border-top: 4px solid #4fff4f;
+  margin-top: 20px;
 }
 
 footer p a {
@@ -132,19 +135,37 @@ footer p a:hover {
 /* Responsive Layout */
 @media (max-width: 768px) {
   body {
-    font-size: 0.6em;
+    font-size: 0.8em; /* Slightly smaller font for medium screens */
   }
 
   header {
     flex-direction: column;
+    align-items: center;
   }
 
   #profile-pic {
-    max-width: 80px;
+    max-width: 100px; /* Reduce size for smaller screens */
+    margin-right: 0;
+    margin-bottom: 10px; /* Add space below for centering */
   }
 
   h1 {
-    font-size: 1em;
+    font-size: 1.3em; /* Adjust heading size */
+  }
+
+  section {
+    margin: 15px;
+    padding: 15px;
+  }
+
+  #navbar a {
+    font-size: 0.9em; /* Adjust navbar font size */
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    font-size: 0.7em; /* Further reduce font size for small screens */
   }
 
   section {
@@ -152,22 +173,11 @@ footer p a:hover {
     padding: 10px;
   }
 
-  #navbar a {
-    font-size: 0.8rem;
-  }
-}
-
-@media (max-width: 480px) {
-  body {
-    font-size: 0.5em;
-  }
-
-  section {
-    margin: 5px;
-    padding: 5px;
-  }
-
   #navbar {
     flex-direction: column;
+  }
+
+  #navbar a {
+    margin: 5px 0; /* Adjust spacing for vertical layout */
   }
 }
