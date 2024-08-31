@@ -1,11 +1,17 @@
 function typeWriter(text, n) {
+  const element = document.getElementById("typewriter");
   if (n < text.length) {
-    document.getElementById("typewriter").innerHTML =
-      text.substring(0, n + 1) + '<span class="blinking-cursor">|</span>';
+    element.innerHTML = text.substring(0, n + 1) + '<span class="blinking-cursor">|</span>';
     setTimeout(() => typeWriter(text, n + 1), 100);
   } else {
-    document.getElementById("typewriter").innerHTML =
-      text + '<span class="blinking-cursor">|</span>';
+    element.innerHTML = text + '<span class="blinking-cursor">|</span>';
+    // Ensure the cursor keeps blinking after typing is finished
+    setInterval(() => {
+      const cursor = document.querySelector(".blinking-cursor");
+      if (cursor) {
+        cursor.style.visibility = (cursor.style.visibility === 'hidden') ? 'visible' : 'hidden';
+      }
+    }, 500);
   }
 }
 
