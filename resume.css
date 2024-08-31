@@ -35,6 +35,7 @@ header {
 }
 
 #header-content {
+  margin: 20px auto;
   display: flex;
   align-items: center;
   flex-direction: row;
@@ -124,6 +125,7 @@ section {
   height: 100%;
   background-color: #4fff4f;
   transition: width 2s ease;
+  transition: color 0.3s;
 }
 
 #language.filled:before {
