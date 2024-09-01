@@ -94,6 +94,15 @@ section {
   max-width: 800px;
 }
 
+.intro-section {
+  background-color: #333; /* Slightly different background color */
+  border: 2px solid #4fff4f; /* Solid border instead of dashed */
+  padding: 25px 30px; /* Extra padding for a larger box */
+  margin: 30px auto; /* Slightly larger margin to separate from other sections */
+  max-width: 900px; /* Increase the maximum width */
+  border-radius: 10px; /* Subtle border-radius for a smoother appearance */
+}
+
 .section-divider {
   border: 0;
   height: 4px;
