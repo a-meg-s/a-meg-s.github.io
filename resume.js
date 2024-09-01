@@ -212,4 +212,3 @@ function updateExperience() {
 drawProfilePic();
 typeWriter("Andrea Megan Sustic", 0);
 hoverSkillBar();
-drawMatrix();
