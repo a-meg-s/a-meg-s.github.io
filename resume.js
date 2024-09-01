@@ -131,7 +131,7 @@ window.addEventListener("click", () => {
   }
 });
 
-// Experience Carousel Logic
+// Experience Carousel Logic 
 
 function updateScrollIndicator() {
   const indicatorDots = document.querySelectorAll(".indicator-dot");
