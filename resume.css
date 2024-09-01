@@ -16,7 +16,8 @@ body {
 }
 
 @keyframes blink {
-  from, to {
+  from,
+  to {
     visibility: visible;
   }
   50% {
@@ -55,7 +56,8 @@ h1 {
   margin: 0;
 }
 
-h2, h3 {
+h2,
+h3 {
   color: #00ccff;
   font-size: 1.2em; /* Consistent headings */
 }
