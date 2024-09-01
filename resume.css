@@ -99,6 +99,15 @@ section {
   max-width: 800px;
 }
 
+.intro-section {
+  background-color: #333;
+  border: 2px solid #4fff4f;
+  padding: 25px 30px;
+  margin: 30px auto;
+  max-width: 900px;
+  border-radius: 10px;
+}
+
 .section-divider {
   border: 0;
   height: 4px;
