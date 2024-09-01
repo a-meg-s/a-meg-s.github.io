@@ -1,17 +1,17 @@
 body {
   font-family: "Press Start 2P", cursive;
-  font-size: 0.9em; /* Uniform font size */
+  font-size: 0.9em;
   background-color: #111;
   color: #fff;
   margin: 0;
   padding: 0;
-  line-height: 1.5; /* Consistent line height for readability */
+  line-height: 1.5;
 }
 
 .blinking-cursor {
   font-weight: bold;
-  font-size: 1.2em; /* Adjust size as needed */
-  color: #4fff4f; /* Cursor color */
+  font-size: 1.2em;
+  color: #4fff4f;
   animation: blink 1s step-end infinite;
 }
 
@@ -29,10 +29,10 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 20px; /* Balanced padding */
+  padding: 10px 20px;
   background-color: #222;
   border-bottom: 4px solid #4fff4f;
-  flex-wrap: wrap; /* Allow wrapping for smaller screens */
+  flex-wrap: wrap;
 }
 
 #header-content {
@@ -41,17 +41,17 @@ header {
   align-items: center;
   flex-direction: row;
   text-align: left;
-  flex-wrap: wrap; /* Ensure it adjusts for smaller screens */
+  flex-wrap: wrap;
 }
 
 #profile-pic {
-  max-width: 120px; /* Set a uniform size */
+  max-width: 120px;
   height: auto;
-  margin-right: 20px; /* Space between image and text */
+  margin-right: 20px;
 }
 
 h1 {
-  font-size: 1.5em; /* Slightly larger for prominence */
+  font-size: 1.5em;
   color: #4fff4f;
   margin: 0;
 }
@@ -59,23 +59,23 @@ h1 {
 h2,
 h3 {
   color: #00ccff;
-  font-size: 1.2em; /* Consistent headings */
+  font-size: 1.2em;
 }
 
 #navbar {
   background-color: #333;
   display: flex;
-  justify-content: space-around; /* Space out items evenly */
+  justify-content: space-around;
   padding: 10px;
   border-bottom: 4px solid #4fff4f;
-  flex-wrap: wrap; /* Wrap for small screens */
+  flex-wrap: wrap;
 }
 
 #navbar a {
   font-size: 1em;
   color: #4fff4f;
   text-decoration: none;
-  margin: 5px 10px; /* Consistent spacing */
+  margin: 5px 10px;
   transition: color 0.3s;
 }
 
@@ -84,13 +84,13 @@ h3 {
 }
 
 section {
-  margin: 20px auto; /* Center sections with auto margins */
-  padding: 15px 20px; /* Adjust padding for consistent spacing */
+  margin: 20px auto;
+  padding: 15px 20px;
   background-color: #222;
   border: 2px dashed #fff;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-  max-width: 800px; /* Limit the section width for readability */
+  max-width: 800px;
 }
 
 .section-divider {
@@ -114,7 +114,7 @@ section {
   padding: 8px;
   margin-bottom: 8px;
   border-radius: 5px;
-  font-size: 1em; /* Uniform font size */
+  font-size: 1em;
   position: relative;
   overflow: hidden;
 }
@@ -136,7 +136,7 @@ section {
 footer {
   background-color: #222;
   color: #fff;
-  padding: 15px 20px; /* Adjusted padding for better spacing */
+  padding: 15px 20px;
   text-align: center;
   border-top: 4px solid #4fff4f;
   margin-top: 20px;
@@ -151,10 +151,58 @@ footer p a:hover {
   color: #ffcc00;
 }
 
+/* New Styles for Experience Carousel */
+.experience-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.experience-navigation {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+}
+
+.experience-navigation.left {
+  left: 0;
+}
+
+.experience-navigation.right {
+  right: 0;
+}
+
+.experience-navigation button {
+  background-color: #333;
+  color: #4fff4f;
+  border: 2px solid #4fff4f;
+  padding: 10px;
+  cursor: pointer;
+  font-family: "Press Start 2P", cursive;
+}
+
+.experience-carousel {
+  overflow: hidden;
+  width: 80%;
+  max-width: 700px;
+}
+
+.experience-inner {
+  display: flex;
+  transition: transform 0.3s ease;
+}
+
+.experience-inner article {
+  min-width: 100%;
+  box-sizing: border-box;
+}
+
 /* Responsive Layout */
 @media (max-width: 768px) {
   body {
-    font-size: 0.8em; /* Slightly smaller font for medium screens */
+    font-size: 0.8em;
   }
 
   header {
@@ -163,13 +211,13 @@ footer p a:hover {
   }
 
   #profile-pic {
-    max-width: 100px; /* Reduce size for smaller screens */
+    max-width: 100px;
     margin-right: 0;
-    margin-bottom: 10px; /* Add space below for centering */
+    margin-bottom: 10px;
   }
 
   h1 {
-    font-size: 1.3em; /* Adjust heading size */
+    font-size: 1.3em;
   }
 
   section {
@@ -178,13 +226,13 @@ footer p a:hover {
   }
 
   #navbar a {
-    font-size: 0.9em; /* Adjust navbar font size */
+    font-size: 0.9em;
   }
 }
 
 @media (max-width: 480px) {
   body {
-    font-size: 0.7em; /* Further reduce font size for small screens */
+    font-size: 0.7em;
   }
 
   section {
@@ -197,6 +245,6 @@ footer p a:hover {
   }
 
   #navbar a {
-    margin: 5px 0; /* Adjust spacing for vertical layout */
+    margin: 5px 0;
   }
 }
