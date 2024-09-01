@@ -131,7 +131,7 @@ window.addEventListener("click", () => {
   }
 });
 
-// Experience Carousel Logic 
+// Experience Carousel Logic
 
 function updateScrollIndicator() {
   const indicatorDots = document.querySelectorAll(".indicator-dot");
@@ -187,7 +187,7 @@ function updateExperience() {
   var drops = Array(columns).fill(1);
 
   function drawMatrix() {
-    ctx.fillStyle = "rgba(0, 0, 0, 0.04)";
+    ctx.fillStyle = "rgba(0, 0, 0, 0.1)"; // Adjust the opacity for better visibility
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     ctx.fillStyle = "#4fff4f";
