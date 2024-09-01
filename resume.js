@@ -132,6 +132,14 @@ window.addEventListener("click", () => {
 });
 
 // Experience Carousel Logic
+
+function updateScrollIndicator() {
+  const indicatorDots = document.querySelectorAll(".indicator-dot");
+  indicatorDots.forEach((dot, index) => {
+    dot.classList.toggle("active", index === currentIndex);
+  });
+}
+
 let currentIndex = 0;
 
 const experienceInner = document.querySelector(".experience-inner");
@@ -141,11 +149,13 @@ const totalExperiences = experiences.length;
 document.getElementById("next-experience").addEventListener("click", () => {
   currentIndex = (currentIndex + 1) % totalExperiences;
   updateExperience();
+  updateScrollIndicator();
 });
 
 document.getElementById("prev-experience").addEventListener("click", () => {
   currentIndex = (currentIndex - 1 + totalExperiences) % totalExperiences;
   updateExperience();
+  updateScrollIndicator();
 });
 
 function updateExperience() {
