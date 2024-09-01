@@ -131,6 +131,28 @@ window.addEventListener("click", () => {
   }
 });
 
+// Experience Carousel Logic
+let currentIndex = 0;
+
+const experienceInner = document.querySelector(".experience-inner");
+const experiences = document.querySelectorAll(".experience-inner article");
+const totalExperiences = experiences.length;
+
+document.getElementById("next-experience").addEventListener("click", () => {
+  currentIndex = (currentIndex + 1) % totalExperiences;
+  updateExperience();
+});
+
+document.getElementById("prev-experience").addEventListener("click", () => {
+  currentIndex = (currentIndex - 1 + totalExperiences) % totalExperiences;
+  updateExperience();
+});
+
+function updateExperience() {
+  const offset = -currentIndex * 100;
+  experienceInner.style.transform = `translateX(${offset}%)`;
+}
+
 drawProfilePic();
 typeWriter("Andrea Megan Sustic", 0);
 hoverSkillBar();
