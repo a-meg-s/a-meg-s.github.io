@@ -10,7 +10,7 @@ body {
 }
 
 /* Font styling for headings, navbar, and footer */
-h1, h2, h3, #navbar a, footer {
+h1, h2, h3, #navbar a, footer, #language {
   font-family: "Press Start 2P", cursive;
 }
 
