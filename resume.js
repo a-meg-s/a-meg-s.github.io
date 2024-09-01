@@ -118,7 +118,7 @@ function hoverSkillBar() {
       setTimeout(() => {
         reverseSkillBar(bar);
         bar.classList.remove("filled");
-      }, 5000);
+      }, 1000);
     });
   });
 }
