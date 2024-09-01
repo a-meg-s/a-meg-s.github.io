@@ -108,7 +108,6 @@ section {
   padding: 15px 20px;
   background-color: #222;
   border: 2px dashed #fff;
-  border-radius: 8px;
   max-width: 800px;
 }
 
@@ -188,15 +187,34 @@ footer p a:hover {
   background-color: #333;
   border: 4px solid #4fff4f;
   padding: 20px;
-  border-radius: 8px;
   max-width: 700px;
 }
 
 .pixelated-bubble {
-  border-radius: 8px;
-  border: 4px solid #4fff4f;
+  border-radius: 0;
+  border: 8px solid #4fff4f;
   padding: 10px;
   background-color: #333;
+  position: relative;
+}
+
+.pixelated-bubble::before,
+.pixelated-bubble::after {
+  content: "";
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background-color: #4fff4f;
+}
+
+.pixelated-bubble::before {
+  top: -10px;
+  left: -10px;
+}
+
+.pixelated-bubble::after {
+  bottom: -10px;
+  right: -10px;
 }
 
 .experience-navigation {
@@ -232,11 +250,15 @@ footer p a:hover {
 .experience-inner {
   display: flex;
   transition: transform 0.3s ease;
+  justify-content: center;
+  align-items: center;
 }
 
 .experience-inner article {
   min-width: 100%;
   box-sizing: border-box;
+  text-align: center;
+  padding: 20px;
 }
 
 /* Scroll Indicator */
