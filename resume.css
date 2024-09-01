@@ -1,14 +1,12 @@
 /* Global styles */
 body {
-  font-family: "Space Grotesk", sans-serif;
-  font-weight: 600;
+  font-family: "Roboto Mono", monospace;
   font-size: 0.9em;
   background-color: #111;
   color: #fff;
   margin: 0;
   padding: 0;
   line-height: 1.5;
-  -webkit-font-smoothing: none !important;
 }
 
 /* Font styling for headings, navbar, and footer */
