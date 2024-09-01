@@ -197,6 +197,7 @@ footer p a:hover {
 .experience-inner article {
   min-width: 100%;
   box-sizing: border-box;
+  margin-right: 10px;
 }
 
 /* Scroll Indicator */
