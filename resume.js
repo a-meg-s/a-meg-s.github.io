@@ -6,7 +6,6 @@ function typeWriter(text, n) {
     setTimeout(() => typeWriter(text, n + 1), 100);
   } else {
     element.innerHTML = text + '<span class="blinking-cursor">|</span>';
-    // Ensure the cursor keeps blinking after typing is finished
     setInterval(() => {
       const cursor = document.querySelector(".blinking-cursor");
       if (cursor) {
@@ -118,20 +117,18 @@ function hoverSkillBar() {
       setTimeout(() => {
         reverseSkillBar(bar);
         bar.classList.remove("filled");
-      }, 5000);
+      }, 1000);
     });
   });
 }
 
-window.addEventListener("click", () => {
-  const canvas = document.getElementById("profile-pic");
-  if (canvas && canvas.getContext) {
-    const ctx = canvas.getContext("2d");
-    blinkEyes(ctx);
-  }
-});
+function updateScrollIndicator() {
+  const indicatorDots = document.querySelectorAll(".indicator-dot");
+  indicatorDots.forEach((dot, index) => {
+    dot.classList.toggle("active", index === currentIndex);
+  });
+}
 
-// Experience Carousel Logic
 let currentIndex = 0;
 
 const experienceInner = document.querySelector(".experience-inner");
@@ -141,11 +138,13 @@ const totalExperiences = experiences.length;
 document.getElementById("next-experience").addEventListener("click", () => {
   currentIndex = (currentIndex + 1) % totalExperiences;
   updateExperience();
+  updateScrollIndicator();
 });
 
 document.getElementById("prev-experience").addEventListener("click", () => {
   currentIndex = (currentIndex - 1 + totalExperiences) % totalExperiences;
   updateExperience();
+  updateScrollIndicator();
 });
 
 function updateExperience() {
@@ -153,6 +152,14 @@ function updateExperience() {
   experienceInner.style.transform = `translateX(${offset}%)`;
 }
 
+window.addEventListener("load", () => {
+  setTimeout(() => {
+    document.getElementById("loading-screen").style.display = "none";
+  }, 1500); // Adjust delay as needed
+});
+
 drawProfilePic();
+typeWriter("Andrea Megan Sustic", 0);
+hoverSkillBar();drawProfilePic();
 typeWriter("Andrea Megan Sustic", 0);
 hoverSkillBar();
