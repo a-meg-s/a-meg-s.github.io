@@ -199,6 +199,26 @@ footer p a:hover {
   box-sizing: border-box;
 }
 
+/* Scroll Indicator */
+#scroll-indicator {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.indicator-dot {
+  width: 12px;
+  height: 12px;
+  background-color: #4fff4f;
+  border-radius: 50%;
+  margin: 0 5px;
+  opacity: 0.5;
+}
+
+.indicator-dot.active {
+  opacity: 1;
+}
+
 /* Responsive Layout */
 @media (max-width: 768px) {
   body {
