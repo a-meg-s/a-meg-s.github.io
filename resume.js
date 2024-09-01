@@ -155,9 +155,9 @@ function updateExperience() {
 window.addEventListener("load", () => {
   setTimeout(() => {
     document.getElementById("loading-screen").style.display = "none";
+    typeWriter("Andrea Megan Sustic", 0); // Start the typewriter after loading screen disappears
   }, 1500); // Adjust delay as needed
 });
 
-drawProfilePic();
-typeWriter("Andrea Megan Sustic", 0);
 hoverSkillBar();
+drawProfilePic();
