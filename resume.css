@@ -1,7 +1,7 @@
 /* Global styles */
 body {
   font-family: "Space Grotesk", sans-serif;
-  font-weight: 600; /* Ensures the semibold weight is used */
+  font-weight: 600;
   font-size: 0.9em;
   background-color: #111;
   color: #fff;
@@ -16,7 +16,69 @@ h1, h2, h3, #navbar a, footer {
   font-family: "Press Start 2P", cursive;
 }
 
-/* Navbar specific styling */
+.blinking-cursor {
+  font-weight: bold;
+  font-size: 1.2em;
+  color: #4fff4f;
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  from,
+  to {
+    visibility: visible;
+  }
+  50% {
+    visibility: hidden;
+  }
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #222;
+  border-bottom: 4px solid #4fff4f;
+  flex-wrap: wrap;
+}
+
+#header-content {
+  margin: 20px auto;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  text-align: left;
+  flex-wrap: wrap;
+}
+
+#profile-pic {
+  max-width: 120px;
+  height: auto;
+  margin-right: 20px;
+}
+
+h1 {
+  font-size: 1.5em;
+  color: #4fff4f;
+  margin: 0;
+}
+
+h2,
+h3 {
+  color: #00ccff;
+  font-size: 1.2em;
+}
+
+#navbar {
+  background-color: #333;
+  display: flex;
+  justify-content: space-around;
+  padding: 10px;
+  border-bottom: 4px solid #4fff4f;
+  flex-wrap: wrap;
+}
+
 #navbar a {
   font-size: 1em;
   color: #4fff4f;
@@ -29,7 +91,6 @@ h1, h2, h3, #navbar a, footer {
   color: #ffcc00;
 }
 
-/* Section styling */
 section {
   margin: 20px auto;
   padding: 15px 20px;
@@ -38,15 +99,6 @@ section {
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   max-width: 800px;
-}
-
-.intro-section {
-  background-color: #333;
-  border: 2px solid #4fff4f;
-  padding: 25px 30px;
-  margin: 30px auto;
-  max-width: 900px;
-  border-radius: 10px;
 }
 
 .section-divider {
@@ -64,7 +116,31 @@ section {
   margin: 10px 0;
 }
 
-/* Footer styling */
+#language {
+  background-color: #00ccff;
+  color: #111;
+  padding: 8px;
+  margin-bottom: 8px;
+  border-radius: 5px;
+  font-size: 1em;
+  position: relative;
+  overflow: hidden;
+}
+
+#language:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background-color: #4fff4f;
+  transition: width 2s ease color 0.3s;
+}
+
+#language.filled:before {
+  width: 100%;
+}
+
 footer {
   background-color: #222;
   color: #fff;
@@ -81,4 +157,123 @@ footer p a {
 
 footer p a:hover {
   color: #ffcc00;
+}
+
+/* New Styles for Experience Carousel */
+.experience-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.experience-navigation {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+}
+
+.experience-navigation.left {
+  left: 0;
+}
+
+.experience-navigation.right {
+  right: 0;
+}
+
+.experience-navigation button {
+  background-color: #333;
+  color: #4fff4f;
+  border: 2px solid #4fff4f;
+  padding: 10px;
+  cursor: pointer;
+  font-family: "Press Start 2P", cursive;
+}
+
+.experience-carousel {
+  overflow: hidden;
+  width: 80%;
+  max-width: 700px;
+}
+
+.experience-inner {
+  display: flex;
+  transition: transform 0.3s ease;
+}
+
+.experience-inner article {
+  min-width: 100%;
+  box-sizing: border-box;
+  margin-right: 10px;
+}
+
+/* Scroll Indicator */
+#scroll-indicator {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.indicator-dot {
+  width: 12px;
+  height: 12px;
+  background-color: #4fff4f;
+  border-radius: 50%;
+  margin: 0 5px;
+  opacity: 0.5;
+}
+
+.indicator-dot.active {
+  opacity: 1;
+}
+
+/* Responsive Layout */
+@media (max-width: 768px) {
+  body {
+    font-size: 0.8em;
+  }
+
+  header {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #profile-pic {
+    max-width: 100px;
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+
+  h1 {
+    font-size: 1.3em;
+  }
+
+  section {
+    margin: 15px;
+    padding: 15px;
+  }
+
+  #navbar a {
+    font-size: 0.9em;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    font-size: 0.7em;
+  }
+
+  section {
+    margin: 10px;
+    padding: 10px;
+  }
+
+  #navbar {
+    flex-direction: column;
+  }
+
+  #navbar a {
+    margin: 5px 0;
+  }
 }
