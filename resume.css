@@ -9,6 +9,25 @@ body {
   -webkit-font-smoothing: none !important;
 }
 
+#loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+#loading-text {
+  font-size: 1.5em;
+  color: #4fff4f;
+  animation: blink 1s step-end infinite;
+}
+
 .blinking-cursor {
   font-weight: bold;
   font-size: 1.2em;
@@ -161,7 +180,7 @@ footer p a:hover {
   color: #ffcc00;
 }
 
-/* New Styles for Experience Carousel */
+/* Updated Styles for Experience Carousel */
 .experience-container {
   display: flex;
   align-items: center;
@@ -170,17 +189,15 @@ footer p a:hover {
   background-color: #333;
   border: 4px solid #4fff4f;
   padding: 20px;
-  border-radius: 16px;
-  box-shadow: inset 0 0 15px #000, 0 0 10px #4fff4f;
+  border-radius: 8px;
   max-width: 700px;
 }
 
 .pixelated-bubble {
-  border-radius: 0px;
-  border: 8px solid #4fff4f;
+  border-radius: 8px;
+  border: 4px solid #4fff4f;
   padding: 10px;
-  background: linear-gradient(45deg, #333 25%, #111 25%, #111 50%, #333 50%, #333 75%, #111 75%, #111);
-  background-size: 8px 8px;
+  background-color: #333;
 }
 
 .experience-navigation {
@@ -205,7 +222,6 @@ footer p a:hover {
   padding: 10px;
   cursor: pointer;
   font-family: "Press Start 2P", cursive;
-  box-shadow: 0 0 10px #4fff4f;
 }
 
 .experience-carousel {
@@ -222,6 +238,26 @@ footer p a:hover {
 .experience-inner article {
   min-width: 100%;
   box-sizing: border-box;
+}
+
+/* Scroll Indicator */
+#scroll-indicator {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.indicator-dot {
+  width: 12px;
+  height: 12px;
+  background-color: #4fff4f;
+  border-radius: 50%;
+  margin: 0 5px;
+  opacity: 0.5;
+}
+
+.indicator-dot.active {
+  opacity: 1;
 }
 
 /* Responsive Layout */
