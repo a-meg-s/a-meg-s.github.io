@@ -117,7 +117,7 @@ function hoverSkillBar() {
       setTimeout(() => {
         reverseSkillBar(bar);
         bar.classList.remove("filled");
-      }, 1000);
+      }, 5000);
     });
   });
 }
@@ -159,7 +159,5 @@ window.addEventListener("load", () => {
 });
 
 drawProfilePic();
-typeWriter("Andrea Megan Sustic", 0);
-hoverSkillBar();drawProfilePic();
 typeWriter("Andrea Megan Sustic", 0);
 hoverSkillBar();
