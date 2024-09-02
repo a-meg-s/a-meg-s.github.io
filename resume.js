@@ -197,10 +197,10 @@ function updateExperience() {
   }
 
   function drawMatrix() {
-    ctx.fillStyle = "rgba(255, 248, 253, 0.1)"; // Adjusted to a translucent version of #fff6f9
+    ctx.fillStyle = "rgba(26, 26, 46, 0.1)"; // Dark translucent background color
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    ctx.fillStyle = "#ffc8dd"; // Adjusted to a color from the palette
+    ctx.fillStyle = "#dcdcff"; // Neon purple color for the drops
     ctx.font = font_size + "px arial";
 
     drops.forEach((y, i) => {
