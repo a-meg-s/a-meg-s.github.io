@@ -197,7 +197,7 @@ function updateExperience() {
   }
 
   function drawMatrix() {
-    ctx.fillStyle = "rgba(26, 26, 46, 0.1)"; // Dark translucent background color
+    ctx.fillStyle = "rgba(26, 26, 46, 0.2)"; // Dark translucent background color
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     ctx.fillStyle = "#39FF14"; // Neon purple color for the drops
