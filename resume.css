@@ -69,7 +69,7 @@ h1 {
 
 h2,
 h3 {
-  color: #00ccff;
+  color: #9b59b6;
   font-size: 1em;
 }
 
@@ -117,7 +117,7 @@ section {
 
 .intro-section {
   background-color: #333;
-  border: 2px solid #4fff4f;
+  border: 2px solid #9b59b6;
   padding: 25px 30px;
   margin: 30px auto;
   max-width: 900px;
@@ -140,7 +140,7 @@ section {
 }
 
 #language {
-  background-color: #00ccff;
+  background-color: #9b59b6;
   color: #111;
   padding: 8px;
   margin-bottom: 8px;
