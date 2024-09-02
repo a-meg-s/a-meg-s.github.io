@@ -62,7 +62,7 @@ function drawProfilePic() {
     ctx.fillRect(55, 135, 15, 35);
     ctx.fillRect(130, 135, 15, 35);
 
-    ctx.fillStyle = "rgb(190, 249, 146)";
+    ctx.fillStyle = "rgb(57, 255, 20)";
     ctx.fillRect(70, 135, 60, 65);
 
     drawEyes(ctx);
@@ -200,7 +200,7 @@ function updateExperience() {
     ctx.fillStyle = "rgba(26, 26, 46, 0.1)"; // Dark translucent background color
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    ctx.fillStyle = "#dcdcff"; // Neon purple color for the drops
+    ctx.fillStyle = "#39FF14"; // Neon purple color for the drops
     ctx.font = font_size + "px arial";
 
     drops.forEach((y, i) => {
