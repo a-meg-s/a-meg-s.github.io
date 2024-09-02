@@ -188,7 +188,7 @@ function updateExperience() {
   }
 
   function drawMatrix() {
-    ctx.fillStyle = "rgba(255, 248, 253, 0.4)"; // Adjusted to a translucent version of #fff6f9
+    ctx.fillStyle = "rgba(255, 248, 253, 0.1)"; // Adjusted to a translucent version of #fff6f9
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     ctx.fillStyle = "#ffc8dd"; // Adjusted to a color from the palette
