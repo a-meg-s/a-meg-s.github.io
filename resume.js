@@ -19,7 +19,7 @@ function typeWriter(text, n) {
         if (blinkCount < 10) {
           setTimeout(blinkCursor, 500); // Blink every 500ms
         } else {
-          cursor.style.visibility = "hidden"; // Hide cursor after 5 blinks
+          cursor.remove(); // Remove the cursor after 5 blinks
         }
       }
     }
@@ -92,7 +92,7 @@ function blinkEyes(ctx) {
     setTimeout(() => drawEyes(ctx), 200);
 
     // Schedule the next blink at a random interval between 3s and 10s
-    const randomInterval = Math.random() * (7000 - 1000) + 500;
+    const randomInterval = Math.random() * (7000 - 1000) + 1000;
     setTimeout(blink, randomInterval);
   }
 
@@ -108,7 +108,6 @@ window.addEventListener("load", () => {
   }
 });
 
-
 function animateSkillBar(bar, percentage) {
   let width = 1;
   const id = setInterval(() => {
@@ -122,7 +121,7 @@ function animateSkillBar(bar, percentage) {
 }
 
 function reverseSkillBar(bar) {
-  let width = parseInt(bar.style.width, 50);
+  let width = parseInt(bar.style.width, 10);
   const id = setInterval(() => {
     if (width <= 25) {
       clearInterval(id);
