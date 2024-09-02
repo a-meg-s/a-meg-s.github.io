@@ -6,6 +6,7 @@ body {
   margin: 0;
   padding: 0;
   line-height: 1.5;
+  cursor: url('img/cursor2.png'), auto;
 }
 
 /* Font styling for headings, navbar, and footer */
@@ -17,6 +18,10 @@ footer,
 #language {
   font-family: "Press Start 2P", cursive;
   color: #dcdcff; /* Neon purple for headings and links */
+}
+
+a {
+  cursor: url('img/cursor1.png'), pointer;
 }
 
 .blinking-cursor {
