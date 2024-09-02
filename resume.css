@@ -72,10 +72,14 @@ h1 {
   margin: 0;
 }
 
-h2,
+h2{
+  color: #b39ddb; /* Lighter neon purple */
+  font-size: 1.1em;
+}
+
 h3 {
   color: #b39ddb; /* Lighter neon purple */
-  font-size: 1.2em;
+  font-size: 0.9em;
 }
 
 #navbar {
