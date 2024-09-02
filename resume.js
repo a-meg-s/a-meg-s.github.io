@@ -23,7 +23,7 @@ function drawProfilePic() {
     const ctx = canvas.getContext("2d");
     ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear canvas before drawing
 
-    ctx.fillStyle = "rgb(245,207,186)";
+    ctx.fillStyle = "rgb(1,69,80)";
     ctx.fillRect(54, 45, 91, 90);
 
     // Mouth
