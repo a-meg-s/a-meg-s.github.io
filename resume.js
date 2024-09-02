@@ -92,7 +92,7 @@ function blinkEyes(ctx) {
     setTimeout(() => drawEyes(ctx), 200);
 
     // Schedule the next blink at a random interval between 3s and 10s
-    const randomInterval = Math.random() * (10000 - 3000) + 3000;
+    const randomInterval = Math.random() * (7000 - 1000) + 500;
     setTimeout(blink, randomInterval);
   }
 
