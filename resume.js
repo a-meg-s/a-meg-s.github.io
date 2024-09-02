@@ -6,23 +6,25 @@ function typeWriter(text, n) {
     setTimeout(() => typeWriter(text, n + 1), 100);
   } else {
     element.innerHTML = text + '<span class="blinking-cursor">|</span>';
-    // Ensure the cursor keeps blinking after typing is finished
+
+    // Ensure the cursor blinks 5 times after typing is finished
+    let blinkCount = 0;
+
     function blinkCursor() {
       const cursor = document.querySelector(".blinking-cursor");
       if (cursor) {
         cursor.style.visibility =
           cursor.style.visibility === "hidden" ? "visible" : "hidden";
+        blinkCount++;
+        if (blinkCount < 10) {
+          setTimeout(blinkCursor, 500); // Blink every 500ms
+        } else {
+          cursor.style.visibility = "hidden"; // Hide cursor after 5 blinks
+        }
       }
     }
 
-    // Start random interval blinking
-    function startRandomBlinking() {
-      blinkCursor();
-      const randomInterval = Math.random() * (10000 - 3000) + 3000; // Random interval between 3s and 10s
-      setTimeout(startRandomBlinking, randomInterval);
-    }
-
-    startRandomBlinking();
+    blinkCursor();
   }
 }
 
@@ -76,16 +78,36 @@ function drawEyes(ctx) {
 }
 
 function blinkEyes(ctx) {
-  ctx.fillStyle = "rgb(245,207,186)";
-  ctx.fillRect(72, 85, 12, 12);
-  ctx.fillRect(117, 85, 12, 12);
+  function blink() {
+    // Close eyes
+    ctx.fillStyle = "rgb(245,207,186)";
+    ctx.fillRect(72, 85, 12, 12);
+    ctx.fillRect(117, 85, 12, 12);
 
-  ctx.fillStyle = "rgb(69,45,23)";
-  ctx.fillRect(72, 93, 12, 4);
-  ctx.fillRect(117, 93, 12, 4);
+    ctx.fillStyle = "rgb(69,45,23)";
+    ctx.fillRect(72, 93, 12, 4);
+    ctx.fillRect(117, 93, 12, 4);
 
-  setTimeout(() => drawEyes(ctx), 200);
+    // Open eyes after a short delay
+    setTimeout(() => drawEyes(ctx), 200);
+
+    // Schedule the next blink at a random interval between 3s and 10s
+    const randomInterval = Math.random() * (10000 - 3000) + 3000;
+    setTimeout(blink, randomInterval);
+  }
+
+  blink(); // Start the initial blink
 }
+
+// Initialize the blinking when the page loads
+window.addEventListener("load", () => {
+  const canvas = document.getElementById("profile-pic");
+  if (canvas && canvas.getContext) {
+    const ctx = canvas.getContext("2d");
+    blinkEyes(ctx);
+  }
+});
+
 
 function animateSkillBar(bar, percentage) {
   let width = 1;
@@ -132,14 +154,6 @@ function hoverSkillBar() {
     });
   });
 }
-
-window.addEventListener("click", () => {
-  const canvas = document.getElementById("profile-pic");
-  if (canvas && canvas.getContext) {
-    const ctx = canvas.getContext("2d");
-    blinkEyes(ctx);
-  }
-});
 
 // Experience Carousel Logic
 
