@@ -62,7 +62,7 @@ function drawProfilePic() {
     ctx.fillRect(55, 135, 15, 35);
     ctx.fillRect(130, 135, 15, 35);
 
-    ctx.fillStyle = "rgb(57, 255, 20)";
+    ctx.fillStyle = "rgb(179, 157, 219)";
     ctx.fillRect(70, 135, 60, 65);
 
     drawEyes(ctx);
