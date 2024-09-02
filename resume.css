@@ -79,7 +79,7 @@ h3 {
 }
 
 #navbar {
-  background-color: #222; /* Dark background */
+  background-color: #0d0d1a; /* Dark background */
   display: flex;
   justify-content: space-around;
   padding: 8px 15px; /* Reduced padding */
