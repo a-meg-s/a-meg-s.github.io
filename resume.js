@@ -7,13 +7,22 @@ function typeWriter(text, n) {
   } else {
     element.innerHTML = text + '<span class="blinking-cursor">|</span>';
     // Ensure the cursor keeps blinking after typing is finished
-    setInterval(() => {
+    function blinkCursor() {
       const cursor = document.querySelector(".blinking-cursor");
       if (cursor) {
         cursor.style.visibility =
           cursor.style.visibility === "hidden" ? "visible" : "hidden";
       }
-    }, 500);
+    }
+
+    // Start random interval blinking
+    function startRandomBlinking() {
+      blinkCursor();
+      const randomInterval = Math.random() * (10000 - 3000) + 3000; // Random interval between 3s and 10s
+      setTimeout(startRandomBlinking, randomInterval);
+    }
+
+    startRandomBlinking();
   }
 }
 
@@ -204,7 +213,7 @@ function updateExperience() {
 
       drops[i]++;
     });
-}
+  }
   // Resize canvas and redraw on window resize
   window.addEventListener("resize", resizeCanvas);
 
@@ -212,7 +221,6 @@ function updateExperience() {
   resizeCanvas();
   setInterval(drawMatrix, 35);
 })();
-
 
 // Initialize everything
 drawProfilePic();
