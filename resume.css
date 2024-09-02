@@ -138,11 +138,11 @@ section {
   height: 4px;
   background: linear-gradient(
     90deg,
-    #dcdcff 25%, /* Neon purple */
-    #d1c4e9 25%, /* Neon lavender */
+    #dcdcff 25%,
+    #d1c4e9 25%, 
     #d1c4e9 50%, 
-    #b39ddb 50%, /* Lighter neon purple */
-    #b39ddb 75%, 
+    #d1c4e9 50%, 
+    #d1c4e9 75%, 
     #dcdcff 75%
   );
   margin: 10px 0;
