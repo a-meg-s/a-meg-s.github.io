@@ -69,7 +69,7 @@ h1 {
 
 h2,
 h3 {
-  color: #9b59b6;
+  color: #00ccff;
   font-size: 1em;
 }
 
@@ -84,7 +84,7 @@ h3 {
 
 #navbar a {
   font-size: 0.9em;
-  color: #4fff4f;
+  color: #00ccff;
   text-decoration: none;
   margin: 5px 10px;
   transition: color 0.3s;
@@ -117,7 +117,7 @@ section {
 
 .intro-section {
   background-color: #333;
-  border: 2px solid #9b59b6;
+  border: 2px solid #00ccff;
   padding: 25px 30px;
   margin: 30px auto;
   max-width: 900px;
@@ -140,7 +140,7 @@ section {
 }
 
 #language {
-  background-color: #9b59b6;
+  background-color: #00ccff;
   color: #111;
   padding: 8px;
   margin-bottom: 8px;
