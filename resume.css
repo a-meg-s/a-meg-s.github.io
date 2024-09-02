@@ -1,8 +1,8 @@
 body {
   font-family: "Roboto Mono", monospace;
   font-size: 1em;
-  background-color: #111;
-  color: #fff;
+  background-color: #cdb4db; /* Adjusted */
+  color: #111; /* Adjusted */
   margin: 0;
   padding: 0;
   line-height: 1.5;
@@ -21,7 +21,7 @@ footer,
 .blinking-cursor {
   font-weight: bold;
   font-size: 1.2em;
-  color: #4fff4f;
+  color: #ffc8dd; /* Adjusted */
   animation: blink 1s step-end infinite;
 }
 
@@ -40,8 +40,8 @@ header {
   justify-content: space-between;
   align-items: center;
   padding: 0 20px;
-  background-color: #222;
-  border-bottom: 4px solid #4fff4f;
+  background-color: #a2d2ff; /* Adjusted */
+  border-bottom: 4px solid #ffc8dd; /* Adjusted */
   flex-wrap: wrap;
 }
 
@@ -63,35 +63,35 @@ header {
 
 h1 {
   font-size: 1.2em;
-  color: #4fff4f;
+  color: #ffc8dd; /* Adjusted */
   margin: 0;
 }
 
 h2,
 h3 {
-  color: #00ccff;
+  color: #bde0fe; /* Adjusted */
   font-size: 1em;
 }
 
 #navbar {
-  background-color: #333;
+  background-color: #a2d2ff; /* Adjusted */
   display: flex;
   justify-content: space-around;
   padding: 10px;
-  border-bottom: 4px solid #4fff4f;
+  border-bottom: 4px solid #ffc8dd; /* Adjusted */
   flex-wrap: wrap;
 }
 
 #navbar a {
   font-size: 0.9em;
-  color: #00ccff;
+  color: #bde0fe; /* Adjusted */
   text-decoration: none;
   margin: 5px 10px;
   transition: color 0.3s;
 }
 
 #navbar a:hover {
-  color: #ffcc00;
+  color: #ffafcc; /* Adjusted */
 }
 
 #matrix-canvas {
@@ -108,16 +108,16 @@ h3 {
 section {
   margin: 20px auto;
   padding: 15px 20px;
-  background-color: #222;
-  border: 2px dashed #fff;
+  background-color: #cdb4db; /* Adjusted */
+  border: 2px dashed #ffc8dd; /* Adjusted */
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   max-width: 800px;
 }
 
 .intro-section {
-  background-color: #333;
-  border: 2px solid #00ccff;
+  background-color: #bde0fe; /* Adjusted */
+  border: 2px solid #a2d2ff; /* Adjusted */
   padding: 25px 30px;
   margin: 30px auto;
   max-width: 900px;
@@ -129,19 +129,19 @@ section {
   height: 4px;
   background: linear-gradient(
     90deg,
-    #00ccff 25%,
-    #4fff4f 25%,
-    #4fff4f 50%,
-    #ffcc00 50%,
-    #ffcc00 75%,
-    #ff4f4f 75%
+    #bde0fe 25%, /* Adjusted */
+    #ffc8dd 25%, /* Adjusted */
+    #ffc8dd 50%, /* Adjusted */
+    #ffafcc 50%, /* Adjusted */
+    #ffafcc 75%, /* Adjusted */
+    #cdb4db 75%  /* Adjusted */
   );
   margin: 10px 0;
 }
 
 #language {
-  background-color: #00ccff;
-  color: #111;
+  background-color: #bde0fe; /* Adjusted */
+  color: #111; /* Adjusted */
   padding: 8px;
   margin-bottom: 8px;
   border-radius: 5px;
@@ -156,7 +156,7 @@ section {
   top: 0;
   left: 0;
   height: 100%;
-  background-color: #4fff4f;
+  background-color: #ffc8dd; /* Adjusted */
   transition: width 2s ease color 0.3s;
 }
 
@@ -165,21 +165,21 @@ section {
 }
 
 footer {
-  background-color: #222;
-  color: #fff;
+  background-color: #a2d2ff; /* Adjusted */
+  color: #111; /* Adjusted */
   padding: 15px 20px;
   text-align: center;
-  border-top: 4px solid #4fff4f;
+  border-top: 4px solid #ffc8dd; /* Adjusted */
   margin-top: 20px;
 }
 
 footer p a {
-  color: #4fff4f;
+  color: #ffc8dd; /* Adjusted */
   text-decoration: none;
 }
 
 footer p a:hover {
-  color: #ffcc00;
+  color: #ffafcc; /* Adjusted */
 }
 
 /* New Styles for Experience Carousel */
@@ -206,9 +206,9 @@ footer p a:hover {
 }
 
 .experience-navigation button {
-  background-color: #333;
-  color: #4fff4f;
-  border: 2px solid #4fff4f;
+  background-color: #a2d2ff; /* Adjusted */
+  color: #ffc8dd; /* Adjusted */
+  border: 2px solid #ffc8dd; /* Adjusted */
   padding: 10px;
   cursor: pointer;
   font-family: "Press Start 2P", cursive;
@@ -241,7 +241,7 @@ footer p a:hover {
 .indicator-dot {
   width: 12px;
   height: 12px;
-  background-color: #4fff4f;
+  background-color: #ffc8dd; /* Adjusted */
   border-radius: 50%;
   margin: 0 5px;
   opacity: 0.5;
