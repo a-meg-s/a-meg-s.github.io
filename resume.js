@@ -19,8 +19,9 @@ function typeWriter(text, n) {
 
 function drawProfilePic() {
   const canvas = document.getElementById("profile-pic");
-  if (canvas.getContext) {
+  if (canvas && canvas.getContext) {
     const ctx = canvas.getContext("2d");
+    ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear canvas before drawing
 
     ctx.fillStyle = "rgb(245,207,186)";
     ctx.fillRect(54, 45, 91, 90);
@@ -173,10 +174,9 @@ function updateExperience() {
   function resizeCanvas() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
+    // Redraw immediately after resizing
+    drawMatrix();
   }
-
-  resizeCanvas();
-  window.addEventListener("resize", resizeCanvas);
 
   var matrix =
     "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()*&^%+-/~{[|`]}".split(
@@ -205,6 +205,11 @@ function updateExperience() {
     });
   }
 
+  // Resize canvas and redraw on window resize
+  window.addEventListener("resize", resizeCanvas);
+
+  // Initial call to resize and draw
+  resizeCanvas();
   setInterval(drawMatrix, 35);
 })();
 
