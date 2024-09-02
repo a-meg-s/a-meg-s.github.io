@@ -165,33 +165,34 @@ function updateExperience() {
 }
 
 // Matrix animation script
-
 (function () {
   var canvas = document.getElementById("matrix-canvas");
   var ctx = canvas.getContext("2d");
 
-  // Resize canvas to full screen
-  function resizeCanvas() {
-    canvas.width = window.width;
-    canvas.height = window.height;
-    // Redraw immediately after resizing
-    drawMatrix();
-  }
-
+  // Matrix characters
   var matrix =
     "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()*&^%+-/~{[|`]}".split(
       ""
     );
   var font_size = 10;
-  var columns = canvas.width / font_size;
-  var drops = Array(columns).fill(1);
+  var columns;
+  var drops;
+
+  // Resize canvas to full screen and recalculate columns
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    columns = canvas.width / font_size; // recalculate columns based on new width
+    drops = Array(Math.floor(columns)).fill(1); // recalculate drops array
+    drawMatrix(); // Redraw immediately after resizing
+  }
 
   function drawMatrix() {
-    ctx.fillStyle = "rgba(0, 0, 0, 0.2)";
+    ctx.fillStyle = "rgba(0, 0, 0, 0.4)";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     ctx.fillStyle = "#4fff4f";
-    ctx.font = font_size + "px roboto mono";
+    ctx.font = font_size + "px arial";
 
     drops.forEach((y, i) => {
       var text = matrix[Math.floor(Math.random() * matrix.length)];
@@ -212,6 +213,7 @@ function updateExperience() {
   resizeCanvas();
   setInterval(drawMatrix, 35);
 })();
+
 
 // Initialize everything
 drawProfilePic();
