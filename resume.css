@@ -6,7 +6,6 @@ body {
   margin: 0;
   padding: 0;
   line-height: 1.5;
-  cursor: url('img/cursor2.png'), auto;
 }
 
 /* Font styling for headings, navbar, and footer */
@@ -21,7 +20,7 @@ footer,
 }
 
 a {
-  cursor: url('img/cursor1.png'), pointer;
+  cursor: pointer;
 }
 
 .blinking-cursor {
@@ -45,7 +44,7 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 20px; /* Reduced padding for less empty space */
+  padding: 0 20px; /* Reduced padding for less empty space */
   background-color: #111; /* Dark background */
   border-bottom: 4px solid #dcdcff; /* Neon purple border */
   flex-wrap: wrap;
