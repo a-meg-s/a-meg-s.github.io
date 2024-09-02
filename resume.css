@@ -27,7 +27,7 @@ a {
   font-weight: bold;
   font-size: 1.2em;
   color: #d1c4e9; /* Neon lavender */
-  animation: blink 1s step-end infinite;
+  animation: blink 1s step-end 5, hideCursor 5s step-end forwards;
 }
 
 @keyframes blink {
@@ -36,6 +36,12 @@ a {
     visibility: visible;
   }
   50% {
+    visibility: hidden;
+  }
+}
+
+@keyframes hideCursor {
+  to {
     visibility: hidden;
   }
 }
