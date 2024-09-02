@@ -187,7 +187,7 @@ function updateExperience() {
   var drops = Array(columns).fill(1);
 
   function drawMatrix() {
-    ctx.fillStyle = "rgba(0, 0, 0, 0.1)"; // Adjust the opacity for better visibility
+    ctx.fillStyle = "rgba(0, 0, 0, 0.4)";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     ctx.fillStyle = "#4fff4f";
