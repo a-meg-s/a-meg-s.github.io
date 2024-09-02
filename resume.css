@@ -21,7 +21,7 @@ footer,
 .blinking-cursor {
   font-weight: bold;
   font-size: 1.2em;
-  color: #ffc8dd; /* Adjusted */
+  color: #111; /* Adjusted */
   animation: blink 1s step-end infinite;
 }
 
@@ -91,7 +91,7 @@ h3 {
 }
 
 #navbar a:hover {
-  color: #bde0fe; /* Adjusted */
+  color: #ffafcc; /* Adjusted */
 }
 
 #matrix-canvas {
