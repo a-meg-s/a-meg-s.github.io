@@ -63,13 +63,13 @@ header {
 
 h1 {
   font-size: 1.2em;
-  color: #ffafcc; /* Adjusted */
+  color: #111; /* Adjusted */
   margin: 0;
 }
 
 h2,
 h3 {
-  color: #a2d2ff; /* Adjusted */
+  color: #111; /* Adjusted */
   font-size: 1em;
 }
 
@@ -174,7 +174,7 @@ footer {
 }
 
 footer p a {
-  color: #ffafcc; /* Adjusted */
+  color: #111; /* Adjusted */
   text-decoration: none;
 }
 
