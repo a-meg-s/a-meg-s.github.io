@@ -172,8 +172,8 @@ function updateExperience() {
 
   // Resize canvas to full screen
   function resizeCanvas() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    canvas.width = window.width;
+    canvas.height = window.height;
     // Redraw immediately after resizing
     drawMatrix();
   }
@@ -187,11 +187,11 @@ function updateExperience() {
   var drops = Array(columns).fill(1);
 
   function drawMatrix() {
-    ctx.fillStyle = "rgba(0, 0, 0, 0.4)";
+    ctx.fillStyle = "rgba(0, 0, 0, 0.2)";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     ctx.fillStyle = "#4fff4f";
-    ctx.font = font_size + "px arial";
+    ctx.font = font_size + "px roboto mono";
 
     drops.forEach((y, i) => {
       var text = matrix[Math.floor(Math.random() * matrix.length)];
