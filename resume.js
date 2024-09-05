@@ -37,6 +37,15 @@ function animateSkillBar(bar, percentage) {
   }, 10);
 }
 
+function loadSkillBars() {
+  const skillBars = document.querySelectorAll("#language");
+  skillBars.forEach((bar) => {
+    const percentage = bar.getAttribute("data-percentage");
+    animateSkillBar(bar, percentage);
+    bar.classList.add("filled");
+  });
+}
+
 function reverseSkillBar(bar) {
   let width = parseInt(bar.style.width, 10);
   const id = setInterval(() => {
@@ -53,14 +62,6 @@ function reverseSkillBar(bar) {
 function hoverSkillBar() {
   const skillBars = document.querySelectorAll("#language");
   skillBars.forEach((bar) => {
-    bar.addEventListener("mouseenter", () => {
-      if (!bar.classList.contains("filled")) {
-        const percentage = bar.getAttribute("data-percentage");
-        animateSkillBar(bar, percentage);
-        bar.classList.add("filled");
-      }
-    });
-
     bar.addEventListener("mouseleave", () => {
       setTimeout(() => {
         reverseSkillBar(bar);
@@ -128,7 +129,9 @@ window.addEventListener("load", () => {
   if (canvas && canvas.getContext) {
     const ctx = canvas.getContext("2d");
     blinkEyes(ctx);
+    drawProfilePic();
   }
+  loadSkillBars();
   hoverSkillBar();
   typeWriter("Andrea Megan Sustic", 0);
 });
