@@ -7,9 +7,7 @@ function typeWriter(text, n) {
   } else {
     element.innerHTML = text + '<span class="blinking-cursor">|</span>';
 
-    // Ensure the cursor blinks 5 times after typing is finished
     let blinkCount = 0;
-
     function blinkCursor() {
       const cursor = document.querySelector(".blinking-cursor");
       if (cursor) {
@@ -17,96 +15,15 @@ function typeWriter(text, n) {
           cursor.style.visibility === "hidden" ? "visible" : "hidden";
         blinkCount++;
         if (blinkCount < 10) {
-          setTimeout(blinkCursor, 1100); // Blink every 500ms
+          setTimeout(blinkCursor, 1100);
         } else {
-          cursor.remove(); // Remove the cursor after 5 blinks
+          cursor.remove();
         }
       }
     }
-
     blinkCursor();
   }
 }
-
-function drawProfilePic() {
-  const canvas = document.getElementById("profile-pic");
-  if (canvas && canvas.getContext) {
-    const ctx = canvas.getContext("2d");
-    ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear canvas before drawing
-
-    ctx.fillStyle = "rgb(245,207,186)";
-    ctx.fillRect(54, 45, 91, 90);
-
-    // Mouth
-    ctx.fillStyle = "rgb(240,168,137)";
-    ctx.fillRect(93, 117, 15, 5);
-    ctx.fillRect(88, 112, 5, 5);
-    ctx.fillRect(108, 112, 5, 5);
-
-    // Nose
-    ctx.fillStyle = "rgb(240,168,137)";
-    ctx.fillRect(97, 95, 6, 10);
-
-    // Blush
-    ctx.fillStyle = "rgb(252,144,157)";
-    ctx.fillRect(65, 97, 15, 8);
-    ctx.fillRect(120, 97, 15, 8);
-
-    // Hair
-    ctx.fillStyle = "rgb(150,99,57)";
-    ctx.fillRect(70, 30, 60, 15);
-    ctx.fillRect(50, 40, 30, 20);
-    ctx.fillRect(120, 40, 30, 20);
-    ctx.fillRect(42, 55, 15, 110);
-    ctx.fillRect(143, 55, 15, 110);
-    ctx.fillRect(50, 130, 15, 10);
-    ctx.fillRect(135, 130, 15, 10);
-    ctx.fillRect(55, 135, 15, 35);
-    ctx.fillRect(130, 135, 15, 35);
-
-    ctx.fillStyle = "rgb(179, 157, 219)";
-    ctx.fillRect(70, 135, 60, 65);
-
-    drawEyes(ctx);
-  }
-}
-
-function drawEyes(ctx) {
-  ctx.fillStyle = "rgb(69,45,23)";
-  ctx.fillRect(72, 85, 12, 12);
-  ctx.fillRect(117, 85, 12, 12);
-}
-
-function blinkEyes(ctx) {
-  function blink() {
-    // Close eyes
-    ctx.fillStyle = "rgb(245,207,186)";
-    ctx.fillRect(72, 85, 12, 12);
-    ctx.fillRect(117, 85, 12, 12);
-
-    ctx.fillStyle = "rgb(69,45,23)";
-    ctx.fillRect(72, 93, 12, 4);
-    ctx.fillRect(117, 93, 12, 4);
-
-    // Open eyes after a short delay
-    setTimeout(() => drawEyes(ctx), 200);
-
-    // Schedule the next blink at a random interval between 3s and 10s
-    const randomInterval = Math.random() * (7000 - 1000) + 1000;
-    setTimeout(blink, randomInterval);
-  }
-
-  blink(); // Start the initial blink
-}
-
-// Initialize the blinking when the page loads
-window.addEventListener("load", () => {
-  const canvas = document.getElementById("profile-pic");
-  if (canvas && canvas.getContext) {
-    const ctx = canvas.getContext("2d");
-    blinkEyes(ctx);
-  }
-});
 
 function animateSkillBar(bar, percentage) {
   let width = 1;
@@ -130,12 +47,11 @@ function reverseSkillBar(bar) {
       width--;
       bar.style.width = width + "%";
     }
-  }, 5000);
+  }, 10);
 }
 
 function hoverSkillBar() {
   const skillBars = document.querySelectorAll("#language");
-
   skillBars.forEach((bar) => {
     bar.addEventListener("mouseenter", () => {
       if (!bar.classList.contains("filled")) {
@@ -149,36 +65,72 @@ function hoverSkillBar() {
       setTimeout(() => {
         reverseSkillBar(bar);
         bar.classList.remove("filled");
-      }, 2000);
+      }, 500);
     });
   });
 }
 
-// Experience Carousel Logic
-
-function updateScrollIndicator() {
-  const indicatorDots = document.querySelectorAll(".indicator-dot");
-  indicatorDots.forEach((dot, index) => {
-    dot.classList.toggle("active", index === currentIndex);
-  });
+function drawProfilePic() {
+  const canvas = document.getElementById("profile-pic");
+  if (canvas && canvas.getContext) {
+    const ctx = canvas.getContext("2d");
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = "rgb(245,207,186)";
+    ctx.fillRect(54, 45, 91, 90);
+    ctx.fillStyle = "rgb(240,168,137)";
+    ctx.fillRect(93, 117, 15, 5);
+    ctx.fillRect(88, 112, 5, 5);
+    ctx.fillRect(108, 112, 5, 5);
+    ctx.fillStyle = "rgb(240,168,137)";
+    ctx.fillRect(97, 95, 6, 10);
+    ctx.fillStyle = "rgb(252,144,157)";
+    ctx.fillRect(65, 97, 15, 8);
+    ctx.fillRect(120, 97, 15, 8);
+    ctx.fillStyle = "rgb(150,99,57)";
+    ctx.fillRect(70, 30, 60, 15);
+    ctx.fillRect(50, 40, 30, 20);
+    ctx.fillRect(120, 40, 30, 20);
+    ctx.fillRect(42, 55, 15, 110);
+    ctx.fillRect(143, 55, 15, 110);
+    ctx.fillRect(50, 130, 15, 10);
+    ctx.fillRect(135, 130, 15, 10);
+    ctx.fillRect(55, 135, 15, 35);
+    ctx.fillRect(130, 135, 15, 35);
+    ctx.fillStyle = "rgb(179, 157, 219)";
+    ctx.fillRect(70, 135, 60, 65);
+    drawEyes(ctx);
+  }
 }
 
-let currentIndex = 0;
+function drawEyes(ctx) {
+  ctx.fillStyle = "rgb(69,45,23)";
+  ctx.fillRect(72, 85, 12, 12);
+  ctx.fillRect(117, 85, 12, 12);
+}
 
-const experienceInner = document.querySelector(".experience-inner");
-const experiences = document.querySelectorAll(".experience-inner article");
-const totalExperiences = experiences.length;
+function blinkEyes(ctx) {
+  function blink() {
+    ctx.fillStyle = "rgb(245,207,186)";
+    ctx.fillRect(72, 85, 12, 12);
+    ctx.fillRect(117, 85, 12, 12);
+    ctx.fillStyle = "rgb(69,45,23)";
+    ctx.fillRect(72, 93, 12, 4);
+    ctx.fillRect(117, 93, 12, 4);
+    setTimeout(() => drawEyes(ctx), 200);
+    const randomInterval = Math.random() * (7000 - 1000) + 1000;
+    setTimeout(blink, randomInterval);
+  }
+  blink();
+}
 
-document.getElementById("next-experience").addEventListener("click", () => {
-  currentIndex = (currentIndex + 1) % totalExperiences;
-  updateExperience();
-  updateScrollIndicator();
-});
-
-document.getElementById("prev-experience").addEventListener("click", () => {
-  currentIndex = (currentIndex - 1 + totalExperiences) % totalExperiences;
-  updateExperience();
-  updateScrollIndicator();
+window.addEventListener("load", () => {
+  const canvas = document.getElementById("profile-pic");
+  if (canvas && canvas.getContext) {
+    const ctx = canvas.getContext("2d");
+    blinkEyes(ctx);
+  }
+  hoverSkillBar();
+  typeWriter("Andrea Megan Sustic", 0);
 });
 
 function updateExperience() {
@@ -186,56 +138,17 @@ function updateExperience() {
   experienceInner.style.transform = `translateX(${offset}%)`;
 }
 
-// Matrix animation script
-(function () {
-  var canvas = document.getElementById("matrix-canvas");
-  var ctx = canvas.getContext("2d");
+const experienceInner = document.querySelector(".experience-inner");
+const experiences = document.querySelectorAll(".experience-inner article");
+const totalExperiences = experiences.length;
+let currentIndex = 0;
 
-  // Matrix characters
-  var matrix =
-    "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()*&^%+-/~{[|`]}".split(
-      ""
-    );
-  var font_size = 10;
-  var columns;
-  var drops;
+document.getElementById("next-experience").addEventListener("click", () => {
+  currentIndex = (currentIndex + 1) % totalExperiences;
+  updateExperience();
+});
 
-  // Resize canvas to full screen and recalculate columns
-  function resizeCanvas() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    columns = canvas.width / font_size; // recalculate columns based on new width
-    drops = Array(Math.floor(columns)).fill(1); // recalculate drops array
-    drawMatrix(); // Redraw immediately after resizing
-  }
-
-  function drawMatrix() {
-    ctx.fillStyle = "rgba(26, 26, 46, 0.2)"; // Dark translucent background color
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-    ctx.fillStyle = "#39FF14"; // Neon purple color for the drops
-    ctx.font = font_size + "px arial";
-
-    drops.forEach((y, i) => {
-      var text = matrix[Math.floor(Math.random() * matrix.length)];
-      ctx.fillText(text, i * font_size, y * font_size);
-
-      if (y * font_size > canvas.height && Math.random() > 0.975) {
-        drops[i] = 0;
-      }
-
-      drops[i]++;
-    });
-  }
-  // Resize canvas and redraw on window resize
-  window.addEventListener("resize", resizeCanvas);
-
-  // Initial call to resize and draw
-  resizeCanvas();
-  setInterval(drawMatrix, 35);
-})();
-
-// Initialize everything
-drawProfilePic();
-typeWriter("Andrea Megan Sustic", 0);
-hoverSkillBar();
+document.getElementById("prev-experience").addEventListener("click", () => {
+  currentIndex = (currentIndex - 1 + totalExperiences) % totalExperiences;
+  updateExperience();
+});
