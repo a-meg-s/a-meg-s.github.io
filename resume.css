@@ -8,7 +8,7 @@ body {
   line-height: 1.5;
 }
 
-h1, h2, h3, #navbar a, footer, #language {
+h1, h2, h3, #navbar a, footer, .language-bar {
   font-family: "Press Start 2P", cursive;
   color: #dcdcff;
 }
@@ -91,8 +91,9 @@ section {
   margin: 10px 0;
 }
 
-#language {
-  background-color: #b39ddb;
+/* Language bars */
+.language-bar {
+  background-color: #dcdcff;
   color: #1a1a2e;
   padding: 8px;
   margin-bottom: 8px;
@@ -100,12 +101,25 @@ section {
   font-size: 1em;
   position: relative;
   overflow: hidden;
-  width: 0;
-  transition: width 0.5s ease-in-out;
+  width: 100%;
+  transition: width 0.5s ease-in-out, background-color 0.5s ease-in-out;
 }
 
-#language.filled {
-  width: 100% !important;
+.language-bar.hovered {
+  width: var(--percentage);
+  background-color: #b39ddb;
+}
+
+.language-bar[data-percentage="98"] {
+  --percentage: 98%;
+}
+
+.language-bar[data-percentage="88"] {
+  --percentage: 88%;
+}
+
+.language-bar[data-percentage="68"] {
+  --percentage: 68%;
 }
 
 footer {
@@ -126,6 +140,7 @@ footer p a:hover {
   color: #d1c4e9;
 }
 
+/* Experience Carousel */
 .experience-container {
   display: flex;
   align-items: center;
@@ -150,13 +165,18 @@ footer p a:hover {
 
 .experience-carousel {
   overflow: hidden;
-  width: 80%;
-  max-width: 700px;
+  width: 100%;
+  max-width: 800px;
 }
 
 .experience-inner {
   display: flex;
-  transition: transform 0.3s ease;
+  transition: transform 0.5s ease;
+}
+
+.experience-inner article {
+  min-width: 100%;
+  box-sizing: border-box;
 }
 
 #scroll-indicator {
