@@ -31,7 +31,7 @@ function initSkillBars() {
 
   skillBars.forEach((bar) => {
     const percentage = bar.getAttribute("data-percentage");
-    bar.style.width = "100%";
+    bar.style.width = "99%";
 
     bar.addEventListener("mouseenter", () => {
       bar.style.width = percentage + "%";
