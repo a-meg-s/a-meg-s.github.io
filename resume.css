@@ -114,24 +114,18 @@ section {
 }
 
 .retro-section h2 {
-  font-family: "Press Start 2P", cursive;
-  font-size: 1.5em;
   color: #dcdcff;
   text-align: center;
 }
 
 .retro-section p {
   font-family: "Roboto Mono", monospace;
-  font-size: 1.1em;
   color: #dcdcff;
-  line-height: 1.5;
-  margin: 15px 0;
 }
 
 .retro-section .highlight {
   color: #39FF14;
   font-weight: bold;
-  font-size: 1.1em;
 }
 
 @keyframes fadeIn {
