@@ -155,22 +155,22 @@ window.addEventListener("load", () => {
   typeText(
     "I’m currently expanding my knowledge in both Python and C, while already having experience with Java, HTML, CSS, SQL, and JavaScript.",
     "current-work-content",
-    50
+    70
   );
   setTimeout(() => {
     typeText(
       "I've studied various cybersecurity concepts and personally enjoy designing defensive software architecture the most.",
       "current-work-content2",
-      50
+      70
     );
-  }, 3000);
+  }, 5000);
   setTimeout(() => {
     typeText(
       "Fun fact: I’m really good at pattern recognition and puzzle solving!",
       "current-work-content3",
-      50
+      70
     );
-  }, 6000);
+  }, 8000);
 });
 
 
