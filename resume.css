@@ -105,6 +105,53 @@ section {
   margin: 10px 0;
 }
 
+/* section for Current Work */
+.retro-section {
+  background-color: #2c2c54;
+  padding: 20px;
+  border: 2px solid #dcdcff;
+  border-radius: 10px;
+  margin-top: 30px;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+  text-align: left;
+  animation: fadeIn 1s ease-in-out;
+}
+
+.retro-section h2 {
+  font-family: "Press Start 2P", cursive;
+  font-size: 1.5em;
+  color: #dcdcff;
+  text-align: center;
+}
+
+.retro-section p {
+  font-family: "Roboto Mono", monospace;
+  font-size: 1.1em;
+  color: #dcdcff;
+  line-height: 1.5;
+  margin: 15px 0;
+}
+
+.retro-section .highlight {
+  color: #39FF14;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* Language bars */
 .language-bar {
   background-color: #dcdcff;
