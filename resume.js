@@ -166,7 +166,7 @@ window.addEventListener("load", () => {
   }, 5000);
   setTimeout(() => {
     typeText(
-      "Fun fact: I’m really good at pattern recognition and puzzle solving!",
+      "Additional fact about me: I’ve got a knack for pattern recognition and puzzle solving!",
       "current-work-content3",
       70
     );
