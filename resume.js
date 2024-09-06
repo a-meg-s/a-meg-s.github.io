@@ -1,3 +1,4 @@
+// Typewriter effect
 function typeWriter(text, n) {
   const element = document.getElementById("typewriter");
   if (n < text.length) {
@@ -6,7 +7,6 @@ function typeWriter(text, n) {
     setTimeout(() => typeWriter(text, n + 1), 100);
   } else {
     element.innerHTML = text + '<span class="blinking-cursor">|</span>';
-
     let blinkCount = 0;
     function blinkCursor() {
       const cursor = document.querySelector(".blinking-cursor");
@@ -25,52 +25,27 @@ function typeWriter(text, n) {
   }
 }
 
-function animateSkillBar(bar, percentage) {
-  let width = 1;
-  const id = setInterval(() => {
-    if (width >= percentage) {
-      clearInterval(id);
-    } else {
-      width++;
-      bar.style.width = width + "%";
-    }
-  }, 10);
-}
+// Animate skill bars and handle hover effect
+function initSkillBars() {
+  const skillBars = document.querySelectorAll(".language-bar");
 
-function loadSkillBars() {
-  const skillBars = document.querySelectorAll("#language");
   skillBars.forEach((bar) => {
     const percentage = bar.getAttribute("data-percentage");
-    animateSkillBar(bar, percentage);
-    bar.classList.add("filled");
-  });
-}
+    bar.style.width = "100%";
 
-function reverseSkillBar(bar) {
-  let width = parseInt(bar.style.width, 10);
-  const id = setInterval(() => {
-    if (width <= 25) {
-      clearInterval(id);
-      bar.style.width = "25%";
-    } else {
-      width--;
-      bar.style.width = width + "%";
-    }
-  }, 10);
-}
+    bar.addEventListener("mouseenter", () => {
+      bar.style.width = percentage + "%";
+      bar.classList.add("hovered");
+    });
 
-function hoverSkillBar() {
-  const skillBars = document.querySelectorAll("#language");
-  skillBars.forEach((bar) => {
     bar.addEventListener("mouseleave", () => {
-      setTimeout(() => {
-        reverseSkillBar(bar);
-        bar.classList.remove("filled");
-      }, 500);
+      bar.classList.remove("hovered");
+      bar.style.backgroundColor = "#b39ddb";
     });
   });
 }
 
+// Profile picture drawing
 function drawProfilePic() {
   const canvas = document.getElementById("profile-pic");
   if (canvas && canvas.getContext) {
@@ -124,6 +99,7 @@ function blinkEyes(ctx) {
   blink();
 }
 
+// Initialize everything
 window.addEventListener("load", () => {
   const canvas = document.getElementById("profile-pic");
   if (canvas && canvas.getContext) {
@@ -131,28 +107,28 @@ window.addEventListener("load", () => {
     blinkEyes(ctx);
     drawProfilePic();
   }
-  loadSkillBars();
-  hoverSkillBar();
+  initSkillBars();
   typeWriter("Andrea Megan Sustic", 0);
 });
 
+// Experience Carousel
+let currentIndex = 0;
+
 function updateExperience() {
+  const experienceInner = document.querySelector(".experience-inner");
   const offset = -currentIndex * 100;
   experienceInner.style.transform = `translateX(${offset}%)`;
 }
 
-const experienceInner = document.querySelector(".experience-inner");
-const experiences = document.querySelectorAll(".experience-inner article");
-const totalExperiences = experiences.length;
-let currentIndex = 0;
-
 document.getElementById("next-experience").addEventListener("click", () => {
-  currentIndex = (currentIndex + 1) % totalExperiences;
+  const experiences = document.querySelectorAll(".experience-inner article");
+  currentIndex = (currentIndex + 1) % experiences.length;
   updateExperience();
 });
 
 document.getElementById("prev-experience").addEventListener("click", () => {
-  currentIndex = (currentIndex - 1 + totalExperiences) % totalExperiences;
+  const experiences = document.querySelectorAll(".experience-inner article");
+  currentIndex = (currentIndex - 1 + experiences.length) % experiences.length;
   updateExperience();
 });
 
