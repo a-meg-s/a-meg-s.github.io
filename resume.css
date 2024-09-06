@@ -42,7 +42,12 @@ h1 {
   margin: 0;
 }
 
-h2, h3 {
+h2 {
+  font-size: 1.1em;
+  color: #b39ddb;
+}
+
+h3 {
   font-size: 1em;
 }
 
