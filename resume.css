@@ -143,16 +143,23 @@ footer p a:hover {
 /* Experience Carousel */
 .experience-container {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
   position: relative;
 }
 
+.experience-carousel-wrapper {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 800px;
+}
+
 .experience-navigation {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
 }
 
 .experience-navigation button {
@@ -171,18 +178,11 @@ footer p a:hover {
   color: #1a1a2e;
 }
 
-.experience-navigation.left {
-  left: 0;
-}
-
-.experience-navigation.right {
-  right: 0;
-}
-
 .experience-carousel {
   overflow: hidden;
   width: 100%;
-  max-width: 800px;
+  max-width: 700px;
+  padding: 0 10px;
 }
 
 .experience-inner {
@@ -193,6 +193,7 @@ footer p a:hover {
 .experience-inner article {
   min-width: 100%;
   box-sizing: border-box;
+  padding: 0 20px;
 }
 
 #scroll-indicator {
