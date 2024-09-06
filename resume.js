@@ -141,6 +141,7 @@ document.getElementById("prev-experience").addEventListener("click", () => {
 function typeText(text, elementId, delay) {
   let i = 0;
   const element = document.getElementById(elementId);
+  element.innerHTML = ""; // Clear the content before starting the typing animation
   function type() {
     if (i < text.length) {
       element.innerHTML += text.charAt(i);
@@ -155,20 +156,20 @@ window.addEventListener("load", () => {
   typeText(
     "I’m currently expanding my knowledge in both Python and C, while already having experience with Java, HTML, CSS, SQL, and JavaScript.",
     "current-work-content",
-    70
+    50
   );
   setTimeout(() => {
     typeText(
       "I've studied various cybersecurity concepts and personally enjoy designing defensive software architecture the most.",
       "current-work-content2",
-      70
+      50
     );
   }, 5000);
   setTimeout(() => {
     typeText(
       "Additional fact about me: I’ve got a knack for pattern recognition and puzzle solving!",
       "current-work-content3",
-      70
+      50
     );
   }, 8000);
 });
