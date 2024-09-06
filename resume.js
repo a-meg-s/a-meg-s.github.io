@@ -118,6 +118,12 @@ function updateExperience() {
   const experienceInner = document.querySelector(".experience-inner");
   const offset = -currentIndex * 100;
   experienceInner.style.transform = `translateX(${offset}%)`;
+
+  // Update the dots
+  const dots = document.querySelectorAll("#scroll-indicator .indicator-dot");
+  dots.forEach((dot, index) => {
+    dot.classList.toggle("active", index === currentIndex);
+  });
 }
 
 document.getElementById("next-experience").addEventListener("click", () => {
