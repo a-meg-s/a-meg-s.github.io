@@ -47,24 +47,51 @@ function initSkillBars() {
   });
 }
 
-// Profile picture drawing (no security risks here, keeping it as is)
+// Profile picture drawing
 function drawProfilePic() {
   const canvas = document.getElementById("profile-pic");
   if (canvas && canvas.getContext) {
     const ctx = canvas.getContext("2d");
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    // Drawing code as before...
+    ctx.fillStyle = "rgb(245,207,186)";
+    ctx.fillRect(54, 45, 91, 90);
+    ctx.fillStyle = "rgb(240,168,137)";
+    ctx.fillRect(93, 117, 15, 5);
+    ctx.fillRect(88, 112, 5, 5);
+    ctx.fillRect(108, 112, 5, 5);
+    ctx.fillStyle = "rgb(240,168,137)";
+    ctx.fillRect(97, 95, 6, 10);
+    ctx.fillStyle = "rgb(252,144,157)";
+    ctx.fillRect(65, 97, 15, 8);
+    ctx.fillRect(120, 97, 15, 8);
+    ctx.fillStyle = "rgb(150,99,57)";
+    ctx.fillRect(70, 30, 60, 15);
+    ctx.fillRect(50, 40, 30, 20);
+    ctx.fillRect(120, 40, 30, 20);
+    ctx.fillRect(42, 55, 15, 110);
+    ctx.fillRect(143, 55, 15, 110);
+    ctx.fillRect(50, 130, 15, 10);
+    ctx.fillRect(135, 130, 15, 10);
+    ctx.fillRect(55, 135, 15, 35);
+    ctx.fillRect(130, 135, 15, 35);
+    ctx.fillStyle = "rgb(179, 157, 219)";
+    ctx.fillRect(70, 135, 60, 65);
     drawEyes(ctx);
   }
 }
 
+// Draw eyes
 function drawEyes(ctx) {
   ctx.fillStyle = "rgb(69,45,23)";
   ctx.fillRect(72, 85, 12, 12);
   ctx.fillRect(117, 85, 12, 12);
 }
 
-function blinkEyes(ctx) {
+// Blink eyes
+function blinkEyes() {
+  const canvas = document.getElementById("profile-pic");
+  const ctx = canvas.getContext("2d");
+
   function blink() {
     ctx.fillStyle = "rgb(245,207,186)";
     ctx.fillRect(72, 85, 12, 12);
@@ -79,6 +106,13 @@ function blinkEyes(ctx) {
   blink();
 }
 
+// Call drawProfilePic immediately after the window loads
+window.addEventListener("load", () => {
+  drawProfilePic();
+  blinkEyes();
+});
+
+
 // Initialize everything
 window.addEventListener("load", () => {
   const canvas = document.getElementById("profile-pic");
@@ -90,6 +124,42 @@ window.addEventListener("load", () => {
   initSkillBars();
   typeWriter("Andrea Megan Sustic", 0);
 });
+
+// Experience Carousel
+let currentIndex = 0;
+
+function updateExperience() {
+  const experienceInner = document.querySelector(".experience-inner");
+  const experiences = document.querySelectorAll(".experience-inner article");
+  
+  if (experiences.length > 0) {
+    const offset = -currentIndex * 100;
+    experienceInner.style.transform = `translateX(${offset}%)`;
+
+    // Update the dots
+    const dots = document.querySelectorAll("#scroll-indicator .indicator-dot");
+    dots.forEach((dot, index) => {
+      dot.classList.toggle("active", index === currentIndex);
+    });
+  }
+}
+
+document.getElementById("next-experience").addEventListener("click", () => {
+  const experiences = document.querySelectorAll(".experience-inner article");
+  if (experiences.length > 0) {
+    currentIndex = (currentIndex + 1) % experiences.length;
+    updateExperience();
+  }
+});
+
+document.getElementById("prev-experience").addEventListener("click", () => {
+  const experiences = document.querySelectorAll(".experience-inner article");
+  if (experiences.length > 0) {
+    currentIndex = (currentIndex - 1 + experiences.length) % experiences.length;
+    updateExperience();
+  }
+});
+
 
 // Matrix background effect remains unchanged
 // Matrix background effect
