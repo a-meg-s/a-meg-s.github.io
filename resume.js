@@ -106,21 +106,10 @@ function blinkEyes() {
   blink();
 }
 
-// Call drawProfilePic immediately after the window loads
+// Call drawProfilePic and blinkEyes once the window loads
 window.addEventListener("load", () => {
   drawProfilePic();
   blinkEyes();
-});
-
-
-// Initialize everything
-window.addEventListener("load", () => {
-  const canvas = document.getElementById("profile-pic");
-  if (canvas && canvas.getContext) {
-    const ctx = canvas.getContext("2d");
-    blinkEyes(ctx);
-    drawProfilePic();
-  }
   initSkillBars();
   typeWriter("Andrea Megan Sustic", 0);
 });
@@ -132,15 +121,17 @@ function updateExperience() {
   const experienceInner = document.querySelector(".experience-inner");
   const experiences = document.querySelectorAll(".experience-inner article");
   
-  if (experiences.length > 0) {
+  if (experiences.length > 0 && experienceInner) {
     const offset = -currentIndex * 100;
     experienceInner.style.transform = `translateX(${offset}%)`;
 
     // Update the dots
     const dots = document.querySelectorAll("#scroll-indicator .indicator-dot");
-    dots.forEach((dot, index) => {
-      dot.classList.toggle("active", index === currentIndex);
-    });
+    if (dots) {
+      dots.forEach((dot, index) => {
+        dot.classList.toggle("active", index === currentIndex);
+      });
+    }
   }
 }
 
@@ -160,9 +151,7 @@ document.getElementById("prev-experience").addEventListener("click", () => {
   }
 });
 
-
 // Matrix background effect remains unchanged
-// Matrix background effect
 (function () {
   const canvas = document.getElementById("matrix-canvas");
   const ctx = canvas.getContext("2d");
