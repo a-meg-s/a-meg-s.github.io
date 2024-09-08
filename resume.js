@@ -18,7 +18,7 @@ function typeWriter(text, n) {
         cursor.style.visibility = cursor.style.visibility === "hidden" ? "visible" : "hidden";
         blinkCount++;
         if (blinkCount < 10) {
-          setTimeout(blinkCursor, 900);
+          setTimeout(blinkCursor, 530);
         } else {
           cursor.remove();
         }
