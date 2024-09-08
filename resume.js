@@ -48,7 +48,7 @@ function initSkillBars() {
 }
 
 // Profile picture drawing
-function drawProfilePic() {
+/*function drawProfilePic() {
   const canvas = document.getElementById("profile-pic");
   if (canvas && canvas.getContext) {
     const ctx = canvas.getContext("2d");
@@ -105,11 +105,11 @@ function blinkEyes() {
   }
   blink();
 }
-
+*/
 // Call drawProfilePic and blinkEyes once the window loads
 window.addEventListener("load", () => {
-  drawProfilePic();
-  blinkEyes();
+ // drawProfilePic();
+ // blinkEyes();
   initSkillBars();
   typeWriter("Andrea Megan Sustic", 0);
 });
