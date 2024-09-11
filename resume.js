@@ -33,7 +33,7 @@ function initSkillBars() {
   const skillBars = document.querySelectorAll(".language-bar");
   skillBars.forEach((bar) => {
     const percentage = bar.getAttribute("data-percentage");
-    bar.style.width = "99%";
+    bar.style.width = "98%";
 
     bar.addEventListener("mouseenter", () => {
       bar.style.width = `${percentage}%`;  // Use template literals for dynamic values
