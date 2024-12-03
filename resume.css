@@ -97,6 +97,7 @@ section {
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   max-width: 800px;
+  animation: fadeIn 1s ease-in-out;
 }
 
 .section-divider {
@@ -125,7 +126,7 @@ section {
 }
 
 .retro-section .highlight {
-  color: #39FF14;
+  color: #39ff14;
   font-weight: bold;
 }
 
