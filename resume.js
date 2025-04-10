@@ -193,6 +193,11 @@ document.getElementById("prev-experience").addEventListener("click", () => {
 })();
 
 // Back to Top Button Functionality
-document.getElementById("back-to-top").addEventListener("click", () => {
-  window.scrollTo({ top: 0, behavior: "smooth" });
+window.addEventListener("load", () => {
+  const backToTopButton = document.getElementById("back-to-top");
+  if (backToTopButton) {
+    backToTopButton.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  }
 });
