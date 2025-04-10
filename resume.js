@@ -191,3 +191,8 @@ document.getElementById("prev-experience").addEventListener("click", () => {
   resizeCanvas();
   setInterval(drawMatrix, 35);
 })();
+
+// Back to Top Button Functionality
+document.getElementById("back-to-top").addEventListener("click", () => {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+});
