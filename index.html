@@ -1,330 +1,385 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com;">
-    <title>Andrea M. Sustic</title>
-    <link rel="icon" type="image/png" href="img/pfp.png" />
-    <link rel="stylesheet" href="resume.css" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap"
-      rel="stylesheet"
-    />
-  </head>
-  <body>
-    <header>
-      <div id="header-content">
-        <! --<canvas id="profile-pic" width="180" height="180"></canvas->
-        <img src="img/pfp.png" alt="Pixel Art Profile Picture" width="180" height="180"/>
-        <div id="personal-details">
-          <h1 id="typewriter">Andrea Megan Sustic</h1>
-        </div>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Andrea M. Sustic</title>
+  <link rel="stylesheet" href="https://unpkg.com/98.css">
+  <link rel="stylesheet" href="resume.css">
+  <link rel="icon" type="image/png" href="img/pfp.png" />
+</head>
+
+<body>
+  <div class="desktop">
+    <div class="icon" onclick="openWindow('about')">
+      <img src="icons/resume.png" alt="Resume">
+      <span>About Me</span>
+    </div>
+    <div class="icon" onclick="openWindow('experience')">
+      <img src="icons/folder.png" alt="Experience">
+      <span>Experience</span>
+    </div>
+    <div class="icon" onclick="openWindow('projects')">
+      <img src="icons/folder.png" alt="Projects">
+      <span>Projects</span>
+    </div>
+    <div class="icon" onclick="openWindow('contact')">
+      <img src="icons/contact.png" alt="Contact">
+      <span>Contact</span>
+    </div>
+  </div>
+
+  <div id="welcome-message" class="window modal">
+    <div class="title-bar">
+      <div class="title-bar-text">Hello and welcome to my online CV!</div>
+      <div class="title-bar-controls">
+        <button aria-label="Close" onclick="closeWindow('welcome-message')"></button>
       </div>
-    </header>
-
-    <nav id="navbar">
-      <a href="#current-work">Current Update</a>
-      <a href="#languages">Languages</a>
-      <a href="#experience">Experience</a>
-      <a href="#projects">Projects</a>
-      <a href="#education">Education</a>
-      <a href="#contact">Contact</a>
-    </nav>
-
-    <canvas id="matrix-canvas"></canvas>
-
-    <section id="skills" class="intro-section">
-      <h2>Hello and welcome to my online CV</h2>
-      <hr class="section-divider" />
-      <p>
-        I am an Information & Cyber Security student at HSLU,
-        Switzerland, with a focus on Cloud, Mobile, and IoT Security. I am
-        committed to continuously expanding my expertise in cybersecurity and
-        thrive on tackling new challenges. So far, I've mostly focused on defensive concepts, 
-        but I would like to expand my knowledge of offensive concepts and techniques as well.
+    </div>
+    <div class="window-body">
+      <p>I am an <span class="bold">Information &amp; Cyber Security student</span> at HSLU,
+      Switzerland, with a focus on Cloud, Mobile, and IoT Security. I am
+      committed to continuously expanding my expertise in cybersecurity and
+      thrive on tackling new challenges. So far, I've mostly focused on defensive concepts,
+      but I would like to expand my knowledge of offensive concepts and techniques as well.
       </p>
       <p>
-        This website is a small project of mine that I've occasionally been working on  
+        This website is a small project of mine that I've occasionally been working on
         to help showcase my skills and recent projects. Enjoy!
       </p>
-    </section>
+      <button onclick="closeWindow('welcome-message')">OK</button>
+    </div>
+  </div>
 
-    <section id="current-work" class="retro-section">
-  <h2>What I'm Currently Working On</h2>
-  <hr class="section-divider" />
-  <p id="current-work-content">
-    Since I’m still studying, my areas of interest and projects are constantly evolving and changing. 
-    I am currently developing a text-input game in <span class="highlight">C</span> to expand my knowledge of the programming language. 
-    Other programming languages I have worked with are <span class="highlight">Java</span>, <span class="highlight">HTML</span>, <span class="highlight">CSS</span>, <span class="highlight">Python</span>, <span class="highlight">SQL</span>, and <span class="highlight">JavaScript</span>.
-  </p>
-  <p id="current-work-content2">
-    Another area I've  been focused on, is expanding my knowledge of <span class="highlight">Cloud Security</span> Concepts. To be specific, I'm currently focusing on <span class="highlight">SDNs and Cloud Infrastructure</span>.
-    Reports and results of various projects and topics I have worked on so far can be downloaded from the "Project" section of this website.
-</section>
+  <div class="taskbar">
+    <button class="start-button">Start</button>
+    <div class="taskbar-spacer"></div>
+    <div id="taskbar-clock" class="clock">12:00</div>
+  </div>
 
-   
+  <div id="start-menu" class="start-menu hidden">
+    <div class="menu-item" onclick="openWindow('about')">🧑 About Me</div>
+    <div class="menu-item" onclick="openWindow('experience')">📂 Experience</div>
+    <div class="menu-item" onclick="openWindow('projects')">📁 Projects</div>
+    <div class="menu-item" onclick="openWindow('contact')">📧 Contact</div>
+    <div class="menu-item" onclick="openWindow('task-manager'); populateTaskList();">🖥️ Task Manager</div>
+  </div>
 
-    <section id="languages" class="skill-container">
-      <h2>Languages</h2>
-      <hr class="section-divider" />
+  
+  <div id="task-manager" class="window modal" style="display:none; width: 500px; height: 350px;">
+    <div class="title-bar">
+      <div class="title-bar-text">Task Manager</div>
+      <div class="title-bar-controls">
+        <button onclick="closeWindow('task-manager')"></button>
+      </div>
+    </div>
+    <div class="window-body">
+      <p><strong>Task Manager</strong> – View all currently open windows and close them as needed.</p>
+      <hr>
+      <div id="task-list">
+        <!-- Populated dynamically -->
+      </div>
+    </div>
+  </div>
+  
+
+  <div id="about" class="window about-window" style="display: none;">
+    <div class="title-bar">
+      <div class="title-bar-text">About Me</div>
+      <div class="title-bar-controls">
+        <button aria-label="Close" onclick="closeWindow('about')"></button>
+      </div>
+    </div>
+    <div class="window-body scrollable">
+      <div class="profile-section">
+        <img src="img/pfp.png" alt="Profile Picture" class="profile-pic">
+        <p>I’m an Information &amp; Cyber Security student at HSLU, Switzerland. I specialize in Cloud, Mobile, and IoT
+          security, and I enjoy exploring both defensive and offensive techniques.</p>
+      </div>
+      <hr>
+      <h3>Education</h3>
+      <p>Bachelor in Information &amp; Cyber Security<br>Lucerne University of Applied Sciences and Arts<br>2023 –
+        Current</p>
+      <hr>
+      <h3>Skills</h3>
+      <p>Java, C, HTML, CSS, Python, SQL, JavaScript, Cloud Security, SDNs, etc.</p>
+      <hr>
+      <h3>Languages</h3>
       <div id="language-container">
-        <div class="language-bar" data-percentage="98">English....(C2)</div>
-        <div class="language-bar" data-percentage="88">German.....(C1)</div>
-        <div class="language-bar" data-percentage="68">Italian....(B1)</div>
-        <div class="language-bar" data-percentage="98">Slovenian..(C2)</div>
-        <div class="language-bar" data-percentage="68">Japanese...(B1)</div>
-      </div>
-    </section>
-
-
-    <section id="experience">
-      <h2>Experience</h2>
-      <hr class="section-divider" />
-      <div class="experience-container">
-        <div class="experience-carousel-wrapper">
-          <div class="experience-navigation left">
-            <button id="prev-experience">&lt;</button>
-          </div>
-          <div class="experience-carousel">
-            <div class="experience-inner">
-              <article>
-                <h3>Key Skills from Experience:</h3>
-                <ul>
-                  <li>
-                    <span class= "bold">Detail-Oriented:</span> Ensured high standards and accuracy in all
-                    tasks.
-                  </li>
-                  <li>
-                    <span class= "bold">Effective Communicator:</span> Strong skills in customer
-                    interaction and teamwork.
-                  </li>
-                  <li>
-                    <span class= "bold">Compliance-Focused:</span> Adhered to regulations and enforced
-                    policies consistently.
-                  </li>
-                  <li>
-                    <span class= "bold">Problem-Solver:</span> Optimized processes and resolved issues
-                    efficiently.
-                  </li>
-                  <li>
-                    <span class= "bold">Data Management:</span> Experienced in handling and protecting
-                    sensitive information.
-                  </li>                  
-                </ul>
-              </article>
-              <article>
-                <h3>Bakery Assistant @ SourGood</h3>
-                <p>July 2024 - Current Date, Zürich</p>
-                <ul>
-                  <li>
-                    Maintained high standards in product quality, ensuring
-                    consistency across all sourdough batches.
-                  </li>
-                  <li>
-                    Worked closely with the team to meet production goals on
-                    time.
-                  </li>
-                  <li>
-                    Monitored stock levels and managed orders to ensure smooth
-                    operations.
-                  </li>
-                </ul>
-              </article>
-              <article>
-                <h3>Sales Associate @ Holmes Place AG</h3>
-                <p>January 2022 - December 2022, Zürich</p>
-                <ul>
-                  <li>
-                    Consistently achieved membership targets through strategic
-                    client engagement.
-                  </li>
-                  <li>
-                    Maintained accurate records and safeguarded client data in
-                    CRM systems.
-                  </li>
-                  <li>
-                    Assisted members with booking systems, ensuring a seamless
-                    user experience.
-                  </li>
-                  <li>
-                    Enforced studio policies and adhered to industry
-                    regulations.
-                  </li>
-                  <li>
-                    Contributed to promotional campaigns, enhancing studio
-                    visibility.
-                  </li>
-                </ul>
-              </article>
-              <article>
-                <h3>Physiotherapy Assistant @ DEOS Trnovo</h3>
-                <p>May 2020 - July 2020, Ljubljana Slovenia</p>
-                <ul>
-                  <li>
-                    Communicated with physicians to provide updates on patient
-                    care.
-                  </li>
-                  <li>
-                    Developed team communications and information for meetings.
-                  </li>
-                  <li>
-                    Taught patients how to live within limits of capabilities
-                    and celebrated successes.
-                  </li>
-                  <li>
-                    Assisted physiotherapists in patient assessments and
-                    treatment planning.
-                  </li>
-                  <li>
-                    Supported patients during therapy sessions and provided
-                    instructions and demonstrations for exercises and stretches.
-                  </li>
-                </ul>
-              </article>
-
-              <article>
-                <h3>Sales Associate @ Lush Retail Ltd.</h3>
-                <p>May 2019 - September 2019, Ljubljana Slovenia</p>
-                <ul>
-                  <li>
-                    Organized and prioritized work to complete assignments in a
-                    timely, efficient manner.
-                  </li>
-                  <li>
-                    Successfully achieved sales targets and built customer
-                    relationships.
-                  </li>
-                  <li>Remained punctual and professional at all times.</li>
-                  <li>Working in a sales team in a well-organized store.</li>
-                  <li>
-                    Multi-lingual environment selling mostly to international
-                    clients.
-                  </li>
-                </ul>
-              </article>
-            </div>
-          </div>
-          <div class="experience-navigation right">
-            <button id="next-experience">&gt;</button>
+        <div class="lang-item">
+          <span class="lang-label">English (C2)</span>
+          <div class="language-bar" data-percentage="98">
+            <div class="bar-fill"></div>
           </div>
         </div>
-        <div id="scroll-indicator">
-          <div class="indicator-dot active"></div>
-          <div class="indicator-dot"></div>
-          <div class="indicator-dot"></div>
-          <div class="indicator-dot"></div>
-          <div class="indicator-dot"></div>
+        <div class="lang-item">
+          <span class="lang-label">German (C1)</span>
+          <div class="language-bar" data-percentage="88">
+            <div class="bar-fill"></div>
+          </div>
+        </div>
+        <div class="lang-item">
+          <span class="lang-label">Italian (B1)</span>
+          <div class="language-bar" data-percentage="68">
+            <div class="bar-fill"></div>
+          </div>
+        </div>
+        <div class="lang-item">
+          <span class="lang-label">Slovenian (C2)</span>
+          <div class="language-bar" data-percentage="98">
+            <div class="bar-fill"></div>
+          </div>
+        </div>
+        <div class="lang-item">
+          <span class="lang-label">Japanese (B1)</span>
+          <div class="language-bar" data-percentage="68">
+            <div class="bar-fill"></div>
+          </div>
         </div>
       </div>
-    </section>
+    </div>
+  </div>
 
-    
-<section id="projects">
-      <h2>Projects</h2>
-      <hr class="section-divider" />
-      <article>
-        <h3>CV Website</h3>
-        <p>As seen on the screen you're currently skimming through :)</p>
-      </article>
-      <article>
-        <h3>SQL Databank Application "ByteMe"</h3>
-        <p>
-          Collaborated on designing and implementing a database application that
-          helps users calculate the exercise time needed to burn off calories
-          from fast food, using MySQL for data management and Metabase for
-          visualization. It supports healthier decision-making by linking fast
-          food choices with physical activities and providing visual insights.
-        </p>
-        <p>Downloadable report in German:</p>
-        <a href="info/DBS_Projektbericht.pdf" download>Download the PDF</a>
-      </article>
-      <article>
-        <h3>Personal Mirror – Android Face Recognition Application</h3>
-        <p>
-          Worked with an interdisciplinary team to design and implement an 
-          Android-based interactive application, integrating facial recognition 
-          for personalized user experiences. Developed a system utilizing OpenCV 
-          for real-time face detection, allowing up to five users to receive personalized 
-          greetings, calendar notifications, and alarms. Implemented secure data 
-          handling through encrypted local storage. Utilized Android Studio, Java, and 
-          Kotlin to ensure cross-compatibility and efficient system performance​. 
-        </p>
-        <p>Downloadable report in German:</p>
-        <a href="info/IIP1-App-Bericht.pdf" download>Download the PDF</a>
-      </article>
-      <article>
-        <h3>Vault 7 – Grasshopper Analysis</h3>
-        <p>
-          Performed an in-depth technical analysis of the CIA’s leaked Grasshopper 
-          malware framework from the Vault 7 revelations. Investigated the architecture 
-          of the tool, including installers, persistence modules, payload 
-          execution, and obfuscation techniques. Developed a hypothetical use case to 
-          demonstrate potential deployment scenarios. Analyzed the cybersecurity implications 
-          of the leak, including risks associated with malware tool replication and the 
-          broader impact on security infrastructure​.
-        </p>
-        <p>Downloadable report in German:</p>
-        <a href="info/ISLAB_Vault7-Analysis.pdf" download>Download the PDF</a>
-      </article>
-      <article>
-        <h3>COBIT V and ITIL: Security Aspects and Use Cases</h3>
-        <p>
-          Conducted a detailed analysis of COBIT V and ITIL frameworks, focusing on 
-          security aspects within IT governance and IT service management. Evaluated 
-          five real-world case studies from industries such as healthcare, finance, 
-          and technology to assess the effectiveness of these frameworks in enhancing 
-          IT security, compliance, and risk management. Developed strategic recommendations 
-          for organizations integrating COBIT and ITIL, including governance structures, 
-          risk management, and incident response strategies​.
-        </p>
-        <p>Downloadable book in German:</p>
-        <a href="info/ISM_Cobit-ITIL.pdf" download>Download the PDF</a>
-      </article>
-      <article>
-        <h3>Chain of Custody in Incident Response - Project Leader</h3>
-        <p>
-          As the project leader of a team of 5 students, our task was to research 
-          the implementation of <span class="highlight">chain of custody</span> in incident response situations.
-          We compiled and presented our findings in the form of a comprehensive book.
-        </p>
-        <p>Downloadable book in German:</p>
-        <a href="info/SPTA_Buch.pdf" download>Download the PDF</a>
-      </article>
+  <div id="experience" class="window explorer-window">
+    <div class="title-bar">
+      <div class="title-bar-text">Experience</div>
+      <div class="title-bar-controls">
+        <button aria-label="Close" onclick="closeWindow('experience')"></button>
+      </div>
+    </div>
+    <div class="menu-bar">
+      <span>File</span><span>Edit</span><span>View</span><span>Help</span>
+    </div>
+    <div class="explorer-body split">
+      <div class="sidebar">
+        <div class="sidebar-item" onclick="scrollToFile('exp-bakery')">Bakery Assistant</div>
+        <div class="sidebar-item" onclick="scrollToFile('exp-holmes')">Sales Associate @ Holmes Place AG</div>
+        <div class="sidebar-item" onclick="scrollToFile('exp-physio')">Physiotherapy Assistant</div>
+        <div class="sidebar-item" onclick="scrollToFile('exp-lush')">Sales Associate @ Lush</div>
+      </div>
+      <div class="explorer-content">
+        <div class="file-grid">
+          <div id="exp-bakery" class="file">
+            <img src="icons/shell.png" alt="Bakery Assistant">
+            <span>Bakery Assistant</span>
+          </div>
+          <div id="exp-holmes" class="file">
+            <img src="icons/shell.png" alt="Sales Associate">
+            <span>Sales Associate @ Holmes Place AG</span>
+          </div>
+          <div id="exp-physio" class="file">
+            <img src="icons/shell.png" alt="Physio Intern">
+            <span>Physiotherapy Assistant</span>
+          </div>
+          <div id="exp-lush" class="file">
+            <img src="icons/shell.png" alt="Sales Associate Lush">
+            <span>Sales Associate @ Lush</span>
+          </div>          
+        </div>
+      </div>
+    </div>
+    <div class="status-bar">
+      <span>3 items</span>
+      <span>Free space: 5.6 GB</span>
+    </div>
+  </div>
 
-</section>
+  <div id="notepad" class="window notepad-window" style="display:none;">
+    <div class="title-bar">
+      <div id="notepad-title" class="title-bar-text">Untitled - Notepad</div>
+      <div class="title-bar-controls">
+        <button aria-label="Close" onclick="closeWindow('notepad')"></button>
+      </div>
+    </div>
+    <div class="menu-bar">
+      <span>File</span><span>Edit</span><span>Format</span><span>View</span><span>Help</span>
+    </div>
+    <div class="window-body notepad-body">
+      <div id="notepad-content" class="notepad-html"></div>
+    </div>
+  </div>
 
-    <section id="education">
-      <h2>Education</h2>
-      <hr class="section-divider" />
-      <article>
-        <h3>
-          Bachelor in Information & Cyber Security; Major in Security of Cloud,
-          Mobile & IoT
-        </h3>
-        <p>@Lucerne University of Applied Sciences and Arts</p>
-        <p>2023 - Current Date</p>
-      </article>
-    </section>
+  <div id="projects" class="window explorer-window">
+    <div class="title-bar">
+      <div class="title-bar-text">Projects</div>
+      <div class="title-bar-controls">
+        <button aria-label="Close" onclick="closeWindow('projects')"></button>
+      </div>
+    </div>
+    <div class="menu-bar">
+      <span>File</span><span>Edit</span><span>View</span><span>Help</span>
+    </div>
+    <div class="explorer-body split">
+      <div class="sidebar">
+        <div class="sidebar-item" onclick="scrollToFile('proj-cv')">CV Website</div>
+        <div class="sidebar-item" onclick="scrollToFile('proj-sql')">ByteMe</div>
+        <div class="sidebar-item" onclick="scrollToFile('proj-android')">Face Recognition</div>
+        <div class="sidebar-item" onclick="scrollToFile('proj-vault7')">Vault 7</div>
+        <div class="sidebar-item" onclick="scrollToFile('proj-cobit')">COBIT/ITIL</div>
+        <div class="sidebar-item" onclick="scrollToFile('proj-chain')">Chain of Custody</div>
+      </div>
+      <div class="explorer-content">
+        <div class="file-grid">
+          <div id="proj-cv" class="file">
+            <img src="icons/shell.png" alt="CV Website">
+            <span>CV Website</span>
+          </div>
+          <div id="proj-sql" class="file">
+            <img src="icons/shell.png" alt="SQL Databank">
+            <span>SQL Databank Application</span>
+          </div>
+          <div id="proj-android" class="file">
+            <img src="icons/shell.png" alt="Face Recognition">
+            <span>Face Recognition App</span>
+          </div>
+          <div id="proj-vault7" class="file">
+            <img src="icons/shell.png" alt="Vault 7">
+            <span>Vault7_Analysis.txt</span>
+          </div>
+          <div id="proj-cobit" class="file">
+            <img src="icons/shell.png" alt="COBIT/ITIL">
+            <span>COBIT_ITIL.txt</span>
+          </div>
+          <div id="proj-chain" class="file">
+            <img src="icons/shell.png" alt="Chain of Custody">
+            <span>ChainOfCustody.txt</span>
+          </div>          
+        </div>
+      </div>
+    </div>
+    <div class="status-bar">
+      <span>3 items</span>
+      <span>Free space: 5.6 GB</span>
+    </div>
+  </div>
 
-    <footer id="contact">
-      <p>
-        Contact:
-        <a href="mailto:codebymegan@gmail.com">codebymegan@gmail.com</a> |
-        LinkedIn:
-        <a href="https://www.linkedin.com/in/andrea-megan-sustic-448456227/">
-          Andrea Megan Sustic</a
-        >
-      </p>
-    </footer>
+  <div id="contact" class="window" style="display: none;">
+    <div class="title-bar">
+      <div class="title-bar-text">Contact</div>
+      <div class="title-bar-controls">
+        <button aria-label="Close" onclick="closeWindow('contact')"></button>
+      </div>
+    </div>
+    <div class="window-body scrollable">
+      <div class="profile-section">
+        <img src="img/pfp.png" alt="Profile Picture" class="profile-pic">
+        <p>
+          Contact:
+          <a href="mailto:codebymegan@gmail.com">codebymegan@gmail.com</a> </br> </br>
+          LinkedIn:
+          <a href="https://www.linkedin.com/in/andrea-megan-sustic-448456227/">
+            Andrea Megan Sustic</a>
+        </p>
+    </div>
+  </div>
 
-    <button id="back-to-top" title="Back to Top">▲</button>
-    <script src="resume.js"></script>
-  </body>
+
+  
+ 
+
+
+
+
+
+  <!-- Notepad File Contents (hidden) -->
+  <div id="file-contents" style="display: none;">
+  
+    <!-- EXPERIENCE ENTRIES -->
+    <div id="content-exp-bakery" data-title="Bakery Assistant @ SourGood">
+      <ul>
+        <li>July 2024 – Current Date, Zürich</li>
+        <li>Maintained high standards in product quality, ensuring consistency across all sourdough batches.</li>
+        <li>Worked closely with the team to meet production goals on time.</li>
+        <li>Monitored stock levels and managed orders to ensure smooth operations.</li>
+      </ul>
+    </div>
+  
+    <div id="content-exp-holmes" data-title="Sales Associate @ Holmes Place AG">
+      <ul>
+        <li>January 2022 – December 2022, Zürich</li>
+        <li>Consistently achieved membership targets through strategic client engagement.</li>
+        <li>Maintained accurate records and safeguarded client data in CRM systems.</li>
+        <li>Assisted members with booking systems, ensuring a seamless user experience.</li>
+        <li>Enforced studio policies and adhered to industry regulations.</li>
+        <li>Contributed to promotional campaigns, enhancing studio visibility.</li>
+      </ul>
+    </div>
+  
+    <div id="content-exp-physio" data-title="Physiotherapy Assistant @ DEOS Trnovo">
+      <ul>
+        <li>May 2020 – July 2020, Ljubljana, Slovenia</li>
+        <li>Communicated with physicians to provide updates on patient care.</li>
+        <li>Developed team communications and information for meetings.</li>
+        <li>Taught patients how to live within limits of capabilities and celebrated successes.</li>
+        <li>Assisted physiotherapists in patient assessments and treatment planning.</li>
+        <li>Supported patients during therapy sessions with exercises and demonstrations.</li>
+      </ul>
+    </div>
+  
+    <div id="content-exp-lush" data-title="Sales Associate @ Lush Retail Ltd.">
+      <ul>
+        <li>May 2019 – September 2019, Ljubljana</li>
+        <li>Met sales targets, prioritized tasks, worked in a multilingual team.</li>
+        <li>Supported international clients and maintained store organization.</li>
+      </ul>
+    </div>
+  
+    <!-- PROJECT ENTRIES -->
+    <div id="content-proj-cv" data-title="CV Website">
+      <ul>
+        <li>As seen on the screen you're currently skimming through :)</li>
+      </ul>
+    </div>
+  
+    <div id="content-proj-sql" data-title='SQL Databank Application "ByteMe"'>
+      <ul>
+        <li>Designed a database app that calculates exercise needed to burn off calories from fast food.</li>
+        <li>Used MySQL for data and Metabase for visualization.</li>
+        <li>Encourages healthier decisions by linking food with physical activity.</li>
+        <li><a href="info/DBS_Projektbericht.pdf" download>Download report (German)</a></li>
+      </ul>
+    </div>
+  
+    <div id="content-proj-android" data-title="Personal Mirror – Android Face Recognition App">
+      <ul>
+        <li>Android app with real-time face detection using OpenCV.</li>
+        <li>Personalized greetings, calendar notifications, and alarms.</li>
+        <li>Encrypted local data storage.</li>
+        <li>Built with Android Studio, Java, and Kotlin.</li>
+        <li><a href="info/IIP1-App-Bericht.pdf" download>Download report (German)</a></li>
+      </ul>
+    </div>
+  
+    <div id="content-proj-vault7" data-title="Vault 7 – Grasshopper Analysis">
+      <ul>
+        <li>Analyzed the CIA’s Grasshopper malware framework.</li>
+        <li>Explored architecture, payload deployment, and obfuscation.</li>
+        <li><a href="info/ISLAB_Vault7-Analysis.pdf" download>Download report (German)</a></li>
+      </ul>
+    </div>
+  
+    <div id="content-proj-cobit" data-title="COBIT V and ITIL – Security Use Cases">
+      <ul>
+        <li>Studied COBIT V & ITIL frameworks for IT security and risk management.</li>
+        <li>Analyzed 5 industry case studies.</li>
+        <li>Offered recommendations for IT governance and incident response.</li>
+        <li><a href="info/ISM_Cobit-ITIL.pdf" download>Download book (German)</a></li>
+      </ul>
+    </div>
+  
+    <div id="content-proj-chain" data-title="Chain of Custody – Incident Response">
+      <ul>
+        <li>Led a team of 5 researching digital chain of custody practices.</li>
+        <li>Produced a comprehensive book documenting findings and recommendations.</li>
+        <li><a href="info/SPTA_Buch.pdf" download>Download book (German)</a></li>
+      </ul>
+    </div>
+  
+  </div>
+
+
+  <script src="resume.js"></script>
+</body>
+
 </html>
