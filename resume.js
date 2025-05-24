@@ -2,25 +2,33 @@
 let zIndexCounter = 10000;
 
 // ——— Window Management ———
-const openWindow = id => {
+function openWindow(id) {
   const win = document.getElementById(id);
-  if (!win) return;
+  const wrapper = document.getElementById("desktop-wrapper");
+  if (!win || !wrapper) return;
 
+  win.style.visibility = 'hidden';
   win.style.display = 'block';
   win.style.zIndex = ++zIndexCounter;
+  win.style.position = 'absolute'; // Key line!
 
-  const { innerWidth: W, innerHeight: H } = window;
-  const { width: w, height: h } = win.getBoundingClientRect();
-  const taskbarHeight = document.querySelector('.taskbar').offsetHeight;
+  requestAnimationFrame(() => {
+    const w = win.offsetWidth;
+    const h = win.offsetHeight;
+    const rect = wrapper.getBoundingClientRect();
 
-  const top = Math.max((H - taskbarHeight - h) / 2, 0);
-  const left = Math.max((W - w) / 2, 0);
+    const top = (wrapper.scrollTop || 0) + (wrapper.clientHeight - h) / 2;
+    const left = (wrapper.clientWidth - w) / 2;
 
-  win.style.top = `${top}px`;
-  win.style.left = `${left}px`;
+    win.style.top = `${Math.max(top, 10)}px`;
+    win.style.left = `${Math.max(left, 10)}px`;
+    win.style.visibility = 'visible';
 
-  if (id === 'about') initLanguageBars();
-};
+    if (id === 'about') initLanguageBars();
+  });
+}
+
+
 
 const closeWindow = id => {
   const win = document.getElementById(id);
@@ -127,6 +135,54 @@ const updateClock = () => {
   const now = new Date();
   clock.textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 };
+
+function triggerVirus() {
+  let counter = 0;
+  const maxAlerts = 20;
+  const interval = setInterval(() => {
+    if (counter >= maxAlerts) {
+      clearInterval(interval);
+      showStopVirusButton();
+      return;
+    }
+    createFakeAlert(`System Error: 0x000${Math.floor(100 + Math.random() * 900)}DEAD`);
+    counter++;
+  }, 300);
+}
+
+function createFakeAlert(message) {
+  const alertBox = document.createElement('div');
+  alertBox.classList.add('window', 'fake-virus-alert');
+  alertBox.style.zIndex = ++zIndexCounter;
+  alertBox.innerHTML = `
+    <div class="title-bar">
+      <div class="title-bar-text">Alert</div>
+      <div class="title-bar-controls">
+      <button aria-label="Close" onclick="this.closest('.window').remove()">X</button>
+      </div>
+    </div>
+    <div class="window-body"><p>${message}</p></div>
+  `;
+  document.body.appendChild(alertBox);
+
+  const x = Math.floor(Math.random() * (window.innerWidth - 200));
+  const y = Math.floor(Math.random() * (window.innerHeight - 100));
+  alertBox.style.left = `${x}px`;
+  alertBox.style.top = `${y}px`;
+  alertBox.style.display = 'block';
+}
+
+function showStopVirusButton() {
+  const button = document.createElement('button');
+  button.textContent = 'Stop Virus';
+  button.className = 'stop-virus-button';
+  button.onclick = () => {
+    document.querySelectorAll('.fake-virus-alert').forEach(el => el.remove());
+    button.remove();
+  };
+  document.body.appendChild(button);
+}
+
 
 // ——— DOMContentLoaded Initialization ———
 document.addEventListener('DOMContentLoaded', () => {
