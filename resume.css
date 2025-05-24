@@ -62,6 +62,7 @@ body {
   background: #c0c0c0;
   border: 2px outset #fff;
   cursor: pointer;
+  font: 15px/1.4 'MS Sans Serif', sans-serif;
 }
 
 .clock {
