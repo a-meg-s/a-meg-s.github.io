@@ -280,9 +280,6 @@ html, body {
   user-select: none;
 }
 
-.sidebar-item:hover {
-  background: #c0c0c0;
-}
 
 /* File Grid */
 .explorer-content {
@@ -314,8 +311,8 @@ html, body {
   margin-bottom: 4px;
 }
 
-.file.highlight {
-  outline: 2px dotted red;
+.file :hover {
+  background: #c0c0c0;
 }
 
 /* Status Bar */
@@ -417,6 +414,54 @@ html, body {
   height: 90%;
   border: none;
   display: none;
+}
+
+/* === Error Window === */
+#task-list {
+  padding: 10px;
+  max-height: 250px;
+  overflow-y: auto;
+}
+
+.task-entry {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6px;
+  padding: 4px;
+  border-bottom: 1px dashed #999;
+}
+
+.task-entry button {
+  padding: 2px 8px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+/* === Fake Virus Alert === */
+.fake-virus-alert {
+  width: 220px;
+  height: auto;
+  background-color: #c0c0c0;
+  position: absolute;
+  box-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+}
+
+.stop-virus-button {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 12px 24px;
+  font-family: 'MS Sans Serif', sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  background-color: red;
+  border: 2px outset white;
+  cursor: pointer;
+  z-index: 150000;
+  animation: flash 0.6s infinite, shake 1.2s infinite;
+  box-shadow: 0 0 10px white;
 }
 
 /* === Animations === */
