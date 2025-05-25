@@ -193,24 +193,56 @@ function showStopVirusButton() {
 }
 
 function openInternetWindow() {
-  openWindow('internet-browser');
+  const id = 'internet-browser';
+  const win = document.getElementById(id);
+  const wrapper = document.getElementById("desktop-wrapper");
+
+  if (!win || !wrapper) return;
+
+  win.style.display = 'block';
+  win.style.visibility = 'hidden';
+  win.style.zIndex = ++zIndexCounter;
+
+  requestAnimationFrame(() => {
+    const w = win.offsetWidth;
+    const h = win.offsetHeight;
+
+    const wrapperRect = wrapper.getBoundingClientRect();
+    const wrapperWidth = wrapper.clientWidth;
+    const wrapperHeight = wrapper.clientHeight;
+
+    let top = Math.max((wrapperHeight - h) / 2, 10);
+    const left = Math.max((wrapperWidth - w) / 2, 10);
+    top = Math.max(top - 30, 10);
+
+    win.style.position = 'absolute';
+    win.style.top = `${Math.min(top, wrapperHeight - h - 10)}px`;
+    win.style.left = `${Math.min(left, wrapperWidth - w - 10)}px`;
+    win.style.visibility = 'visible';
+  });
 
   const loader = document.getElementById("internet-loader");
   const iframe = document.getElementById("internet-iframe");
 
-  loader.style.display = 'flex';     // Show loader
-  iframe.style.display = 'none';     // Hide iframe initially
-  iframe.src = '';                   // Clear previous src
+  loader.style.display = 'flex';
+  loader.classList.remove('fade-out'); // reset if using fade
+  iframe.style.display = 'none';
+  iframe.src = ''; // clear old src to reset state
 
-  // Delay and then load content
-  setTimeout(() => {
-    iframe.src = 'internet/cv.html'; // ✅ Ensure this path is valid
-    iframe.onload = () => {
+  // Add handler BEFORE setting .src
+  iframe.onload = () => {
+    setTimeout(() => {
       loader.style.display = 'none';
       iframe.style.display = 'block';
-    };
-  }, 1200); // Optional delay
+    }, 400); // short pause for polish
+  };
+
+  setTimeout(() => {
+    iframe.src = 'internet/cv.html';
+  }, 300); // short delay before load
 }
+
+
 
 
 
