@@ -96,12 +96,21 @@ const resetAllWindows = () => {
 };
 
 // ——— Task Manager ———
+function isVisible(win) {
+  return (
+    win.style.display !== 'none' &&
+    win.style.visibility !== 'hidden' &&
+    win.offsetWidth > 0 &&
+    win.offsetHeight > 0
+  );
+}
+
 function populateTaskList() {
   const list = document.getElementById('task-list');
   list.innerHTML = '';
 
   document.querySelectorAll('.window').forEach(win => {
-    if (win.offsetParent !== null) {
+    if (isVisible(win)) {
       const titleBar = win.querySelector('.title-bar-text');
       const title = titleBar ? titleBar.textContent : 'Unnamed Window';
       const id = win.id;
@@ -120,6 +129,7 @@ function populateTaskList() {
     list.innerHTML = '<em>No open windows.</em>';
   }
 }
+
 
 // ——— Clock ———
 const updateClock = () => {
