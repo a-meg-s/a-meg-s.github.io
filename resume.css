@@ -1,17 +1,15 @@
 /* === Global === */
 html, body {
   height: 100%;
-  overflow: hidden; /* ⛔ disables scrollbars */
-}
-
-body {
+  overflow: hidden;
+  overflow-y: auto;
   margin: 0;
   padding: 0;
   background: #008080;
   font: 15px/1.4 'MS Sans Serif', sans-serif;
 }
 
-/* === Desktop Icons === */
+/* === Desktop Layout === */
 .desktop-outer {
   display: flex;
   justify-content: center;
@@ -54,7 +52,7 @@ body {
   padding: 0 8px;
   box-sizing: border-box;
   z-index: 9999;
-  flex-shrink: 0; /* never shrink this */
+  flex-shrink: 0;
 }
 
 .start-button {
@@ -73,6 +71,7 @@ body {
   border: 2px inset #404040;
 }
 
+/* === Start Menu === */
 .start-menu {
   position: absolute;
   bottom: 40px;
@@ -99,7 +98,7 @@ body {
   display: none;
 }
 
-
+/* === Icons === */
 .icon {
   width: 90px;
   text-align: center;
@@ -121,11 +120,6 @@ body {
   text-shadow: 1px 1px 2px black;
 }
 
-.title-bar-text {
-  font-size: 13px;
-  margin-left: 1rem;
-}
-
 /* === Window Base === */
 .window {
   position: absolute;
@@ -134,7 +128,7 @@ body {
   z-index: 1000;
   max-height: 90vh;
   overflow: auto;
-  }
+}
 
 .window-body {
   padding: 10px;
@@ -149,12 +143,15 @@ body {
   overflow-y: auto;
 }
 
+.title-bar-text {
+  font-size: 13px;
+  margin-left: 1rem;
+}
 
 /* === About Window === */
 .about-window {
   width: 80%;
   max-width: 700px;
-  height: auto;
   max-height: 80vh;
   display: block;
 }
@@ -182,7 +179,6 @@ body {
 .about-window hr {
   border: none;
   border-top: 1px solid #808080;
-  fill:#e0e0e0;
   margin: 10px 0;
 }
 
@@ -200,13 +196,6 @@ body {
   image-rendering: pixelated;
   border: 2px ridge #c0c0c0;
   background: white;
-}
-
-.profile-section p {
-  flex: 1;
-  margin: 0;
-  font-size: 15px;
-  line-height: 1.4;
 }
 
 /* === Language Bars === */
@@ -227,7 +216,6 @@ body {
   font-size: 14px;
   white-space: nowrap;
   min-width: 120px;
-  display: inline-block;
   margin-right: 8px;
 }
 
@@ -317,7 +305,6 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
   word-break: break-word;
 }
 
@@ -325,12 +312,6 @@ body {
   width: 48px;
   height: 48px;
   margin-bottom: 4px;
-}
-
-.file span {
-  display: block;
-  margin-top: 2px;
-  line-height: 1.2;
 }
 
 .file.highlight {
@@ -349,7 +330,7 @@ body {
   font-size: 14px;
 }
 
-/* === Notepad Window === */
+/* === Notepad === */
 .notepad-window {
   display: flex;
   flex-direction: column;
@@ -359,7 +340,6 @@ body {
 
 .notepad-window > .window-body {
   height: 330px;
-  display: flex;
   padding: 0;
   background: white;
   overflow: hidden;
@@ -377,7 +357,6 @@ body {
 
 .notepad-html ul {
   list-style-type: disc;
-  margin: 0;
   padding-left: 1.2em;
 }
 
@@ -390,68 +369,70 @@ body {
   text-decoration: underline;
 }
 
-#task-list {
-  padding: 10px;
-  max-height: 250px;
-  overflow-y: auto;
+/* === Internet Explorer Window === */
+#internet-browser {
+  display: none;
+  width: 95vw;
+  height: 85vh;
+  flex-direction: column;
+  overflow: hidden; /* prevents outer scrollbar */
 }
 
-.task-entry {
+.internet-body {
+  flex: 1;
   display: flex;
-  justify-content: space-between;
-  margin-bottom: 6px;
-  padding: 4px;
-  border-bottom: 1px dashed #999;
+  flex-direction: column;
+  height: 93%;
+  overflow: hidden;
 }
 
-.task-entry button {
-  padding: 2px 8px;
-  font-size: 12px;
-  cursor: pointer;
+.ie-address-bar input.field {
+  width: 100%;
+  max-width: 100%;
+  flex: 1;
 }
 
-.fake-virus-alert {
-  width: 220px;
-  height: auto;
-  background-color: #c0c0c0;
-  position: absolute;
-  box-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+.ie-fieldset {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
 }
 
-.stop-virus-button {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  padding: 12px 24px;
-  font-family: 'MS Sans Serif', sans-serif;
-  font-size: 16px;
-  font-weight: bold;
-  color: white;
-  background-color: red;
-  border: 2px outset white;
-  cursor: pointer;
-  z-index: 150000;
-  animation: flash 0.6s infinite, shake 1.2s infinite;
-  box-shadow: 0 0 10px white;
+.internet-loader {
+  flex: 1;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: black;
+  color: lime;
+  font-size: 1.2em;
+  font-family: monospace;
 }
 
-/* Flash red background */
+.internet-iframe {
+  flex: 1;
+  width: 100%;
+  height: 90%;
+  border: none;
+  display: none;
+}
+
+/* === Animations === */
 @keyframes flash {
   0%, 100% { background-color: red; }
   50% { background-color: darkred; }
 }
 
-/* Shake animation */
 @keyframes shake {
-  0% { transform: translate(0, 0); }
+  0%, 100% { transform: translate(0, 0); }
   25% { transform: translate(2px, 0); }
   50% { transform: translate(-2px, 0); }
   75% { transform: translate(2px, 0); }
-  100% { transform: translate(0, 0); }
 }
 
-
+/* === Responsive === */
 @media (max-width: 768px) {
   body {
     font-size: 3.5vw;
@@ -468,7 +449,7 @@ body {
   .window {
     max-width: 90vw;
     max-height: 85vh;
-    width: auto;  
+    width: auto;
     height: auto !important;
     left: 5vw !important;
     top: 5vh !important;
@@ -479,21 +460,16 @@ body {
     overflow-y: auto;
   }
 
-  .notepad-window {
+  .notepad-window,
+  .about-window {
     width: 90vw !important;
+    max-width: 90vw !important;
     height: auto !important;
     max-height: 85vh;
   }
 
   .notepad-window > .window-body {
-    height: auto;
     max-height: 65vh;
-    overflow-y: auto;
-  }
-
-  .about-window {
-    width: 90vw !important;
-    max-width: 90vw !important;
   }
 
   .profile-section {

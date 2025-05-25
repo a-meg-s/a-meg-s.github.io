@@ -34,6 +34,11 @@
           <img src="icons/program.png" alt="Suspicious">
           <span>super-unsuspicious-file.vbs</span>
         </div>
+        <div class="icon" onclick="openInternetWindow()">
+          <img src="icons/internet.png" alt="Internet">
+          <span>Internet</span>
+        </div>
+        
       </div>
 
       <div id="welcome-message" class="window modal">
@@ -279,119 +284,139 @@
             </p>
           </div>
         </div>
+      </div>
 
-
-
-        <div class="window error-box">
-          <div class="title-bar">
-            <div class="title-bar-text">Error</div>
-          </div>
-          <div class="window-body">Something went wrong!</div>
-        </div>
-        
-
-
-
-
-
-        <!-- Notepad File Contents (hidden) -->
-        <div id="file-contents" style="display: none;">
-
-          <!-- EXPERIENCE ENTRIES -->
-          <div id="content-exp-bakery" data-title="Bakery Assistant @ SourGood">
-            <ul>
-              <li>July 2024 – Current Date, Zürich</li>
-              <li>Maintained high standards in product quality, ensuring consistency across all sourdough batches.</li>
-              <li>Worked closely with the team to meet production goals on time.</li>
-              <li>Monitored stock levels and managed orders to ensure smooth operations.</li>
-            </ul>
-          </div>
-
-          <div id="content-exp-holmes" data-title="Sales Associate @ Holmes Place AG">
-            <ul>
-              <li>January 2022 – December 2022, Zürich</li>
-              <li>Consistently achieved membership targets through strategic client engagement.</li>
-              <li>Maintained accurate records and safeguarded client data in CRM systems.</li>
-              <li>Assisted members with booking systems, ensuring a seamless user experience.</li>
-              <li>Enforced studio policies and adhered to industry regulations.</li>
-              <li>Contributed to promotional campaigns, enhancing studio visibility.</li>
-            </ul>
-          </div>
-
-          <div id="content-exp-physio" data-title="Physiotherapy Assistant @ DEOS Trnovo">
-            <ul>
-              <li>May 2020 – July 2020, Ljubljana, Slovenia</li>
-              <li>Communicated with physicians to provide updates on patient care.</li>
-              <li>Developed team communications and information for meetings.</li>
-              <li>Taught patients how to live within limits of capabilities and celebrated successes.</li>
-              <li>Assisted physiotherapists in patient assessments and treatment planning.</li>
-              <li>Supported patients during therapy sessions with exercises and demonstrations.</li>
-            </ul>
-          </div>
-
-          <div id="content-exp-lush" data-title="Sales Associate @ Lush Retail Ltd.">
-            <ul>
-              <li>May 2019 – September 2019, Ljubljana</li>
-              <li>Met sales targets, prioritized tasks, worked in a multilingual team.</li>
-              <li>Supported international clients and maintained store organization.</li>
-            </ul>
-          </div>
-
-          <!-- PROJECT ENTRIES -->
-          <div id="content-proj-cv" data-title="CV Website">
-            <ul>
-              <li>As seen on the screen you're currently skimming through :)</li>
-            </ul>
-          </div>
-
-          <div id="content-proj-sql" data-title='SQL Databank Application "ByteMe"'>
-            <ul>
-              <li>Designed a database app that calculates exercise needed to burn off calories from fast food.</li>
-              <li>Used MySQL for data and Metabase for visualization.</li>
-              <li>Encourages healthier decisions by linking food with physical activity.</li>
-              <li><a href="info/DBS_Projektbericht.pdf" download>Download report (German)</a></li>
-            </ul>
-          </div>
-
-          <div id="content-proj-android" data-title="Personal Mirror – Android Face Recognition App">
-            <ul>
-              <li>Android app with real-time face detection using OpenCV.</li>
-              <li>Personalized greetings, calendar notifications, and alarms.</li>
-              <li>Encrypted local data storage.</li>
-              <li>Built with Android Studio, Java, and Kotlin.</li>
-              <li><a href="info/IIP1-App-Bericht.pdf" download>Download report (German)</a></li>
-            </ul>
-          </div>
-
-          <div id="content-proj-vault7" data-title="Vault 7 – Grasshopper Analysis">
-            <ul>
-              <li>Analyzed the CIA’s Grasshopper malware framework.</li>
-              <li>Explored architecture, payload deployment, and obfuscation.</li>
-              <li><a href="info/ISLAB_Vault7-Analysis.pdf" download>Download report (German)</a></li>
-            </ul>
-          </div>
-
-          <div id="content-proj-cobit" data-title="COBIT V and ITIL – Security Use Cases">
-            <ul>
-              <li>Studied COBIT V & ITIL frameworks for IT security and risk management.</li>
-              <li>Analyzed 5 industry case studies.</li>
-              <li>Offered recommendations for IT governance and incident response.</li>
-              <li><a href="info/ISM_Cobit-ITIL.pdf" download>Download book (German)</a></li>
-            </ul>
-          </div>
-
-          <div id="content-proj-chain" data-title="Chain of Custody – Incident Response">
-            <ul>
-              <li>Led a team of 5 researching digital chain of custody practices.</li>
-              <li>Produced a comprehensive book documenting findings and recommendations.</li>
-              <li><a href="info/SPTA_Buch.pdf" download>Download book (German)</a></li>
-            </ul>
+      <div id="internet-browser" class="window modal" style="display:none; width: 95vw; height: 85vh;">
+        <div class="title-bar">
+          <div class="title-bar-text">Internet Explorer</div>
+          <div class="title-bar-controls">
+            <button aria-label="Close" onclick="closeWindow('internet-browser')">X</button>
           </div>
         </div>
+        <div class="window-body internet-body">
+          <div class="ie-address-bar">
+            <fieldset class="ie-fieldset">
+              <label for="fake-url">Address:</label>
+              <input id="fake-url" class="field" type="text" readonly value="http://andrea-m-sustic.internet/">
+            </fieldset>
+          </div>           
+          <div id="internet-loader" class="internet-loader">Connecting to the Internet...</div>
+          <iframe id="internet-iframe" src="" class="internet-iframe"></iframe>
+        </div>
+      </div>
+      
+      
+
+      <div class="window error-box">
+        <div class="title-bar">
+          <div class="title-bar-text">Error</div>
+        </div>
+        <div class="window-body">Something went wrong!</div>
       </div>
 
 
-      <script src="resume.js"></script>
+
+
+
+
+      <!-- Notepad File Contents (hidden) -->
+      <div id="file-contents" style="display: none;">
+
+        <!-- EXPERIENCE ENTRIES -->
+        <div id="content-exp-bakery" data-title="Bakery Assistant @ SourGood">
+          <ul>
+            <li>July 2024 – Current Date, Zürich</li>
+            <li>Maintained high standards in product quality, ensuring consistency across all sourdough batches.</li>
+            <li>Worked closely with the team to meet production goals on time.</li>
+            <li>Monitored stock levels and managed orders to ensure smooth operations.</li>
+          </ul>
+        </div>
+
+        <div id="content-exp-holmes" data-title="Sales Associate @ Holmes Place AG">
+          <ul>
+            <li>January 2022 – December 2022, Zürich</li>
+            <li>Consistently achieved membership targets through strategic client engagement.</li>
+            <li>Maintained accurate records and safeguarded client data in CRM systems.</li>
+            <li>Assisted members with booking systems, ensuring a seamless user experience.</li>
+            <li>Enforced studio policies and adhered to industry regulations.</li>
+            <li>Contributed to promotional campaigns, enhancing studio visibility.</li>
+          </ul>
+        </div>
+
+        <div id="content-exp-physio" data-title="Physiotherapy Assistant @ DEOS Trnovo">
+          <ul>
+            <li>May 2020 – July 2020, Ljubljana, Slovenia</li>
+            <li>Communicated with physicians to provide updates on patient care.</li>
+            <li>Developed team communications and information for meetings.</li>
+            <li>Taught patients how to live within limits of capabilities and celebrated successes.</li>
+            <li>Assisted physiotherapists in patient assessments and treatment planning.</li>
+            <li>Supported patients during therapy sessions with exercises and demonstrations.</li>
+          </ul>
+        </div>
+
+        <div id="content-exp-lush" data-title="Sales Associate @ Lush Retail Ltd.">
+          <ul>
+            <li>May 2019 – September 2019, Ljubljana</li>
+            <li>Met sales targets, prioritized tasks, worked in a multilingual team.</li>
+            <li>Supported international clients and maintained store organization.</li>
+          </ul>
+        </div>
+
+        <!-- PROJECT ENTRIES -->
+        <div id="content-proj-cv" data-title="CV Website">
+          <ul>
+            <li>As seen on the screen you're currently skimming through :)</li>
+          </ul>
+        </div>
+
+        <div id="content-proj-sql" data-title='SQL Databank Application "ByteMe"'>
+          <ul>
+            <li>Designed a database app that calculates exercise needed to burn off calories from fast food.</li>
+            <li>Used MySQL for data and Metabase for visualization.</li>
+            <li>Encourages healthier decisions by linking food with physical activity.</li>
+            <li><a href="info/DBS_Projektbericht.pdf" download>Download report (German)</a></li>
+          </ul>
+        </div>
+
+        <div id="content-proj-android" data-title="Personal Mirror – Android Face Recognition App">
+          <ul>
+            <li>Android app with real-time face detection using OpenCV.</li>
+            <li>Personalized greetings, calendar notifications, and alarms.</li>
+            <li>Encrypted local data storage.</li>
+            <li>Built with Android Studio, Java, and Kotlin.</li>
+            <li><a href="info/IIP1-App-Bericht.pdf" download>Download report (German)</a></li>
+          </ul>
+        </div>
+
+        <div id="content-proj-vault7" data-title="Vault 7 – Grasshopper Analysis">
+          <ul>
+            <li>Analyzed the CIA’s Grasshopper malware framework.</li>
+            <li>Explored architecture, payload deployment, and obfuscation.</li>
+            <li><a href="info/ISLAB_Vault7-Analysis.pdf" download>Download report (German)</a></li>
+          </ul>
+        </div>
+
+        <div id="content-proj-cobit" data-title="COBIT V and ITIL – Security Use Cases">
+          <ul>
+            <li>Studied COBIT V & ITIL frameworks for IT security and risk management.</li>
+            <li>Analyzed 5 industry case studies.</li>
+            <li>Offered recommendations for IT governance and incident response.</li>
+            <li><a href="info/ISM_Cobit-ITIL.pdf" download>Download book (German)</a></li>
+          </ul>
+        </div>
+
+        <div id="content-proj-chain" data-title="Chain of Custody – Incident Response">
+          <ul>
+            <li>Led a team of 5 researching digital chain of custody practices.</li>
+            <li>Produced a comprehensive book documenting findings and recommendations.</li>
+            <li><a href="info/SPTA_Buch.pdf" download>Download book (German)</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+
+    <script src="resume.js"></script>
 </body>
 
 </html>

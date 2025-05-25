@@ -176,11 +176,32 @@ function showStopVirusButton() {
   button.textContent = 'Stop Virus';
   button.className = 'stop-virus-button';
   button.onclick = () => {
-    document.querySelectorAll('.virus-popup').forEach(el => el.remove()); // <-- Corrected
+    document.querySelectorAll('.virus-popup').forEach(el => el.remove());
     button.remove();
   };
   document.body.appendChild(button);
 }
+
+function openInternetWindow() {
+  openWindow('internet-browser');
+
+  const loader = document.getElementById("internet-loader");
+  const iframe = document.getElementById("internet-iframe");
+
+  loader.style.display = 'flex';     // Show loader
+  iframe.style.display = 'none';     // Hide iframe initially
+  iframe.src = '';                   // Clear previous src
+
+  // Delay and then load content
+  setTimeout(() => {
+    iframe.src = 'internet/cv.html'; // ✅ Ensure this path is valid
+    iframe.onload = () => {
+      loader.style.display = 'none';
+      iframe.style.display = 'block';
+    };
+  }, 1200); // Optional delay
+}
+
 
 
 // ——— Init ———
