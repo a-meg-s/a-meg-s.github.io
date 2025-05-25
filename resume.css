@@ -481,6 +481,7 @@ html, body {
 @media (max-width: 768px) {
   body {
     font-size: 3.5vw;
+    overflow: hidden;
   }
 
   .title-bar-text {
@@ -525,4 +526,14 @@ html, body {
   .profile-pic {
     margin-bottom: 12px;
   }
+}
+
+#internet-browser {
+  width: 95vw !important;
+  height: 80vh !important;
+  inset: 10vh auto auto 2.5vw !important;
+}
+
+.internet-iframe {
+  height: 100% !important;
 }
