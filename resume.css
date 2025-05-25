@@ -450,3 +450,58 @@ body {
   75% { transform: translate(2px, 0); }
   100% { transform: translate(0, 0); }
 }
+
+
+@media (max-width: 768px) {
+  body {
+    font-size: 3.5vw;
+  }
+
+  .title-bar-text {
+    font-size: 4vw;
+  }
+
+  .notepad-html {
+    font-size: 3vw;
+  }
+
+  .window {
+    max-width: 90vw;
+    max-height: 85vh;
+    width: auto;  
+    height: auto !important;
+    left: 5vw !important;
+    top: 5vh !important;
+  }
+
+  .window-body {
+    max-height: 65vh;
+    overflow-y: auto;
+  }
+
+  .notepad-window {
+    width: 90vw !important;
+    height: auto !important;
+    max-height: 85vh;
+  }
+
+  .notepad-window > .window-body {
+    height: auto;
+    max-height: 65vh;
+    overflow-y: auto;
+  }
+
+  .about-window {
+    width: 90vw !important;
+    max-width: 90vw !important;
+  }
+
+  .profile-section {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .profile-pic {
+    margin-bottom: 12px;
+  }
+}

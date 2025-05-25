@@ -10,25 +10,26 @@ function openWindow(id) {
   win.style.visibility = 'hidden';
   win.style.display = 'block';
   win.style.zIndex = ++zIndexCounter;
-  win.style.position = 'absolute'; // Key line!
 
   requestAnimationFrame(() => {
     const w = win.offsetWidth;
     const h = win.offsetHeight;
     const rect = wrapper.getBoundingClientRect();
 
-    const top = (wrapper.scrollTop || 0) + (wrapper.clientHeight - h) / 2;
-    const left = (wrapper.clientWidth - w) / 2;
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
 
-    win.style.top = `${Math.max(top, 10)}px`;
-    win.style.left = `${Math.max(left, 10)}px`;
+    const top = Math.max(rect.top + (rect.height - h) / 2, 10);
+    const left = Math.max(rect.left + (rect.width - w) / 2, 10);
+
+    win.style.position = 'fixed';
+    win.style.top = `${Math.min(top, vh - 30)}px`;
+    win.style.left = `${Math.min(left, vw - 30)}px`;
     win.style.visibility = 'visible';
 
     if (id === 'about') initLanguageBars();
   });
 }
-
-
 
 const closeWindow = id => {
   const win = document.getElementById(id);
@@ -58,7 +59,7 @@ const makeDraggable = win => {
 
   const onMouseMove = e => {
     win.style.left = `${e.clientX - offsetX}px`;
-    win.style.top  = `${e.clientY - offsetY}px`;
+    win.style.top = `${e.clientY - offsetY}px`;
   };
 
   const onMouseUp = () => {
@@ -77,7 +78,7 @@ const makeDraggable = win => {
   });
 };
 
-// ——— Language Bars  ———
+// ——— Language Bars ———
 const initLanguageBars = () => {
   document.querySelectorAll('#language-container .language-bar').forEach(bar => {
     const fill = bar.querySelector('.bar-fill');
@@ -120,15 +121,6 @@ function populateTaskList() {
   }
 }
 
-// ——— Scroll-and-Highlight (sidebar) ———
-const scrollToFile = id => {
-  const file = document.getElementById(id);
-  if (!file) return;
-  file.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  file.classList.add('highlight');
-  setTimeout(() => file.classList.remove('highlight'), 1000);
-};
-
 // ——— Clock ———
 const updateClock = () => {
   const clock = document.getElementById('taskbar-clock');
@@ -136,6 +128,7 @@ const updateClock = () => {
   clock.textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 };
 
+// ——— Virus Effect ———
 function triggerVirus() {
   let counter = 0;
   const maxAlerts = 20;
@@ -152,39 +145,45 @@ function triggerVirus() {
 
 function createFakeAlert(message) {
   const alertBox = document.createElement('div');
-  alertBox.classList.add('window', 'fake-virus-alert');
+  alertBox.classList.add('window', 'fake-virus-alert', 'virus-popup');
   alertBox.style.zIndex = ++zIndexCounter;
   alertBox.innerHTML = `
     <div class="title-bar">
       <div class="title-bar-text">Alert</div>
       <div class="title-bar-controls">
-      <button aria-label="Close" onclick="this.closest('.window').remove()">X</button>
+        <button aria-label="Close" onclick="this.closest('.window').remove()">X</button>
       </div>
     </div>
     <div class="window-body"><p>${message}</p></div>
   `;
+
   document.body.appendChild(alertBox);
 
-  const x = Math.floor(Math.random() * (window.innerWidth - 200));
-  const y = Math.floor(Math.random() * (window.innerHeight - 100));
+  const maxX = Math.max(10, window.innerWidth - 220);  // ensure minimum space
+  const maxY = Math.max(10, window.innerHeight - 120);
+
+  const x = Math.floor(Math.random() * maxX);
+  const y = Math.floor(Math.random() * maxY);
+
   alertBox.style.left = `${x}px`;
   alertBox.style.top = `${y}px`;
   alertBox.style.display = 'block';
 }
+
 
 function showStopVirusButton() {
   const button = document.createElement('button');
   button.textContent = 'Stop Virus';
   button.className = 'stop-virus-button';
   button.onclick = () => {
-    document.querySelectorAll('.fake-virus-alert').forEach(el => el.remove());
+    document.querySelectorAll('.virus-popup').forEach(el => el.remove()); // <-- Corrected
     button.remove();
   };
   document.body.appendChild(button);
 }
 
 
-// ——— DOMContentLoaded Initialization ———
+// ——— Init ———
 document.addEventListener('DOMContentLoaded', () => {
   openWindow('welcome-message');
 
@@ -212,7 +211,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Bring window to front when clicked
   document.querySelectorAll('.window').forEach(win => {
     win.addEventListener('mousedown', () => {
       win.style.zIndex = ++zIndexCounter;
