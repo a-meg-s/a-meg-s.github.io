@@ -117,10 +117,19 @@ function populateTaskList() {
 
       const entry = document.createElement('div');
       entry.classList.add('task-entry');
-      entry.innerHTML = `
-        <span>${title}</span>
-        <button onclick="closeWindow('${id}'); populateTaskList();">❌ Close</button>
-      `;
+      
+      const span = document.createElement('span');
+      span.textContent = title;
+      entry.appendChild(span);
+      
+      const button = document.createElement('button');
+      button.textContent = '❌ Close';
+      button.onclick = () => {
+        closeWindow(id);
+        populateTaskList();
+      };
+      entry.appendChild(button);
+      
       list.appendChild(entry);
     }
   });
