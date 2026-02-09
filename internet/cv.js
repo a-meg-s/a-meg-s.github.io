@@ -4,7 +4,6 @@ let CV = null;
 
 // ---------------------------
 // Load shared JSON
-// IMPORTANT: cv.html is in /internet/, so content.json is one level up.
 // ---------------------------
 async function loadContent() {
   const url = new URL("../content.json", window.location.href).toString();
@@ -39,8 +38,8 @@ function escapeHtml(s) {
 // Render page from JSON
 // ---------------------------
 function renderHeader() {
-  // Your current JSON doesn't store the big name, so fall back to site.title if present.
-  // If you want exact header name, add CV.internet.headerName or CV.site.name, etc.
+  //  current JSON doesn't store the big name, so fall back to site.title if present.
+  // for exact header name, add CV.internet.headerName or CV.site.name, etc.
   const name = CV?.internet?.headerName || CV?.site?.title || "Andrea M. Sustic";
   setText("person-name", name);
 
@@ -66,9 +65,8 @@ function renderIntro() {
 }
 
 function renderCurrentWork() {
-  // If you add custom JSON later, it will override this fallback.
+  // If custom JSON later, it will override this fallback.
   // Recommended JSON addition:
-  // "internet": { "currentWork": { "title": "...", "paragraphs": ["...","..."] } }
   const custom = CV?.internet?.currentWork;
 
   const title = custom?.title || "What I'm Currently Working On";
@@ -116,7 +114,7 @@ function renderExperienceCarousel() {
 
   const items = CV?.explorers?.experience?.items || [];
 
-  // Optional: keep your first "Key Skills from Experience" slide if you put it in JSON
+  // Optional: keep first "Key Skills from Experience" slide if in JSON
   // Example:
   // CV.internet.experienceIntro = { title: "Key Skills from Experience:", bullets: [...] }
   const intro = CV?.internet?.experienceIntro;
@@ -196,7 +194,7 @@ function renderEducation() {
   const host = document.getElementById("education-body");
   if (!host) return;
 
-  // Your desktop JSON has education.html (with <br>).
+  // desktop JSON has education.html (with <br>).
   // For the internet version we can reuse it.
   const eduHtml = CV?.about?.education?.html || "";
   host.innerHTML = `
@@ -300,7 +298,7 @@ function setupExperienceCarousel() {
 }
 
 // ---------------------------
-// Matrix background effect (unchanged)
+// Matrix background effect
 // ---------------------------
 function startMatrix() {
   const canvas = document.getElementById("matrix-canvas");
