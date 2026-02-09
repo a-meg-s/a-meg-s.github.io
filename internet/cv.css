@@ -123,7 +123,6 @@ body {
   .retro-section p {
     font-family: "Roboto Mono", monospace;
     color: #dcdcff;
-    font-size: 0.85em;
   }
   
   .retro-section .highlight {
@@ -249,6 +248,29 @@ body {
     padding: 0 16px;
     font-size: 0.9em;
   }
+
+/* Projects list: NO bullets on titles */
+.projects-list {
+  list-style: none;      /* removes bullets on each project title */
+  padding-left: 0;
+  margin: 1em;
+}
+
+.project-item {
+  margin: 0 0 12px 0;
+}
+
+/* Bullets ONLY for the content list */
+.project-bullets {
+  list-style: disc;
+  padding-left: 1.2em;
+  margin: 6px 0 10px;
+}
+
+.project-bullets li {
+  margin: 4px 0;
+}
+
   
   #scroll-indicator {
     display: flex;

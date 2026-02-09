@@ -169,7 +169,10 @@ function renderProjects() {
   host.innerHTML = items.map(it => {
     const title = it.notepadTitle || it.label || "Project";
     const bullets = Array.isArray(it.bullets) ? it.bullets : [];
-    const text = bullets.map(b => `<p>${b}</p>`).join("");
+
+    const bulletList = bullets.length
+      ? `<ul class="project-bullets">${bullets.map(b => `<li>${b}</li>`).join("")}</ul>`
+      : "";
 
     const links = (it.links || []).map(l => {
       const dl = l.download ? " download" : "";
@@ -179,11 +182,13 @@ function renderProjects() {
     }).join("<br>");
 
     return `
-      <article>
-        <h3>${escapeHtml(title)}</h3>
-        ${text}
-        ${links ? `<p>${links}</p>` : ""}
-      </article>
+      <li class="project-item">
+      <h3>${escapeHtml(title)}</h3>
+        <article>
+          ${bulletList}
+          ${links ? `<p>${links}</p>` : ""}
+        </article>
+      </li>
     `;
   }).join("");
 }

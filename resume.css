@@ -312,7 +312,7 @@ body {
   max-height: 90vh;
   overflow: hidden;
   width: min(95vh, 90%);
-  max-width: 95vh;
+  max-width: 90vh;
 }
 
 .title-bar-text {
@@ -557,7 +557,7 @@ body {
   flex: 1;
   display: flex;
   flex-direction: column;
-  height: 93%;
+  height: 90%;
   overflow: hidden;
   min-height: 0;
 }
