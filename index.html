@@ -2,11 +2,12 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
   <title>Andrea M. Sustic</title>
-  <link rel="stylesheet" href="https://unpkg.com/98.css">
-  <link rel="stylesheet" href="resume.css">
+
+  <link rel="stylesheet" href="https://unpkg.com/98.css" />
+  <link rel="stylesheet" href="resume.css" />
   <link rel="icon" type="image/png" href="img/pfp.png" />
 </head>
 
@@ -15,59 +16,59 @@
     <div id="desktop-wrapper" class="desktop-wrapper">
       <div class="desktop">
         <div class="icon" onclick="openWindow('about')">
-          <img src="icons/resume.png" alt="Resume">
+          <img src="icons/resume.png" alt="Resume" />
           <span>About Me</span>
         </div>
+
         <div class="icon" onclick="openWindow('experience')">
-          <img src="icons/folder.png" alt="Experience">
+          <img src="icons/folder.png" alt="Experience" />
           <span>Experience</span>
         </div>
+
         <div class="icon" onclick="openWindow('projects')">
-          <img src="icons/folder.png" alt="Projects">
+          <img src="icons/folder.png" alt="Projects" />
           <span>Projects</span>
         </div>
+
         <div class="icon" onclick="openWindow('contact')">
-          <img src="icons/contact.png" alt="Contact">
+          <img src="icons/contact.png" alt="Contact" />
           <span>Contact</span>
         </div>
+
         <div class="icon" onclick="openInternetWindow()">
-          <img src="icons/internet.png" alt="Internet">
+          <img src="icons/internet.png" alt="Internet" />
           <span>Internet</span>
         </div>
+
         <div class="icon" onclick="triggerVirus()">
-          <img src="icons/program.png" alt="Suspicious">
+          <img src="icons/program.png" alt="Suspicious" />
           <span>super-unsuspicious-file.vbs</span>
         </div>
       </div>
 
+      <!-- Welcome Modal -->
       <div id="welcome-message" class="window modal">
         <div class="title-bar">
-          <div class="title-bar-text">Hello and welcome to my online CV!</div>
+          <div class="title-bar-text" id="welcome-title">Hello and welcome to my online CV!</div>
           <div class="title-bar-controls">
             <button aria-label="Close" onclick="closeWindow('welcome-message')"></button>
           </div>
         </div>
         <div class="window-body">
-          <p>I am an <span class="bold">Information &amp; Cyber Security student</span> at HSLU,
-            Switzerland, with a focus on Cloud, Mobile, and IoT Security. I am
-            committed to continuously expanding my expertise in cybersecurity and
-            thrive on tackling new challenges. So far, I've mostly focused on defensive concepts,
-            but I would like to expand my knowledge of offensive concepts and techniques as well.
-          </p>
-          <p>
-            This website is a small project of mine that I've occasionally been working on
-            to help showcase my skills and recent projects. Enjoy!
-          </p>
-          <button onclick="closeWindow('welcome-message')">OK</button>
+          <!-- JSON-rendered content -->
+          <div id="welcome-content"></div>
+          <button id="welcome-ok" onclick="closeWindow('welcome-message')">OK</button>
         </div>
       </div>
 
+      <!-- Taskbar -->
       <div class="taskbar">
         <button class="start-button">Start</button>
         <div class="taskbar-spacer"></div>
         <div id="taskbar-clock" class="clock">12:00</div>
       </div>
 
+      <!-- Start Menu -->
       <div id="start-menu" class="start-menu hidden">
         <div class="menu-item" onclick="openWindow('about')">About Me</div>
         <div class="menu-item" onclick="openWindow('experience')">Experience</div>
@@ -76,7 +77,7 @@
         <div class="menu-item" onclick="openWindow('task-manager'); populateTaskList();">Task Manager</div>
       </div>
 
-
+      <!-- Task Manager -->
       <div id="task-manager" class="window modal" style="display:none; width: 500px; height: 350px;">
         <div class="title-bar">
           <div class="title-bar-text">Task Manager</div>
@@ -86,114 +87,55 @@
         </div>
         <div class="window-body">
           <p><strong>Task Manager</strong> – View all currently open windows and close them as needed.</p>
-          <hr>
-          <div id="task-list">
-          </div>
+          <hr />
+          <div id="task-list"></div>
         </div>
       </div>
 
-
+      <!-- About -->
       <div id="about" class="window about-window" style="display: none;">
         <div class="title-bar">
-          <div class="title-bar-text">About Me</div>
+          <div class="title-bar-text" id="about-title">About Me</div>
           <div class="title-bar-controls">
             <button aria-label="Close" onclick="closeWindow('about')"></button>
           </div>
         </div>
         <div class="window-body scrollable">
-          <div class="profile-section">
-            <img src="img/CV-pfp.png" alt="Profile Picture" class="profile-pic">
-            <p>I’m an Information &amp; Cyber Security student at HSLU, Switzerland, specializing in Cloud, Mobile, and
-              IoT security.I enjoy exploring both defensive and offensive techniques.</p>
-          </div>
-          <hr>
-          <h3>Education</h3>
-          <p>Bachelor in Information &amp; Cyber Security<br>Lucerne University of Applied Sciences and Arts<br>2023 –
-            Current</p>
-          <hr>
-          <h3>Skills</h3>
-          <p>Java, C, HTML, CSS, Python, SQL, JavaScript, Cloud Security, SDNs, etc.</p>
-          <hr>
-          <h3>Languages</h3>
-          <div id="language-container">
-            <div class="lang-item">
-              <span class="lang-label">English (C2)</span>
-              <div class="language-bar" data-percentage="100">
-                <div class="bar-fill"></div>
-              </div>
-            </div>
-            <div class="lang-item">
-              <span class="lang-label">German (C1)</span>
-              <div class="language-bar" data-percentage="90">
-                <div class="bar-fill"></div>
-              </div>
-            </div>
-            <div class="lang-item">
-              <span class="lang-label">Italian (B1)</span>
-              <div class="language-bar" data-percentage="70">
-                <div class="bar-fill"></div>
-              </div>
-            </div>
-            <div class="lang-item">
-              <span class="lang-label">Slovenian (C2)</span>
-              <div class="language-bar" data-percentage="100">
-                <div class="bar-fill"></div>
-              </div>
-            </div>
-            <div class="lang-item">
-              <span class="lang-label">Japanese (B1)</span>
-              <div class="language-bar" data-percentage="70">
-                <div class="bar-fill"></div>
-              </div>
-            </div>
-          </div>
+          <!-- JSON-rendered content -->
+          <div id="about-content"></div>
         </div>
       </div>
 
+      <!-- Experience -->
       <div id="experience" class="window explorer-window">
         <div class="title-bar">
-          <div class="title-bar-text">Experience</div>
+          <div class="title-bar-text" id="experience-title">Experience</div>
           <div class="title-bar-controls">
             <button aria-label="Close" onclick="closeWindow('experience')"></button>
           </div>
         </div>
+
         <div class="menu-bar">
           <span>File</span><span>Edit</span><span>View</span><span>Help</span>
         </div>
+
         <div class="explorer-body split">
-          <div class="sidebar">
-            <div class="sidebar-item">Bakery Assistant</div>
-            <div class="sidebar-item">Sales Associate @ Holmes Place AG</div>
-            <div class="sidebar-item">Physiotherapy Assistant</div>
-            <div class="sidebar-item">Sales Associate @ Lush</div>
-          </div>
+          <!-- JSON-rendered sidebar -->
+          <div class="sidebar" id="experience-sidebar"></div>
+
           <div class="explorer-content">
-            <div class="file-grid">
-              <div id="exp-bakery" class="file">
-                <img src="icons/shell.png" alt="Bakery Assistant">
-                <span>Bakery Assistant</span>
-              </div>
-              <div id="exp-holmes" class="file">
-                <img src="icons/shell.png" alt="Sales Associate">
-                <span>Sales Associate @ Holmes Place AG</span>
-              </div>
-              <div id="exp-physio" class="file">
-                <img src="icons/shell.png" alt="Physio Intern">
-                <span>Physiotherapy Assistant</span>
-              </div>
-              <div id="exp-lush" class="file">
-                <img src="icons/shell.png" alt="Sales Associate Lush">
-                <span>Sales Associate @ Lush</span>
-              </div>
-            </div>
+            <!-- JSON-rendered file grid -->
+            <div class="file-grid" id="experience-grid"></div>
           </div>
         </div>
+
         <div class="status-bar">
-          <span>4 items</span>
-          <span>Free space: 5.6 GB</span>
+          <span id="experience-status-left"></span>
+          <span id="experience-status-right"></span>
         </div>
       </div>
 
+      <!-- Notepad -->
       <div id="notepad" class="window notepad-window" style="display:none;">
         <div class="title-bar">
           <div id="notepad-title" class="title-bar-text">Untitled - Notepad</div>
@@ -205,85 +147,55 @@
           <span>File</span><span>Edit</span><span>Format</span><span>View</span><span>Help</span>
         </div>
         <div class="window-body notepad-body">
+          <!-- JSON-rendered notepad content -->
           <div id="notepad-content" class="notepad-html"></div>
         </div>
       </div>
 
+      <!-- Projects -->
       <div id="projects" class="window explorer-window">
         <div class="title-bar">
-          <div class="title-bar-text">Projects</div>
+          <div class="title-bar-text" id="projects-title">Projects</div>
           <div class="title-bar-controls">
             <button aria-label="Close" onclick="closeWindow('projects')"></button>
           </div>
         </div>
+
         <div class="menu-bar">
           <span>File</span><span>Edit</span><span>View</span><span>Help</span>
         </div>
+
         <div class="explorer-body split">
-          <div class="sidebar">
-            <div class="sidebar-item">CV Website</div>
-            <div class="sidebar-item">ByteMe</div>
-            <div class="sidebar-item">Face Recognition</div>
-            <div class="sidebar-item">Vault 7</div>
-            <div class="sidebar-item">COBIT/ITIL</div>
-            <div class="sidebar-item">Chain of Custody</div>
-          </div>
+          <!-- JSON-rendered sidebar -->
+          <div class="sidebar" id="projects-sidebar"></div>
+
           <div class="explorer-content">
-            <div class="file-grid">
-              <div id="proj-cv" class="file">
-                <img src="icons/shell.png" alt="CV Website">
-                <span>CV Website</span>
-              </div>
-              <div id="proj-sql" class="file">
-                <img src="icons/shell.png" alt="SQL Databank">
-                <span>SQL Databank Application</span>
-              </div>
-              <div id="proj-android" class="file">
-                <img src="icons/shell.png" alt="Face Recognition">
-                <span>Face Recognition App</span>
-              </div>
-              <div id="proj-vault7" class="file">
-                <img src="icons/shell.png" alt="Vault 7">
-                <span>Vault7_Analysis.txt</span>
-              </div>
-              <div id="proj-cobit" class="file">
-                <img src="icons/shell.png" alt="COBIT/ITIL">
-                <span>COBIT_ITIL.txt</span>
-              </div>
-              <div id="proj-chain" class="file">
-                <img src="icons/shell.png" alt="Chain of Custody">
-                <span>ChainOfCustody.txt</span>
-              </div>
-            </div>
+            <!-- JSON-rendered file grid -->
+            <div class="file-grid" id="projects-grid"></div>
           </div>
         </div>
+
         <div class="status-bar">
-          <span>6 items</span>
-          <span>Free space: 5.6 GB</span>
+          <span id="projects-status-left"></span>
+          <span id="projects-status-right"></span>
         </div>
       </div>
 
+      <!-- Contact -->
       <div id="contact" class="window" style="display: none;">
         <div class="title-bar">
-          <div class="title-bar-text">Contact</div>
+          <div class="title-bar-text" id="contact-title">Contact</div>
           <div class="title-bar-controls">
             <button aria-label="Close" onclick="closeWindow('contact')"></button>
           </div>
         </div>
         <div class="window-body scrollable">
-          <div class="profile-section">
-            <img src="img/CV-pfp.png" alt="Profile Picture" class="profile-pic">
-            <p>
-              Contact:
-              <a href="mailto:codebymegan@gmail.com">codebymegan@gmail.com</a> </br> </br>
-              LinkedIn:
-              <a href="https://www.linkedin.com/in/andrea-megan-sustic-448456227/">
-                Andrea Megan Sustic</a>
-            </p>
-          </div>
+          <!-- JSON-rendered content -->
+          <div id="contact-content"></div>
         </div>
       </div>
 
+      <!-- Internet Explorer -->
       <div id="internet-browser" class="window modal" style="display:none; width: 95vw; height: 85vh;">
         <div class="title-bar">
           <div class="title-bar-text">Internet Explorer</div>
@@ -291,20 +203,21 @@
             <button aria-label="Close" onclick="closeWindow('internet-browser')">X</button>
           </div>
         </div>
+
         <div class="window-body internet-body">
           <div class="ie-address-bar">
             <fieldset class="ie-fieldset">
               <label for="fake-url">Address:</label>
-              <input id="fake-url" class="field" type="text" readonly value="http://andrea-m-sustic.internet/">
+              <input id="fake-url" class="field" type="text" readonly value="http://andrea-m-sustic.internet/" />
             </fieldset>
-          </div>           
+          </div>
+
           <div id="internet-loader" class="internet-loader">Connecting to the Internet...</div>
           <iframe id="internet-iframe" src="" class="internet-iframe"></iframe>
         </div>
       </div>
-      
-      
 
+      <!-- Error Window (static) -->
       <div class="window error-box">
         <div class="title-bar">
           <div class="title-bar-text">Error</div>
@@ -312,109 +225,11 @@
         <div class="window-body">Something went wrong!</div>
       </div>
 
-
-
-
-
-
-      <!-- Notepad File Contents (hidden) -->
-      <div id="file-contents" style="display: none;">
-
-        <!-- EXPERIENCE ENTRIES -->
-        <div id="content-exp-bakery" data-title="Bakery Assistant @ SourGood">
-          <ul>
-            <li>July 2024 – Current Date, Zürich</li>
-            <li>Maintained high standards in product quality, ensuring consistency across all sourdough batches.</li>
-            <li>Worked closely with the team to meet production goals on time.</li>
-            <li>Monitored stock levels and managed orders to ensure smooth operations.</li>
-          </ul>
-        </div>
-
-        <div id="content-exp-holmes" data-title="Sales Associate @ Holmes Place AG">
-          <ul>
-            <li>January 2022 – December 2022, Zürich</li>
-            <li>Consistently achieved membership targets through strategic client engagement.</li>
-            <li>Maintained accurate records and safeguarded client data in CRM systems.</li>
-            <li>Assisted members with booking systems, ensuring a seamless user experience.</li>
-            <li>Enforced studio policies and adhered to industry regulations.</li>
-            <li>Contributed to promotional campaigns, enhancing studio visibility.</li>
-          </ul>
-        </div>
-
-        <div id="content-exp-physio" data-title="Physiotherapy Assistant @ DEOS Trnovo">
-          <ul>
-            <li>May 2020 – July 2020, Ljubljana, Slovenia</li>
-            <li>Communicated with physicians to provide updates on patient care.</li>
-            <li>Developed team communications and information for meetings.</li>
-            <li>Taught patients how to live within limits of capabilities and celebrated successes.</li>
-            <li>Assisted physiotherapists in patient assessments and treatment planning.</li>
-            <li>Supported patients during therapy sessions with exercises and demonstrations.</li>
-          </ul>
-        </div>
-
-        <div id="content-exp-lush" data-title="Sales Associate @ Lush Retail Ltd.">
-          <ul>
-            <li>May 2019 – September 2019, Ljubljana</li>
-            <li>Met sales targets, prioritized tasks, worked in a multilingual team.</li>
-            <li>Supported international clients and maintained store organization.</li>
-          </ul>
-        </div>
-
-        <!-- PROJECT ENTRIES -->
-        <div id="content-proj-cv" data-title="CV Website">
-          <ul>
-            <li>As seen on the screen you're currently skimming through :)</li>
-          </ul>
-        </div>
-
-        <div id="content-proj-sql" data-title='SQL Databank Application "ByteMe"'>
-          <ul>
-            <li>Designed a database app that calculates exercise needed to burn off calories from fast food.</li>
-            <li>Used MySQL for data and Metabase for visualization.</li>
-            <li>Encourages healthier decisions by linking food with physical activity.</li>
-            <li><a href="info/DBS_Projektbericht.pdf" download>Download report (German)</a></li>
-          </ul>
-        </div>
-
-        <div id="content-proj-android" data-title="Personal Mirror – Android Face Recognition App">
-          <ul>
-            <li>Android app with real-time face detection using OpenCV.</li>
-            <li>Personalized greetings, calendar notifications, and alarms.</li>
-            <li>Encrypted local data storage.</li>
-            <li>Built with Android Studio, Java, and Kotlin.</li>
-            <li><a href="info/IIP1-App-Bericht.pdf" download>Download report (German)</a></li>
-          </ul>
-        </div>
-
-        <div id="content-proj-vault7" data-title="Vault 7 – Grasshopper Analysis">
-          <ul>
-            <li>Analyzed the CIA’s Grasshopper malware framework.</li>
-            <li>Explored architecture, payload deployment, and obfuscation.</li>
-            <li><a href="info/ISLAB_Vault7-Analysis.pdf" download>Download report (German)</a></li>
-          </ul>
-        </div>
-
-        <div id="content-proj-cobit" data-title="COBIT V and ITIL – Security Use Cases">
-          <ul>
-            <li>Studied COBIT V & ITIL frameworks for IT security and risk management.</li>
-            <li>Analyzed 5 industry case studies.</li>
-            <li>Offered recommendations for IT governance and incident response.</li>
-            <li><a href="info/ISM_Cobit-ITIL.pdf" download>Download book (German)</a></li>
-          </ul>
-        </div>
-
-        <div id="content-proj-chain" data-title="Chain of Custody – Incident Response">
-          <ul>
-            <li>Led a team of 5 researching digital chain of custody practices.</li>
-            <li>Produced a comprehensive book documenting findings and recommendations.</li>
-            <li><a href="info/SPTA_Buch.pdf" download>Download book (German)</a></li>
-          </ul>
-        </div>
-      </div>
+      <!-- Removed: old hidden #file-contents block (not needed with JSON) -->
     </div>
 
-
     <script src="resume.js"></script>
+  </div>
 </body>
 
 </html>

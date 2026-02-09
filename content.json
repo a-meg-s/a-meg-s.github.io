@@ -1,0 +1,219 @@
+{
+  "site": {
+    "title": "Andrea M. Sustic",
+    "favicon": "img/pfp.png"
+  },
+  "welcome": {
+    "title": "Hello and welcome to my online CV!",
+    "paragraphs": [
+      "I am an <span class=\"bold\">Information &amp; Cyber Security student</span> at HSLU, Switzerland, with a focus on Cloud, Mobile, and IoT Security. I am committed to continuously expanding my expertise in cybersecurity and thrive on tackling new challenges. So far, I've mostly focused on defensive concepts, but I would like to expand my knowledge of offensive concepts and techniques as well.",
+      "This website is a small project of mine that I've occasionally been working on to help showcase my skills and recent projects. Enjoy!"
+    ],
+    "button": "OK"
+  },
+  "about": {
+    "windowTitle": "About Me",
+    "profile": {
+      "image": "img/CV-pfp.png",
+      "text": "I’m an Information &amp; Cyber Security student at HSLU, Switzerland, specializing in Cloud, Mobile, and IoT security.I enjoy exploring both defensive and offensive techniques."
+    },
+    "education": {
+      "title": "Education",
+      "html": "Bachelor in Information &amp; Cyber Security<br>Lucerne University of Applied Sciences and Arts<br>2023 – Current"
+    },
+    "skills": {
+      "title": "Skills",
+      "text": "Java, C, HTML, CSS, Python, SQL, JavaScript, Cloud Security, SDNs, etc."
+    },
+    "languages": {
+      "title": "Languages",
+      "items": [
+        { "label": "English (C2)", "percentage": 100 },
+        { "label": "German (C1)", "percentage": 90 },
+        { "label": "Italian (B1)", "percentage": 70 },
+        { "label": "Slovenian (C2)", "percentage": 100 },
+        { "label": "Japanese (B1)", "percentage": 70 }
+      ]
+    }
+  },
+  "contact": {
+    "windowTitle": "Contact",
+    "image": "img/CV-pfp.png",
+    "email": {
+      "label": "Contact:",
+      "address": "codebymegan@gmail.com"
+    },
+    "linkedin": {
+      "label": "LinkedIn:",
+      "url": "https://www.linkedin.com/in/andrea-megan-sustic-448456227/",
+      "text": "Andrea Megan Sustic"
+    }
+  },
+  "explorers": {
+    "experience": {
+      "windowTitle": "Experience",
+      "statusLeft": "4 items",
+      "statusRight": "Free space: 5.6 GB",
+      "items": [
+        {
+          "id": "exp-bakery",
+          "label": "Bakery Assistant",
+          "icon": "icons/shell.png",
+          "notepadTitle": "Bakery Assistant @ SourGood",
+          "bullets": [
+            "July 2024 – Current Date, Zürich",
+            "Maintained high standards in product quality, ensuring consistency across all sourdough batches.",
+            "Worked closely with the team to meet production goals on time.",
+            "Monitored stock levels and managed orders to ensure smooth operations."
+          ]
+        },
+        {
+          "id": "exp-holmes",
+          "label": "Sales Associate @ Holmes Place AG",
+          "icon": "icons/shell.png",
+          "notepadTitle": "Sales Associate @ Holmes Place AG",
+          "bullets": [
+            "January 2022 – December 2022, Zürich",
+            "Consistently achieved membership targets through strategic client engagement.",
+            "Maintained accurate records and safeguarded client data in CRM systems.",
+            "Assisted members with booking systems, ensuring a seamless user experience.",
+            "Enforced studio policies and adhered to industry regulations.",
+            "Contributed to promotional campaigns, enhancing studio visibility."
+          ]
+        },
+        {
+          "id": "exp-physio",
+          "label": "Physiotherapy Assistant",
+          "icon": "icons/shell.png",
+          "notepadTitle": "Physiotherapy Assistant @ DEOS Trnovo",
+          "bullets": [
+            "May 2020 – July 2020, Ljubljana, Slovenia",
+            "Communicated with physicians to provide updates on patient care.",
+            "Developed team communications and information for meetings.",
+            "Taught patients how to live within limits of capabilities and celebrated successes.",
+            "Assisted physiotherapists in patient assessments and treatment planning.",
+            "Supported patients during therapy sessions with exercises and demonstrations."
+          ]
+        },
+        {
+          "id": "exp-lush",
+          "label": "Sales Associate @ Lush",
+          "icon": "icons/shell.png",
+          "notepadTitle": "Sales Associate @ Lush Retail Ltd.",
+          "bullets": [
+            "May 2019 – September 2019, Ljubljana",
+            "Met sales targets, prioritized tasks, worked in a multilingual team.",
+            "Supported international clients and maintained store organization."
+          ]
+        }
+      ]
+    },
+    "projects": {
+      "windowTitle": "Projects",
+      "statusLeft": "6 items",
+      "statusRight": "Free space: 5.6 GB",
+      "items": [
+        {
+          "id": "proj-cv",
+          "label": "CV Website",
+          "icon": "icons/shell.png",
+          "notepadTitle": "CV Website",
+          "bullets": [
+            "As seen on the screen you're currently skimming through :)"
+          ]
+        },
+        {
+          "id": "proj-sql",
+          "label": "SQL Databank Application",
+          "icon": "icons/shell.png",
+          "notepadTitle": "SQL Databank Application \"ByteMe\"",
+          "bullets": [
+            "Designed a database app that calculates exercise needed to burn off calories from fast food.",
+            "Used MySQL for data and Metabase for visualization.",
+            "Encourages healthier decisions by linking food with physical activity."
+          ],
+          "links": [
+            { "text": "Download report (German)", "href": "info/DBS_Projektbericht.pdf", "download": true }
+          ]
+        },
+        {
+          "id": "proj-android",
+          "label": "Face Recognition App",
+          "icon": "icons/shell.png",
+          "notepadTitle": "Personal Mirror – Android Face Recognition App",
+          "bullets": [
+            "Android app with real-time face detection using OpenCV.",
+            "Personalized greetings, calendar notifications, and alarms.",
+            "Encrypted local data storage.",
+            "Built with Android Studio, Java, and Kotlin."
+          ],
+          "links": [
+            { "text": "Download report (German)", "href": "info/IIP1-App-Bericht.pdf", "download": true }
+          ]
+        },
+        {
+          "id": "proj-vault7",
+          "label": "Vault7_Analysis.txt",
+          "icon": "icons/shell.png",
+          "notepadTitle": "Vault 7 – Grasshopper Analysis",
+          "bullets": [
+            "Analyzed the CIA’s Grasshopper malware framework.",
+            "Explored architecture, payload deployment, and obfuscation."
+          ],
+          "links": [
+            { "text": "Download report (German)", "href": "info/ISLAB_Vault7-Analysis.pdf", "download": true }
+          ]
+        },
+        {
+          "id": "proj-cobit",
+          "label": "COBIT_ITIL.txt",
+          "icon": "icons/shell.png",
+          "notepadTitle": "COBIT V and ITIL – Security Use Cases",
+          "bullets": [
+            "Studied COBIT V & ITIL frameworks for IT security and risk management.",
+            "Analyzed 5 industry case studies.",
+            "Offered recommendations for IT governance and incident response."
+          ],
+          "links": [
+            { "text": "Download book (German)", "href": "info/ISM_Cobit-ITIL.pdf", "download": true }
+          ]
+        },
+        {
+          "id": "proj-chain",
+          "label": "ChainOfCustody.txt",
+          "icon": "icons/shell.png",
+          "notepadTitle": "Chain of Custody – Incident Response",
+          "bullets": [
+            "Led a team of 5 researching digital chain of custody practices.",
+            "Produced a comprehensive book documenting findings and recommendations."
+          ],
+          "links": [
+            { "text": "Download book (German)", "href": "info/SPTA_Buch.pdf", "download": true }
+          ]
+        }
+      ]
+    }
+  },
+  "internet": {
+    "headerName": "Andrea Megan Sustic",
+    "headerImage": "img/pfp.png",
+    "currentWork": {
+      "title": "What I'm Currently Working On",
+      "paragraphs": [
+        "Since I’m still studying, my areas of interest and projects are constantly evolving and changing. I am currently developing a text-input game in <span class=\"highlight\">C</span> to expand my knowledge of the programming language. Other programming languages I have worked with are <span class=\"highlight\">Java</span>, <span class=\"highlight\">HTML</span>, <span class=\"highlight\">CSS</span>, <span class=\"highlight\">Python</span>, <span class=\"highlight\">SQL</span>, and <span class=\"highlight\">JavaScript</span>.",
+        "Another area I've been focused on, is expanding my knowledge of <span class=\"highlight\">Cloud Security</span> concepts. To be specific, I'm currently focusing on <span class=\"highlight\">SDNs and Cloud Infrastructure</span>. Reports and results of various projects and topics I have worked on so far can be downloaded from the \"Project\" section of this website."
+      ]
+    },
+    "experienceIntro": {
+      "title": "Key Skills from Experience:",
+      "bullets": [
+        "<span class=\"bold\">Detail-Oriented:</span> Ensured high standards and accuracy in all tasks.",
+        "<span class=\"bold\">Effective Communicator:</span> Strong skills in customer interaction and teamwork.",
+        "<span class=\"bold\">Compliance-Focused:</span> Adhered to regulations and enforced policies consistently.",
+        "<span class=\"bold\">Problem-Solver:</span> Optimized processes and resolved issues efficiently.",
+        "<span class=\"bold\">Data Management:</span> Experienced in handling and protecting sensitive information."
+      ]
+    },
+    "educationHeading": "Bachelor in Information & Cyber Security; Major in Security of Cloud, Mobile & IoT"
+  }
+}

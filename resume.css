@@ -1,22 +1,35 @@
-/* === Global === */
+/* === Global (LOCK BROWSER SCROLL) === */
 html, body {
+  width: 100%;
   height: 100%;
-  overflow: hidden;
-  overflow-y: auto;
   margin: 0;
   padding: 0;
-  background: #008080;
+
+  /* 🔒 No browser/window scrolling */
+  overflow: hidden;
+
+  background: #000;
   font: 15px/1.4 'MS Sans Serif', sans-serif;
 }
 
-/* === Desktop Layout === */
+/* iOS/Safari overscroll hardening */
+body {
+  position: fixed;
+  inset: 0;
+}
+
+/* === Desktop Layout (fits viewport, no outer overflow) === */
 .desktop-outer {
+  width: 100vw;
+  height: 100vh;
+
   display: flex;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
+
   background: #000;
-  padding: 20px 0 60px;
-  min-height: 100vh;
+  padding: 0;          /* ❗ remove old padding that caused overflow */
+  overflow: hidden;    /* ensure nothing leaks */
 }
 
 .desktop-wrapper {
@@ -34,7 +47,8 @@ html, body {
 
 .desktop {
   flex: 1;
-  overflow-y: auto;
+  overflow-y: auto;   /* ✅ only the desktop scrolls */
+  overflow-x: hidden;
   padding: 10px;
   display: flex;
   flex-wrap: wrap;
@@ -126,8 +140,10 @@ html, body {
   display: none;
   max-width: 60rem;
   z-index: 1000;
+
+  /* keep window itself bounded; scroll happens in .window-body */
   max-height: 90vh;
-  overflow: auto;
+  overflow: hidden;
 }
 
 .window-body {
@@ -140,7 +156,7 @@ html, body {
 
 .window.modal {
   max-height: 90vh;
-  overflow-y: auto;
+  overflow: hidden;
 }
 
 .title-bar-text {
@@ -154,6 +170,7 @@ html, body {
   max-width: 700px;
   max-height: 80vh;
   display: block;
+  overflow: hidden;
 }
 
 .about-window .window-body {
@@ -242,6 +259,7 @@ html, body {
   display: none;
   flex-direction: column;
   background: #c0c0c0;
+  overflow: hidden;
 }
 
 .menu-bar {
@@ -258,6 +276,7 @@ html, body {
   display: flex;
   flex: 1;
   background: white;
+  overflow: hidden;
 }
 
 /* Sidebar */
@@ -279,12 +298,12 @@ html, body {
   user-select: none;
 }
 
-
 /* File Grid */
 .explorer-content {
   flex: 1;
   padding: 10px;
   overflow-y: auto;
+  overflow-x: hidden;
   background: white;
 }
 
@@ -310,7 +329,8 @@ html, body {
   margin-bottom: 4px;
 }
 
-.file :hover {
+/* fix selector: only highlight the file itself on hover */
+.file:hover {
   background: #c0c0c0;
 }
 
@@ -332,6 +352,7 @@ html, body {
   flex-direction: column;
   width: 500px;
   height: 400px;
+  overflow: hidden;
 }
 
 .notepad-window > .window-body {
@@ -349,6 +370,7 @@ html, body {
   line-height: 1.8;
   white-space: normal;
   overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .notepad-html ul {
@@ -422,7 +444,7 @@ html, body {
   z-index: 1;
 }
 
-/* === Error Window === */
+/* === Task Manager === */
 #task-list {
   padding: 10px;
   max-height: 250px;
@@ -487,7 +509,7 @@ html, body {
 @media (max-width: 768px) {
   body {
     font-size: 3.5vw;
-    overflow: hidden;
+    overflow: hidden; /* keep locked */
   }
 
   .title-bar-text {
@@ -534,6 +556,7 @@ html, body {
   }
 }
 
+/* keep these if you rely on them */
 #internet-browser {
   width: 95vw !important;
   height: 80vh !important;
