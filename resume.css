@@ -1,15 +1,65 @@
+/* =========================
+   Font standardisation (2 fonts max)
+   - Keep default UI font (from 98.css / browser)
+   ========================= */
+
+@font-face {
+  font-family: "W95FA";
+  src: url("fonts/W95FA.woff2") format("woff2"),
+       url("fonts/W95FA.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+body,
+.title-bar,
+.window,
+.window-body,
+.menu-bar,
+.status-bar,
+.taskbar,
+.start-menu,
+.start-menu * ,
+.start-button,
+.clock,
+.icon,
+.icon * ,
+.sidebar,
+.sidebar-item,
+.file,
+.file * ,
+button,
+input,
+label,
+legend,
+li[role="tab"],
+option,
+select,
+table,
+textarea,
+ul.tree-view {
+  font-family: "W95FA", Arial, sans-serif !important;
+}
+
 /* === Global (LOCK BROWSER SCROLL) === */
-html, body {
+html,
+body {
   width: 100%;
   height: 100%;
   margin: 0;
   padding: 0;
 
-  /* 🔒 No browser/window scrolling */
+  /* No browser/window scrolling */
   overflow: hidden;
 
   background: #000;
-  font: 15px/1.4 'MS Sans Serif', sans-serif;
+
+  /* Keep your original sizing */
+  font-size: 17px;
+  line-height: 1.4;
+
+  /* IMPORTANT: do NOT set font-family here if you want the default UI font */
 }
 
 /* iOS/Safari overscroll hardening */
@@ -17,6 +67,7 @@ body {
   position: fixed;
   inset: 0;
 }
+
 
 /* === Desktop Layout (fits viewport, no outer overflow) === */
 .desktop-outer {
@@ -28,8 +79,8 @@ body {
   align-items: center;
 
   background: #000;
-  padding: 0;          /* ❗ remove old padding that caused overflow */
-  overflow: hidden;    /* ensure nothing leaks */
+  padding: 0;
+  overflow: hidden;
 }
 
 .desktop-wrapper {
@@ -41,14 +92,18 @@ body {
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
   display: flex;
   flex-direction: column;
+
+  /* keep everything clipped inside the desktop frame */
   overflow: hidden;
   position: relative;
 }
 
 .desktop {
   flex: 1;
-  overflow-y: auto;   /* ✅ only the desktop scrolls */
+  min-height: 0; /* important for flex children + overflow */
+  overflow-y: auto; /* only the desktop scrolls */
   overflow-x: hidden;
+
   padding: 10px;
   display: flex;
   flex-wrap: wrap;
@@ -69,12 +124,14 @@ body {
   flex-shrink: 0;
 }
 
+/* keep your original sizes, remove font shorthand */
 .start-button {
   padding: 4px 12px;
   background: #c0c0c0;
   border: 2px outset #fff;
   cursor: pointer;
-  font: 15px/1.4 'MS Sans Serif', sans-serif;
+  font-size: 16px;
+  line-height: 1.4;
 }
 
 .clock {
@@ -85,31 +142,128 @@ body {
   border: 2px inset #404040;
 }
 
-/* === Start Menu === */
+/* === Start Menu (clean) === */
 .start-menu {
   position: absolute;
   bottom: 40px;
   left: 8px;
-  width: 200px;
+
+  width: 340px;
   background: #c0c0c0;
   border: 2px outset #fff;
-  box-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
   z-index: 10000;
-  font-size: 14px;
-}
 
-.start-menu .menu-item {
-  padding: 8px;
-  border-bottom: 1px solid #808080;
-  cursor: pointer;
-}
-
-.start-menu .menu-item:hover {
-  background: #a0a0a0;
+  font-size: 15px;
+  overflow: hidden;
 }
 
 .hidden {
   display: none;
+}
+
+.start-header {
+  display: flex;
+  gap: 8px;
+  padding: 8px;
+  background: #d4d0c8;
+  border-bottom: 1px solid #808080;
+}
+
+.start-header img {
+  width: 32px;
+  height: 32px;
+  border: 2px inset #fff;
+  background: #fff;
+}
+
+.start-header-text strong {
+  display: block;
+  font-size: 15px;
+}
+
+.start-header-text small {
+  display: block;
+  font-size: 13px;
+  color: #404040;
+}
+
+.status.online {
+  color: #0b7a0b;
+}
+
+.start-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.start-col {
+  padding: 6px;
+}
+
+.start-col-right {
+  border-left: 1px solid #808080;
+  background: #d4d0c8;
+}
+
+.menu-title {
+  padding: 4px 6px;
+  font-size: 13px;
+  font-weight: bold;
+  color: #404040;
+  background: #c0c0c0;
+  border: 1px solid #808080;
+  border-top-color: #fff;
+  border-left-color: #fff;
+  margin-bottom: 6px;
+}
+
+.menu-sep {
+  height: 1px;
+  background: #808080;
+  margin: 6px 0;
+}
+
+.start-menu .menu-item {
+  padding: 6px 8px;
+  cursor: pointer;
+  user-select: none;
+  border: 1px solid transparent;
+  margin-bottom: 4px;
+}
+
+.start-menu .menu-item:hover {
+  background: #000080;
+  color: #fff;
+  border-color: #000080;
+}
+
+.start-menu .menu-item.compact {
+  padding: 5px 8px;
+}
+
+.start-menu .menu-item.is-open {
+  box-shadow: inset 0 0 0 1px #404040;
+}
+
+.start-footer {
+  display: flex;
+  gap: 6px;
+  padding: 6px;
+  border-top: 1px solid #808080;
+  background: #c0c0c0;
+}
+
+.start-footer .menu-item {
+  flex: 1;
+  text-align: center;
+  margin-bottom: 0;
+}
+
+.start-footer .menu-item.danger:hover {
+  background: #800000;
+  border-color: #800000;
+  color: #fff;
 }
 
 /* === Icons === */
@@ -118,7 +272,7 @@ body {
   text-align: center;
   cursor: pointer;
   color: white;
-  font-size: 14px;
+  font-size: 15px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -140,9 +294,9 @@ body {
   display: none;
   max-width: 60rem;
   z-index: 1000;
+  max-height: 90vh;
 
   /* keep window itself bounded; scroll happens in .window-body */
-  max-height: 90vh;
   overflow: hidden;
 }
 
@@ -150,17 +304,19 @@ body {
   padding: 10px;
   overflow: auto;
   background: #c0c0c0;
-  font-size: 14px;
-  line-height: 1.4;
+  font-size: 15px;
+  line-height: 1.2;
 }
 
 .window.modal {
   max-height: 90vh;
   overflow: hidden;
+  width: min(95vh, 90%);
+  max-width: 95vh;
 }
 
 .title-bar-text {
-  font-size: 13px;
+  font-size: 15px;
   margin-left: 1rem;
 }
 
@@ -229,7 +385,7 @@ body {
 }
 
 .lang-label {
-  font-size: 14px;
+  font-size: 15px;
   white-space: nowrap;
   min-width: 120px;
   margin-right: 8px;
@@ -275,11 +431,11 @@ body {
 .explorer-body {
   display: flex;
   flex: 1;
+  min-height: 0;
   background: white;
   overflow: hidden;
 }
 
-/* Sidebar */
 .sidebar {
   width: 160px;
   padding: 6px;
@@ -298,9 +454,9 @@ body {
   user-select: none;
 }
 
-/* File Grid */
 .explorer-content {
   flex: 1;
+  min-height: 0;
   padding: 10px;
   overflow-y: auto;
   overflow-x: hidden;
@@ -316,11 +472,12 @@ body {
 .file {
   width: 90px;
   text-align: center;
-  font-size: 13px;
+  font-size: 15px;
   display: flex;
   flex-direction: column;
   align-items: center;
   word-break: break-word;
+  padding: 2px;
 }
 
 .file img {
@@ -329,12 +486,10 @@ body {
   margin-bottom: 4px;
 }
 
-/* fix selector: only highlight the file itself on hover */
 .file:hover {
   background: #c0c0c0;
 }
 
-/* Status Bar */
 .status-bar {
   display: flex;
   justify-content: space-between;
@@ -343,7 +498,7 @@ body {
   border-right: 2px outset #404040;
   border-bottom: 2px outset #404040;
   background: #c0c0c0;
-  font-size: 14px;
+  font-size: 15px;
 }
 
 /* === Notepad === */
@@ -365,12 +520,14 @@ body {
 .notepad-html {
   flex: 1;
   padding: 12px 20px;
-  font: 14px 'Courier New', monospace;
   background: white;
   line-height: 1.8;
   white-space: normal;
   overflow-y: auto;
   overflow-x: hidden;
+
+  /* keep your original notepad sizing */
+  font-size: 15px;
 }
 
 .notepad-html ul {
@@ -391,6 +548,7 @@ body {
 #internet-browser {
   width: 95vw;
   height: 80vh;
+  display: none;
   flex-direction: column;
   overflow: hidden;
 }
@@ -401,6 +559,7 @@ body {
   flex-direction: column;
   height: 93%;
   overflow: hidden;
+  min-height: 0;
 }
 
 .ie-address-bar input.field {
@@ -424,8 +583,7 @@ body {
   justify-content: center;
   background: black;
   color: lime;
-  font-size: 1.2em;
-  font-family: monospace;
+  font-size: 1.2em; /* keep your size */
   position: absolute;
   top: 0;
   left: 0;
@@ -461,7 +619,7 @@ body {
 
 .task-entry button {
   padding: 2px 8px;
-  font-size: 12px;
+  font-size: 15px;
   cursor: pointer;
 }
 
@@ -471,7 +629,7 @@ body {
   height: auto;
   background-color: #c0c0c0;
   position: absolute;
-  box-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
 }
 
 .stop-virus-button {
@@ -480,8 +638,7 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
   padding: 12px 24px;
-  font-family: 'MS Sans Serif', sans-serif;
-  font-size: 16px;
+  font-size: 18px; /* keep your size */
   font-weight: bold;
   color: white;
   background-color: red;
@@ -494,22 +651,36 @@ body {
 
 /* === Animations === */
 @keyframes flash {
-  0%, 100% { background-color: red; }
-  50% { background-color: darkred; }
+  0%,
+  100% {
+    background-color: red;
+  }
+  50% {
+    background-color: darkred;
+  }
 }
 
 @keyframes shake {
-  0%, 100% { transform: translate(0, 0); }
-  25% { transform: translate(2px, 0); }
-  50% { transform: translate(-2px, 0); }
-  75% { transform: translate(2px, 0); }
+  0%,
+  100% {
+    transform: translate(-50%, -50%);
+  }
+  25% {
+    transform: translate(calc(-50% + 2px), -50%);
+  }
+  50% {
+    transform: translate(calc(-50% - 2px), -50%);
+  }
+  75% {
+    transform: translate(calc(-50% + 2px), -50%);
+  }
 }
 
 /* === Responsive === */
 @media (max-width: 768px) {
   body {
     font-size: 3.5vw;
-    overflow: hidden; /* keep locked */
+    overflow: hidden;
   }
 
   .title-bar-text {
@@ -560,7 +731,6 @@ body {
 #internet-browser {
   width: 95vw !important;
   height: 80vh !important;
-  flex-direction: column;
   overflow: hidden;
 }
 

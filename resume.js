@@ -1,6 +1,10 @@
-// ===== resume.js (JSON-driven) =====
+// ===== resume.js (JSON-driven + enhanced Start Menu) =====
 let zIndexCounter = 10000;
 let CV = null;
+
+// Start menu state
+const recentApps = []; // ids
+const RECENT_MAX = 4;
 
 // ---------------------------
 // Window Management
@@ -10,6 +14,7 @@ function openWindow(id) {
   const wrapper = document.getElementById("desktop-wrapper");
   if (!win || !wrapper) return;
 
+  // open + center
   win.style.visibility = "hidden";
   win.style.display = "block";
   win.style.zIndex = ++zIndexCounter;
@@ -33,11 +38,17 @@ function openWindow(id) {
     // (Re)animate language bars after About is rendered + opened
     if (id === "about") initLanguageBars();
   });
+
+  // Start menu: track & render recents + open highlights
+  trackRecentApp(id);
+  renderRecentApps();
+  updateStartOpenHighlights();
 }
 
 const closeWindow = (id) => {
   const win = document.getElementById(id);
   if (win) win.style.display = "none";
+  updateStartOpenHighlights();
 };
 
 // ---------------------------
@@ -48,15 +59,200 @@ async function loadContent() {
   if (!res.ok) throw new Error(`Failed to load content.json (${res.status})`);
   CV = await res.json();
 
-  // Optional: set document title / favicon from JSON if you want
   if (CV?.site?.title) document.title = CV.site.title;
+}
 
-  // NOTE: Changing favicon dynamically is optional; leaving your existing <link> is fine.
-  // If you want to set it:
-  // if (CV?.site?.favicon) {
-  //   const link = document.querySelector('link[rel="icon"]');
-  //   if (link) link.href = CV.site.favicon;
-  // }
+// ---------------------------
+// Enhanced Start Menu helpers
+// ---------------------------
+function safeText(s, fallback = "") {
+  return (typeof s === "string" && s.trim().length) ? s : fallback;
+}
+
+function trackRecentApp(id) {
+  const blacklist = new Set(["welcome-message"]); // don't count the welcome modal
+  if (!id || blacklist.has(id)) return;
+
+  const idx = recentApps.indexOf(id);
+  if (idx !== -1) recentApps.splice(idx, 1);
+  recentApps.unshift(id);
+  recentApps.splice(RECENT_MAX, recentApps.length - RECENT_MAX);
+}
+
+function renderStartHeader() {
+  const avatar = document.getElementById("start-avatar");
+  const nameEl = document.getElementById("start-name");
+  const roleEl = document.getElementById("start-role");
+  const statusEl = document.getElementById("start-status");
+
+  if (!avatar && !nameEl && !roleEl && !statusEl) return;
+
+  // Name: prefer JSON internet headerName, otherwise site.title
+  const name =
+    CV?.internet?.headerName ||
+    CV?.site?.title ||
+    "Andrea Sustic";
+
+  // Role: derive from about.profile text, or hard fallback
+  const role =
+    CV?.startMenu?.role ||
+    "Information & Cyber Security";
+
+  // Avatar: prefer favicon, then internet.headerImage, then default
+  const avatarSrc =
+    CV?.startMenu?.avatar ||
+    CV?.site?.favicon ||
+    CV?.internet?.headerImage ||
+    "img/pfp.png";
+
+  if (nameEl) nameEl.textContent = name;
+  if (roleEl) roleEl.textContent = role;
+  if (avatar) avatar.src = avatarSrc;
+
+  // Status: static for now, but easy to make dynamic later
+  if (statusEl) statusEl.textContent = CV?.startMenu?.status || "● Online";
+}
+
+function renderRecentApps() {
+  const host = document.getElementById("recent-apps");
+  if (!host) return;
+
+  if (recentApps.length === 0) {
+    host.innerHTML = `<div class="menu-empty"><em>No recent apps.</em></div>`;
+    return;
+  }
+
+  const labelMap = {
+    about: "About Me",
+    experience: "Experience",
+    projects: "Projects",
+    contact: "Contact",
+    notepad: "Notepad",
+    "task-manager": "Task Manager",
+    "internet-browser": "Internet Explorer"
+  };
+
+  host.innerHTML = recentApps
+    .map((id) => {
+      const label = labelMap[id] || id;
+      return `
+        <div class="menu-item" role="menuitem" data-app-id="${id}" data-tip="Re-open ${label}"
+             onclick="openWindow('${id === "internet-browser" ? "internet-browser" : id}');">
+          ${label}
+        </div>
+      `;
+    })
+    .join("");
+}
+
+function updateStartOpenHighlights() {
+  // highlight any menu items referencing visible windows
+  const menu = document.getElementById("start-menu");
+  if (!menu) return;
+
+  const items = menu.querySelectorAll("[data-app-id]");
+  items.forEach((el) => {
+    const id = el.getAttribute("data-app-id");
+    const win = id ? document.getElementById(id) : null;
+    el.classList.toggle("is-open", !!win && isVisible(win));
+  });
+}
+
+function closeStartMenu() {
+  const startMenu = document.getElementById("start-menu");
+  if (startMenu) startMenu.classList.add("hidden");
+}
+
+function toggleStartMenu() {
+  const startMenu = document.getElementById("start-menu");
+  if (!startMenu) return;
+  startMenu.classList.toggle("hidden");
+  if (!startMenu.classList.contains("hidden")) {
+    renderStartHeader();
+    renderRecentApps();
+    updateStartOpenHighlights();
+  }
+}
+
+// Quick Actions (wired from HTML)
+function openCvDownload() {
+  // If you add a PDF path later, set CV.startMenu.cvPdf = "info/CV.pdf"
+  const pdf = CV?.startMenu?.cvPdf || "info/CV.pdf";
+  window.open(pdf, "_blank", "noopener,noreferrer");
+  closeStartMenu();
+}
+
+function openResumeTxt() {
+  // Creates a small "Résumé.txt" on demand using existing JSON
+  const name = CV?.internet?.headerName || CV?.site?.title || "Andrea";
+  const skills = CV?.about?.skills?.text || "";
+  const edu = CV?.about?.education?.html || "";
+  const email = CV?.contact?.email?.address || "";
+  const li = CV?.contact?.linkedin?.url || "";
+
+  const lines = [
+    `${name}`,
+    "",
+    "Summary:",
+    stripHtml((CV?.welcome?.paragraphs || []).join(" ")).trim(),
+    "",
+    "Education:",
+    stripHtml(edu).trim(),
+    "",
+    "Skills:",
+    stripHtml(skills).trim(),
+    "",
+    "Links:",
+    email ? `- Email: ${email}` : "",
+    li ? `- LinkedIn: ${li}` : ""
+  ].filter(Boolean);
+
+  openNotepadWithText("Résumé.txt", lines.join("\n"));
+  closeStartMenu();
+}
+
+function openNotepadWithText(title, text) {
+  const notepad = document.getElementById("notepad");
+  const titleEl = document.getElementById("notepad-title");
+  const contentEl = document.getElementById("notepad-content");
+  if (!notepad || !titleEl || !contentEl) return;
+
+  titleEl.textContent = `${title} - Notepad`;
+  contentEl.textContent = text;
+
+  notepad.style.display = "block";
+  notepad.style.zIndex = ++zIndexCounter;
+
+  trackRecentApp("notepad");
+  renderRecentApps();
+  updateStartOpenHighlights();
+}
+
+function stripHtml(html) {
+  const div = document.createElement("div");
+  div.innerHTML = String(html ?? "");
+  return div.textContent || div.innerText || "";
+}
+
+// Keyboard support: Win key / Meta opens Start, Esc closes
+function setupStartMenuKeyboard() {
+  document.addEventListener("keydown", (e) => {
+    const startMenu = document.getElementById("start-menu");
+    if (!startMenu) return;
+
+    // Escape closes
+    if (e.key === "Escape") {
+      closeStartMenu();
+      return;
+    }
+
+    // Windows key / Meta key toggles (best-effort, browser-dependent)
+    // Some browsers won't deliver "Meta" alone; also allow Ctrl+Esc like Windows.
+    if (e.key === "Meta" || (e.ctrlKey && e.key === "Escape")) {
+      e.preventDefault();
+      toggleStartMenu();
+    }
+  });
 }
 
 // ---------------------------
@@ -85,8 +281,8 @@ function renderAbout() {
   if (!host) return;
 
   const languagesHtml = (a.languages?.items || [])
-      .map(
-          (item) => `
+    .map(
+      (item) => `
       <div class="lang-item">
         <span class="lang-label">${item.label}</span>
         <div class="language-bar" data-percentage="${item.percentage}">
@@ -94,8 +290,8 @@ function renderAbout() {
         </div>
       </div>
     `
-      )
-      .join("");
+    )
+    .join("");
 
   host.innerHTML = `
     <div class="profile-section">
@@ -144,7 +340,6 @@ function renderContact() {
 }
 
 function renderExplorer(kind) {
-  // kind: "experience" | "projects"
   const data = CV?.explorers?.[kind];
   if (!data) return;
 
@@ -162,20 +357,19 @@ function renderExplorer(kind) {
   sidebar.innerHTML = items.map((it) => `<div class="sidebar-item">${it.label}</div>`).join("");
 
   grid.innerHTML = items
-      .map(
-          (it) => `
+    .map(
+      (it) => `
       <div id="${it.id}" class="file" data-kind="${kind}">
         <img src="${it.icon}" alt="${it.label}">
         <span>${it.label}</span>
       </div>
     `
-      )
-      .join("");
+    )
+    .join("");
 
   if (statusL) statusL.textContent = data.statusLeft || `${items.length} items`;
   if (statusR) statusR.textContent = data.statusRight || "";
 
-  // Bind clicks -> Notepad content from JSON
   grid.querySelectorAll(".file").forEach((file) => {
     file.addEventListener("click", () => openNotepadFromData(kind, file.id));
   });
@@ -193,18 +387,22 @@ function openNotepadFromData(kind, itemId) {
 
   const bullets = (item.bullets || []).map((b) => `<li>${b}</li>`).join("");
   const links = (item.links || [])
-      .map((l) => {
-        const dl = l.download ? " download" : "";
-        const href = l.href || "#";
-        const text = l.text || href;
-        return `<li><a href="${href}"${dl}>${text}</a></li>`;
-      })
-      .join("");
+    .map((l) => {
+      const dl = l.download ? " download" : "";
+      const href = l.href || "#";
+      const text = l.text || href;
+      return `<li><a href="${href}"${dl}>${text}</a></li>`;
+    })
+    .join("");
 
   contentEl.innerHTML = `<ul>${bullets}${links}</ul>`;
 
   notepad.style.display = "block";
   notepad.style.zIndex = ++zIndexCounter;
+
+  trackRecentApp("notepad");
+  renderRecentApps();
+  updateStartOpenHighlights();
 }
 
 // ---------------------------
@@ -259,10 +457,10 @@ const initLanguageBars = () => {
 // ---------------------------
 function isVisible(win) {
   return (
-      win.style.display !== "none" &&
-      win.style.visibility !== "hidden" &&
-      win.offsetWidth > 0 &&
-      win.offsetHeight > 0
+    win.style.display !== "none" &&
+    win.style.visibility !== "hidden" &&
+    win.offsetWidth > 0 &&
+    win.offsetHeight > 0
   );
 }
 
@@ -367,7 +565,6 @@ function openInternetWindow() {
   const id = "internet-browser";
   const win = document.getElementById(id);
   const wrapper = document.getElementById("desktop-wrapper");
-
   if (!win || !wrapper) return;
 
   win.style.display = "block";
@@ -375,30 +572,27 @@ function openInternetWindow() {
   win.style.zIndex = ++zIndexCounter;
 
   requestAnimationFrame(() => {
-  const w = win.offsetWidth;
-  const h = win.offsetHeight;
+    const w = win.offsetWidth;
+    const h = win.offsetHeight;
 
-  const wrapperRect = wrapper.getBoundingClientRect();
+    const wrapperRect = wrapper.getBoundingClientRect();
 
-  // Title bar is ~30px; give a little extra breathing room
-  const safeTop = wrapperRect.top + 12;
-  const safeLeft = wrapperRect.left + 12;
-  const safeRight = wrapperRect.right - 12;
-  const safeBottom = wrapperRect.bottom - 12;
+    const safeTop = wrapperRect.top + 12;
+    const safeLeft = wrapperRect.left + 12;
+    const safeRight = wrapperRect.right - 12;
+    const safeBottom = wrapperRect.bottom - 12;
 
-  // Center in wrapper
-  let top = wrapperRect.top + (wrapperRect.height - h) / 2;
-  let left = wrapperRect.left + (wrapperRect.width - w) / 2;
+    let top = wrapperRect.top + (wrapperRect.height - h) / 2;
+    let left = wrapperRect.left + (wrapperRect.width - w) / 2;
 
-  // Clamp so nothing clips
-  top = Math.min(Math.max(top, safeTop), safeBottom - h);
-  left = Math.min(Math.max(left, safeLeft), safeRight - w);
+    top = Math.min(Math.max(top, safeTop), safeBottom - h);
+    left = Math.min(Math.max(left, safeLeft), safeRight - w);
 
-  win.style.position = "fixed";
-  win.style.top = `${top}px`;
-  win.style.left = `${left}px`;
-  win.style.visibility = "visible";
-});
+    win.style.position = "fixed";
+    win.style.top = `${top}px`;
+    win.style.left = `${left}px`;
+    win.style.visibility = "visible";
+  });
 
   const loader = document.getElementById("internet-loader");
   const iframe = document.getElementById("internet-iframe");
@@ -419,6 +613,11 @@ function openInternetWindow() {
   setTimeout(() => {
     iframe.src = "internet/cv.html";
   }, 300);
+
+  trackRecentApp("internet-browser");
+  renderRecentApps();
+  updateStartOpenHighlights();
+  closeStartMenu();
 }
 
 // ---------------------------
@@ -433,36 +632,55 @@ document.addEventListener("DOMContentLoaded", async () => {
     renderContact();
     renderExplorer("experience");
     renderExplorer("projects");
+
+    // Start menu header pulls from JSON
+    renderStartHeader();
+    renderRecentApps();
   } catch (e) {
     console.error(e);
   }
 
+  // Open welcome
   openWindow("welcome-message");
 
+  // Clock
   updateClock();
   setInterval(updateClock, 1000);
 
+  // Draggable windows
   document.querySelectorAll(".window").forEach(makeDraggable);
 
+  // Start menu open/close
   const startButton = document.querySelector(".start-button");
   const startMenu = document.getElementById("start-menu");
 
   if (startButton && startMenu) {
     startButton.addEventListener("click", (e) => {
       e.stopPropagation();
-      startMenu.classList.toggle("hidden");
+      toggleStartMenu();
     });
 
+    // Clicking anywhere else closes it
     document.addEventListener("click", (e) => {
       if (!startMenu.contains(e.target) && !startButton.contains(e.target)) {
-        startMenu.classList.add("hidden");
+        closeStartMenu();
       }
     });
   }
 
+  // Keyboard shortcuts
+  setupStartMenuKeyboard();
+
+  // Bring-to-front behavior + update open highlights
   document.querySelectorAll(".window").forEach((win) => {
     win.addEventListener("mousedown", () => {
       win.style.zIndex = ++zIndexCounter;
+      updateStartOpenHighlights();
     });
   });
+
+  // Seed recents based on initial desktop icons (optional)
+  // (keeps Recent from being empty on first load)
+  // recentApps.push("about", "projects");
+  // renderRecentApps();
 });

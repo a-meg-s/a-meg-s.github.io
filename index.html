@@ -55,7 +55,6 @@
           </div>
         </div>
         <div class="window-body">
-          <!-- JSON-rendered content -->
           <div id="welcome-content"></div>
           <button id="welcome-ok" onclick="closeWindow('welcome-message')">OK</button>
         </div>
@@ -63,172 +62,218 @@
 
       <!-- Taskbar -->
       <div class="taskbar">
-        <button class="start-button">Start</button>
-        <div class="taskbar-spacer"></div>
+        <button class="start-button" aria-haspopup="menu" aria-controls="start-menu">Start</button>
         <div id="taskbar-clock" class="clock">12:00</div>
       </div>
 
       <!-- Start Menu -->
-      <div id="start-menu" class="start-menu hidden">
-        <div class="menu-item" onclick="openWindow('about')">About Me</div>
-        <div class="menu-item" onclick="openWindow('experience')">Experience</div>
-        <div class="menu-item" onclick="openWindow('projects')">Projects</div>
-        <div class="menu-item" onclick="openWindow('contact')">Contact</div>
-        <div class="menu-item" onclick="openWindow('task-manager'); populateTaskList();">Task Manager</div>
-      </div>
-
-      <!-- Task Manager -->
-      <div id="task-manager" class="window modal" style="display:none; width: 500px; height: 350px;">
-        <div class="title-bar">
-          <div class="title-bar-text">Task Manager</div>
-          <div class="title-bar-controls">
-            <button aria-label="Close" onclick="closeWindow('task-manager')">X</button>
-          </div>
-        </div>
-        <div class="window-body">
-          <p><strong>Task Manager</strong> – View all currently open windows and close them as needed.</p>
-          <hr />
-          <div id="task-list"></div>
-        </div>
-      </div>
-
-      <!-- About -->
-      <div id="about" class="window about-window" style="display: none;">
-        <div class="title-bar">
-          <div class="title-bar-text" id="about-title">About Me</div>
-          <div class="title-bar-controls">
-            <button aria-label="Close" onclick="closeWindow('about')"></button>
-          </div>
-        </div>
-        <div class="window-body scrollable">
-          <!-- JSON-rendered content -->
-          <div id="about-content"></div>
-        </div>
-      </div>
-
-      <!-- Experience -->
-      <div id="experience" class="window explorer-window">
-        <div class="title-bar">
-          <div class="title-bar-text" id="experience-title">Experience</div>
-          <div class="title-bar-controls">
-            <button aria-label="Close" onclick="closeWindow('experience')"></button>
+      <div id="start-menu" class="start-menu hidden" role="menu" aria-label="Start menu">
+        <div class="start-header">
+          <img id="start-avatar" src="img/pfp.png" alt="User" />
+          <div class="start-header-text">
+            <strong id="start-name">Andrea Sustic</strong>
+            <small id="start-role">Information &amp; Cyber Security</small>
           </div>
         </div>
 
-        <div class="menu-bar">
-          <span>File</span><span>Edit</span><span>View</span><span>Help</span>
-        </div>
+        <div class="start-grid">
+          <!-- Left column: main navigation -->
+          <div class="start-col">
+            <div class="menu-title">Programs</div>
 
-        <div class="explorer-body split">
-          <!-- JSON-rendered sidebar -->
-          <div class="sidebar" id="experience-sidebar"></div>
+            <div class="menu-item" role="menuitem" data-app-id="about" onclick="openWindow('about')">
+              About Me
+            </div>
+            <div class="menu-item" role="menuitem" data-app-id="experience" onclick="openWindow('experience')">
+              Experience
+            </div>
+            <div class="menu-item" role="menuitem" data-app-id="projects" onclick="openWindow('projects')">
+              Projects
+            </div>
+            <div class="menu-item" role="menuitem" data-app-id="contact" onclick="openWindow('contact')">
+              Contact
+            </div>
 
-          <div class="explorer-content">
-            <!-- JSON-rendered file grid -->
-            <div class="file-grid" id="experience-grid"></div>
+            <div class="menu-sep"></div>
+
+            <div class="menu-item" role="menuitem" data-app-id="notepad" onclick="openResumeTxt()">
+              Resume.txt
+            </div>
+            <div class="menu-item" role="menuitem" data-app-id="internet-browser" onclick="openInternetWindow()">
+              Connect to Internet
+            </div>
+          </div>
+
+          <!-- Right column: compact utilities -->
+          <div class="start-col start-col-right">
+            <div class="menu-title">Quick</div>
+
+            <div class="menu-item compact" role="menuitem" onclick="openWindow('projects')">
+              View Projects
+            </div>
+            <div class="menu-item compact" role="menuitem" onclick="openCvDownload()">
+              Download CV
+            </div>
+
+            <div class="menu-title" style="margin-top:6px;">Recent</div>
+            <div id="recent-apps" class="recent-list"></div>
           </div>
         </div>
 
-        <div class="status-bar">
-          <span id="experience-status-left"></span>
-          <span id="experience-status-right"></span>
-        </div>
-      </div>
-
-      <!-- Notepad -->
-      <div id="notepad" class="window notepad-window" style="display:none;">
-        <div class="title-bar">
-          <div id="notepad-title" class="title-bar-text">Untitled - Notepad</div>
-          <div class="title-bar-controls">
-            <button aria-label="Close" onclick="closeWindow('notepad')"></button>
+        <!-- Footer row: system -->
+        <div class="start-footer">
+          <div class="menu-item compact" role="menuitem" data-app-id="task-manager"
+            onclick="openWindow('task-manager'); populateTaskList();">
+            Task Manager
+          </div>
+          <div class="menu-item compact danger" role="menuitem" onclick="triggerVirus()">
+            Shutdown
           </div>
         </div>
-        <div class="menu-bar">
-          <span>File</span><span>Edit</span><span>Format</span><span>View</span><span>Help</span>
-        </div>
-        <div class="window-body notepad-body">
-          <!-- JSON-rendered notepad content -->
-          <div id="notepad-content" class="notepad-html"></div>
-        </div>
-      </div>
-
-      <!-- Projects -->
-      <div id="projects" class="window explorer-window">
-        <div class="title-bar">
-          <div class="title-bar-text" id="projects-title">Projects</div>
-          <div class="title-bar-controls">
-            <button aria-label="Close" onclick="closeWindow('projects')"></button>
-          </div>
-        </div>
-
-        <div class="menu-bar">
-          <span>File</span><span>Edit</span><span>View</span><span>Help</span>
-        </div>
-
-        <div class="explorer-body split">
-          <!-- JSON-rendered sidebar -->
-          <div class="sidebar" id="projects-sidebar"></div>
-
-          <div class="explorer-content">
-            <!-- JSON-rendered file grid -->
-            <div class="file-grid" id="projects-grid"></div>
-          </div>
-        </div>
-
-        <div class="status-bar">
-          <span id="projects-status-left"></span>
-          <span id="projects-status-right"></span>
-        </div>
-      </div>
-
-      <!-- Contact -->
-      <div id="contact" class="window" style="display: none;">
-        <div class="title-bar">
-          <div class="title-bar-text" id="contact-title">Contact</div>
-          <div class="title-bar-controls">
-            <button aria-label="Close" onclick="closeWindow('contact')"></button>
-          </div>
-        </div>
-        <div class="window-body scrollable">
-          <!-- JSON-rendered content -->
-          <div id="contact-content"></div>
-        </div>
-      </div>
-
-      <!-- Internet Explorer -->
-      <div id="internet-browser" class="window modal" style="display:none; width: 95vw; height: 85vh;">
-        <div class="title-bar">
-          <div class="title-bar-text">Internet Explorer</div>
-          <div class="title-bar-controls">
-            <button aria-label="Close" onclick="closeWindow('internet-browser')">X</button>
-          </div>
-        </div>
-
-        <div class="window-body internet-body">
-          <div class="ie-address-bar">
-            <fieldset class="ie-fieldset">
-              <label for="fake-url">Address:</label>
-              <input id="fake-url" class="field" type="text" readonly value="http://andrea-m-sustic.internet/" />
-            </fieldset>
-          </div>
-
-          <div id="internet-loader" class="internet-loader">Connecting to the Internet...</div>
-          <iframe id="internet-iframe" src="" class="internet-iframe"></iframe>
-        </div>
-      </div>
-
-      <!-- Error Window (static) -->
-      <div class="window error-box">
-        <div class="title-bar">
-          <div class="title-bar-text">Error</div>
-        </div>
-        <div class="window-body">Something went wrong!</div>
-      </div>
-
-      <!-- Removed: old hidden #file-contents block (not needed with JSON) -->
     </div>
 
-    <script src="resume.js"></script>
+
+    <!-- Task Manager -->
+    <div id="task-manager" class="window modal" style="display:none; width: 500px; height: 350px;">
+      <div class="title-bar">
+        <div class="title-bar-text">Task Manager</div>
+        <div class="title-bar-controls">
+          <button aria-label="Close" onclick="closeWindow('task-manager')">X</button>
+        </div>
+      </div>
+      <div class="window-body">
+        <p><strong>Task Manager</strong> – View all currently open windows and close them as needed.</p>
+        <hr />
+        <div id="task-list"></div>
+      </div>
+    </div>
+
+    <!-- About -->
+    <div id="about" class="window about-window" style="display: none;">
+      <div class="title-bar">
+        <div class="title-bar-text" id="about-title">About Me</div>
+        <div class="title-bar-controls">
+          <button aria-label="Close" onclick="closeWindow('about')"></button>
+        </div>
+      </div>
+      <div class="window-body scrollable">
+        <div id="about-content"></div>
+      </div>
+    </div>
+
+    <!-- Experience -->
+    <div id="experience" class="window explorer-window">
+      <div class="title-bar">
+        <div class="title-bar-text" id="experience-title">Experience</div>
+        <div class="title-bar-controls">
+          <button aria-label="Close" onclick="closeWindow('experience')"></button>
+        </div>
+      </div>
+
+      <div class="menu-bar">
+        <span>File</span><span>Edit</span><span>View</span><span>Help</span>
+      </div>
+
+      <div class="explorer-body split">
+        <div class="sidebar" id="experience-sidebar"></div>
+        <div class="explorer-content">
+          <div class="file-grid" id="experience-grid"></div>
+        </div>
+      </div>
+
+      <div class="status-bar">
+        <span id="experience-status-left"></span>
+        <span id="experience-status-right"></span>
+      </div>
+    </div>
+
+    <!-- Notepad -->
+    <div id="notepad" class="window notepad-window" style="display:none;">
+      <div class="title-bar">
+        <div id="notepad-title" class="title-bar-text">Untitled - Notepad</div>
+        <div class="title-bar-controls">
+          <button aria-label="Close" onclick="closeWindow('notepad')"></button>
+        </div>
+      </div>
+      <div class="menu-bar">
+        <span>File</span><span>Edit</span><span>Format</span><span>View</span><span>Help</span>
+      </div>
+      <div class="window-body notepad-body">
+        <div id="notepad-content" class="notepad-html"></div>
+      </div>
+    </div>
+
+    <!-- Projects -->
+    <div id="projects" class="window explorer-window">
+      <div class="title-bar">
+        <div class="title-bar-text" id="projects-title">Projects</div>
+        <div class="title-bar-controls">
+          <button aria-label="Close" onclick="closeWindow('projects')"></button>
+        </div>
+      </div>
+
+      <div class="menu-bar">
+        <span>File</span><span>Edit</span><span>View</span><span>Help</span>
+      </div>
+
+      <div class="explorer-body split">
+        <div class="sidebar" id="projects-sidebar"></div>
+        <div class="explorer-content">
+          <div class="file-grid" id="projects-grid"></div>
+        </div>
+      </div>
+
+      <div class="status-bar">
+        <span id="projects-status-left"></span>
+        <span id="projects-status-right"></span>
+      </div>
+    </div>
+
+    <!-- Contact -->
+    <div id="contact" class="window" style="display: none;">
+      <div class="title-bar">
+        <div class="title-bar-text" id="contact-title">Contact</div>
+        <div class="title-bar-controls">
+          <button aria-label="Close" onclick="closeWindow('contact')"></button>
+        </div>
+      </div>
+      <div class="window-body scrollable">
+        <div id="contact-content"></div>
+      </div>
+    </div>
+
+    <!-- Internet Explorer -->
+    <div id="internet-browser" class="window modal" style="display:none; width: 95vw; height: 85vh;">
+      <div class="title-bar">
+        <div class="title-bar-text">Internet Explorer</div>
+        <div class="title-bar-controls">
+          <button aria-label="Close" onclick="closeWindow('internet-browser')">X</button>
+        </div>
+      </div>
+
+      <div class="window-body internet-body">
+        <div class="ie-address-bar">
+          <fieldset class="ie-fieldset">
+            <label for="fake-url">Address:</label>
+            <input id="fake-url" class="field" type="text" readonly value="http://andrea-m-sustic.internet/" />
+          </fieldset>
+        </div>
+
+        <div id="internet-loader" class="internet-loader">Connecting to the Internet...</div>
+        <iframe id="internet-iframe" src="" class="internet-iframe"></iframe>
+      </div>
+    </div>
+
+    <!-- Error Window (static) -->
+    <div class="window error-box">
+      <div class="title-bar">
+        <div class="title-bar-text">Error</div>
+      </div>
+      <div class="window-body">Something went wrong!</div>
+    </div>
+  </div>
+
+  <script src="resume.js"></script>
   </div>
 </body>
 
