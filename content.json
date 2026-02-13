@@ -6,7 +6,7 @@
   "welcome": {
     "title": "Hello and welcome to my online CV!",
     "paragraphs": [
-      "I am an <span class=\"bold\">Information &amp; Cyber Security student</span> at HSLU, Switzerland, with a focus on Cloud, Mobile, and IoT Security. I am committed to continuously expanding my expertise in cybersecurity and thrive on tackling new challenges. So far, I've mostly focused on defensive concepts, but I would like to expand my knowledge of offensive concepts and techniques as well.",
+      "I am an <span class=\"bold\">Information &amp; Cyber Security student</span> at HSLU, Switzerland, with a focus on Cloud, Mobile, and IoT Security. I am committed to continuously expanding my expertise in cybersecurity and thrive on tackling new challenges.",
       "This website is a small project of mine that I've occasionally been working on to help showcase my skills and recent projects. Enjoy!"
     ],
     "button": "OK"
