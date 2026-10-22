@@ -6,9 +6,11 @@
   const ROWS = 15;
   const CELL = 16;
 
+  // Font sizes are in logical pixels; the desktop canvas is shown at 1.5x, so 10 logical = 15 on screen,
+  // which matches the rest of the desktop UI.
   const THEMES = {
-    desktop: { bg: "#000000", ink: "#33ff33", dim: "#117711", head: "#ffffff", font: "W95FA, monospace" },
-    phone: { bg: "#c3d59f", ink: "#1b2618", dim: "#6f7f5a", head: "#1b2618", font: "W95FA, monospace" }
+    desktop: { bg: "#000000", ink: "#33ff33", dim: "#117711", head: "#ffffff", font: "W95FA, monospace", seg: 11, byte: 7, small: 9, big: 10 },
+    phone: { bg: "#c3d59f", ink: "#1b2618", dim: "#6f7f5a", head: "#1b2618", font: "W95FA, monospace", seg: 14, byte: 9, small: 12, big: 13 }
   };
 
   const state = {
@@ -93,7 +95,7 @@
       }
     }
 
-    ctx.font = `bold 14px ${theme.font}`;
+    ctx.font = `bold ${theme.seg}px ${theme.font}`;
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
 
@@ -105,9 +107,9 @@
       ctx.lineWidth = 1;
       ctx.strokeRect(fx + 1.5, fy + 1.5, CELL - 3, CELL - 3);
       ctx.fillStyle = theme.ink;
-      ctx.font = `bold 9px ${theme.font}`;
+      ctx.font = `bold ${theme.byte}px ${theme.font}`;
       ctx.fillText(state.food.byte, fx + CELL / 2, fy + CELL / 2 + 0.5);
-      ctx.font = `bold 14px ${theme.font}`;
+      ctx.font = `bold ${theme.seg}px ${theme.font}`;
     }
 
     // body: bits
@@ -133,14 +135,14 @@
       ctx.strokeStyle = theme.ink;
       ctx.strokeRect(CELL + 0.5, h / 2 - 34 + 0.5, w - CELL * 2 - 1, 67);
       ctx.fillStyle = theme.ink;
-      ctx.font = `bold 13px ${theme.font}`;
+      ctx.font = `bold ${theme.big}px ${theme.font}`;
       ctx.fillText("Segmentation fault", w / 2, h / 2 - 16);
-      ctx.font = `12px ${theme.font}`;
+      ctx.font = `${theme.small}px ${theme.font}`;
       ctx.fillText(`core dumped: ${state.score} bytes`, w / 2, h / 2 + 4);
       ctx.fillText(state.target === "phone" ? "Press Select to retry" : "Press Start to retry", w / 2, h / 2 + 22);
     } else if (!state.running) {
       ctx.fillStyle = theme.ink;
-      ctx.font = `12px ${theme.font}`;
+      ctx.font = `${theme.small}px ${theme.font}`;
       ctx.fillText(state.target === "phone" ? "Select = start, keys = steer" : "Start, then arrow keys or WASD", w / 2, h - 10);
     }
   }
@@ -269,6 +271,21 @@
     });
   }
 
+  // Size the backing store to the on-screen pixels (CSS size x devicePixelRatio) and scale the
+  // context, so text and lines stay sharp instead of being stretched by CSS.
+  function fitCanvas() {
+    const canvas = state.canvas;
+    if (!canvas) return;
+    const logicalW = COLS * CELL;
+    const logicalH = ROWS * CELL;
+    const cssW = canvas.clientWidth || logicalW;
+    const dpr = window.devicePixelRatio || 1;
+    const scale = (cssW / logicalW) * dpr;
+    canvas.width = Math.round(logicalW * scale);
+    canvas.height = Math.round(logicalH * scale);
+    state.ctx.setTransform(scale, 0, 0, scale, 0, 0);
+  }
+
   function mount(target) {
     const canvas = $(`snake-canvas-${target}`);
     if (!canvas) return;
@@ -278,8 +295,11 @@
     state.ctx = canvas.getContext("2d");
     state.theme = THEMES[target] || THEMES.desktop;
     state.best = loadBest();
-    canvas.width = COLS * CELL;
-    canvas.height = ROWS * CELL;
+    fitCanvas();
+    if (!state.listenersBound.has("resize")) {
+      state.listenersBound.add("resize");
+      window.addEventListener("resize", () => { fitCanvas(); draw(); });
+    }
 
     if (!state.listenersBound.has(target)) {
       state.listenersBound.add(target);

@@ -226,6 +226,15 @@
     updateStartOpenHighlights();
   }
 
+  function publishDesktopSize() {
+    const wrapper = $("desktop-wrapper");
+    if (!wrapper) return;
+    const taskbar = wrapper.querySelector(".taskbar");
+    const h = wrapper.clientHeight - (taskbar ? taskbar.offsetHeight : 0);
+    wrapper.style.setProperty("--desk-w", `${wrapper.clientWidth}px`);
+    wrapper.style.setProperty("--desk-h", `${h}px`);
+  }
+
   function centerWindow(win) {
     const wrapper = $("desktop-wrapper");
     const rect = wrapper.getBoundingClientRect();
@@ -918,8 +927,10 @@
       });
     });
 
+    publishDesktopSize();
     window.addEventListener("resize", () => {
       if (CVSite.isPhone()) return;
+      publishDesktopSize();
       document.querySelectorAll(".window.open:not(.minimized)").forEach((w) => centerWindow(w));
     });
   }

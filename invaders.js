@@ -174,7 +174,7 @@
     });
 
     // player
-    drawSprite(SPRITES.ship[0], state.player.x, H - 6 - state.player.h, theme.player);
+    drawSprite(SPRITES.ship[0], Math.round(state.player.x), H - 6 - state.player.h, theme.player);
 
     // bullets
     ctx.fillStyle = theme.bullet;
@@ -445,6 +445,18 @@
     canvas.addEventListener("pointercancel", end);
   }
 
+  // Backing store at on-screen pixel size, context scaled to logical coordinates: sharp text and sprites.
+  function fitCanvas() {
+    const canvas = state.canvas;
+    if (!canvas) return;
+    const cssW = canvas.clientWidth || W;
+    const dpr = window.devicePixelRatio || 1;
+    const scale = (cssW / W) * dpr;
+    canvas.width = Math.round(W * scale);
+    canvas.height = Math.round(H * scale);
+    state.ctx.setTransform(scale, 0, 0, scale, 0, 0);
+  }
+
   function mount(target) {
     const canvas = $(`invaders-canvas-${target}`);
     if (!canvas) return;
@@ -454,8 +466,11 @@
     state.ctx = canvas.getContext("2d");
     state.theme = THEMES[target] || THEMES.desktop;
     state.best = loadBest();
-    canvas.width = W;
-    canvas.height = H;
+    fitCanvas();
+    if (!state.bound.has("resize")) {
+      state.bound.add("resize");
+      window.addEventListener("resize", () => { fitCanvas(); draw(); });
+    }
 
     if (!state.bound.has(target)) {
       state.bound.add(target);
