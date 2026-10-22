@@ -1,0 +1,5 @@
+# security.txt (RFC 9116) for andrea.m.sustic.com
+Contact: mailto:codebymegan@gmail.com
+Expires: 2027-10-22T00:00:00.000Z
+Preferred-Languages: en, de
+Canonical: https://andrea.m.sustic.com/.well-known/security.txt

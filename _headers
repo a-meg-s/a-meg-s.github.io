@@ -1,0 +1,29 @@
+# Security headers for Cloudflare Pages / Netlify.
+#
+# GitHub Pages ignores this file (it cannot send custom response headers).
+# The same policy is mirrored in <meta http-equiv> tags in index.html and
+# internet/cv.html so the site is protected on GitHub Pages too. Headers that
+# cannot be set via meta (HSTS, X-Frame-Options, X-Content-Type-Options,
+# Permissions-Policy, frame-ancestors) only take effect once the site is served
+# through a host that reads this file.
+
+/*
+  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src 'self'; frame-ancestors 'self'; object-src 'none'; base-uri 'self'; form-action 'none'; upgrade-insecure-requests
+  Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+  X-Frame-Options: SAMEORIGIN
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()
+  Cross-Origin-Opener-Policy: same-origin
+  Cross-Origin-Resource-Policy: same-origin
+  X-Permitted-Cross-Domain-Policies: none
+  Cache-Control: public, max-age=600
+
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/vendor/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/info/*
+  Content-Disposition: attachment

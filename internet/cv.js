@@ -26,7 +26,7 @@ function setHTML(id, html) {
 }
 
 function escapeHtml(s) {
-  return String(s)
+  return String(s ?? "")
     .replaceAll("&", "&amp;")
     .replaceAll("<", "&lt;")
     .replaceAll(">", "&gt;")
@@ -34,75 +34,56 @@ function escapeHtml(s) {
     .replaceAll("'", "&#039;");
 }
 
+function safeHref(href) {
+  const h = String(href ?? "").trim();
+  if (/^(https?:\/\/|mailto:)/i.test(h)) return h;
+  if (/^[a-z0-9_./-]+$/i.test(h) && !h.startsWith("/") && !h.includes("..")) return `../${h}`;
+  return "#";
+}
+
+function linkAttrs(href, download) {
+  const external = /^https?:/i.test(href);
+  return `${download ? " download" : ""}${external ? ' target="_blank" rel="noopener noreferrer"' : ""}`;
+}
+
 // ---------------------------
 // Render page from JSON
 // ---------------------------
 function renderHeader() {
-  //  current JSON doesn't store the big name, so fall back to site.title if present.
-  // for exact header name, add CV.internet.headerName or CV.site.name, etc.
-  const name = CV?.internet?.headerName || CV?.site?.title || "Andrea M. Sustic";
+  const name = CV?.site?.name || CV?.internet?.headerName || CV?.site?.title || "Andrea M. Sustic";
   setText("person-name", name);
+  setText("person-role", [CV?.site?.role, CV?.site?.location].filter(Boolean).join(", "));
 
-  // Try to use the same image as contact/about profile if present
   const img = document.getElementById("profile-img");
-  const src =
-    CV?.internet?.headerImage ||
-    CV?.about?.profile?.image ||
-    CV?.contact?.image ||
-    "/img/pfp.png";
-
-  if (img) img.src = src.startsWith("/") ? src : `/${src.replace(/^\.\//, "")}`;
+  const src = CV?.internet?.headerImage || CV?.about?.profile?.image || CV?.contact?.image || "img/pfp.png";
+  if (img) img.src = safeHref(src);
 }
 
 function renderIntro() {
-  // Use welcome content (same as desktop welcome modal)
-  const title = CV?.welcome?.title || "Hello and welcome to my online CV";
-  setText("intro-title", title);
-
+  setText("intro-title", CV?.welcome?.title || "Hello and welcome to my online CV");
   const paras = CV?.welcome?.paragraphs || [];
-  const html = paras.map(p => `<p>${p}</p>`).join("");
-  setHTML("intro-paragraphs", html);
+  setHTML("intro-paragraphs", paras.map((p) => `<p>${p}</p>`).join(""));
 }
 
 function renderCurrentWork() {
-  // If custom JSON later, it will override this fallback.
-  // Recommended JSON addition:
   const custom = CV?.internet?.currentWork;
-
-  const title = custom?.title || "What I'm Currently Working On";
-  setText("current-work-title", title);
-
+  setText("current-work-title", custom?.title || "What I'm Currently Working On");
   if (custom?.paragraphs?.length) {
-    setHTML("current-work-body", custom.paragraphs.map(p => `<p>${p}</p>`).join(""));
+    setHTML("current-work-body", custom.paragraphs.map((p) => `<p>${p}</p>`).join(""));
     return;
   }
-
-  // Fallback: derive something reasonable from about.skills + welcome
   const skills = CV?.about?.skills?.text || "";
-  const fallback = `
-    <p>
-      Since I’m still studying, my areas of interest and projects are constantly evolving.
-      Here are some technologies and domains I work with:
-      <span class="highlight">${escapeHtml(skills)}</span>
-    </p>
-    <p>
-      You can find reports and results of various projects and topics in the Projects section.
-    </p>
-  `;
-  setHTML("current-work-body", fallback);
+  setHTML("current-work-body", `<p>Technologies and domains I work with: <span class="highlight">${escapeHtml(skills)}</span></p>`);
 }
 
 function renderLanguages() {
   setText("languages-title", CV?.about?.languages?.title || "Languages");
-
   const container = document.getElementById("language-container");
   if (!container) return;
-
   const items = CV?.about?.languages?.items || [];
-  container.innerHTML = items.map(it => {
-    // In this "internet" UI, the bar text includes the label in the same element
-    return `<div class="language-bar" data-percentage="${it.percentage}">${escapeHtml(it.label)}</div>`;
-  }).join("");
+  container.innerHTML = items
+    .map((it) => `<div class="language-bar" data-percentage="${Number(it.percentage) || 0}">${escapeHtml(it.label)}</div>`)
+    .join("");
 }
 
 function renderExperienceCarousel() {
@@ -113,167 +94,157 @@ function renderExperienceCarousel() {
   if (!inner || !dots) return;
 
   const items = CV?.explorers?.experience?.items || [];
-
-  // Optional: keep first "Key Skills from Experience" slide if in JSON
-  // Example:
-  // CV.internet.experienceIntro = { title: "Key Skills from Experience:", bullets: [...] }
   const intro = CV?.internet?.experienceIntro;
-
   const slides = [];
 
   if (intro?.title && Array.isArray(intro?.bullets)) {
     slides.push(`
       <article>
         <h3>${escapeHtml(intro.title)}</h3>
-        <ul>${intro.bullets.map(b => `<li>${b}</li>`).join("")}</ul>
-      </article>
-    `);
+        <ul>${intro.bullets.map((b) => `<li>${b}</li>`).join("")}</ul>
+      </article>`);
   }
 
-  // Convert each experience item into a slide
   for (const it of items) {
     const title = it.notepadTitle || it.label || "";
     const bullets = Array.isArray(it.bullets) ? it.bullets : [];
-    const dateLine = bullets.length ? bullets[0] : "";
-
-    const rest = bullets.slice(1).map(b => `<li>${b}</li>`).join("");
-
     slides.push(`
       <article>
         <h3>${escapeHtml(title)}</h3>
-        ${dateLine ? `<p>${escapeHtml(dateLine)}</p>` : ""}
-        ${rest ? `<ul>${rest}</ul>` : ""}
-      </article>
-    `);
+        ${it.meta ? `<p class="meta">${escapeHtml(it.meta)}</p>` : ""}
+        ${bullets.length ? `<ul>${bullets.map((b) => `<li>${b}</li>`).join("")}</ul>` : ""}
+      </article>`);
   }
 
   inner.innerHTML = slides.join("");
-
-  // dots
-  dots.innerHTML = slides.map((_, i) =>
-    `<div class="indicator-dot ${i === 0 ? "active" : ""}"></div>`
-  ).join("");
-
-  // set up carousel
+  dots.innerHTML = slides.map((_, i) => `<div class="indicator-dot ${i === 0 ? "active" : ""}"></div>`).join("");
   setupExperienceCarousel();
 }
 
 function renderProjects() {
   setText("projects-title", CV?.explorers?.projects?.windowTitle || "Projects");
-
   const host = document.getElementById("projects-list");
   if (!host) return;
 
   const items = CV?.explorers?.projects?.items || [];
-
-  host.innerHTML = items.map(it => {
-    const title = it.notepadTitle || it.label || "Project";
-    const bullets = Array.isArray(it.bullets) ? it.bullets : [];
-
-    const bulletList = bullets.length
-      ? `<ul class="project-bullets">${bullets.map(b => `<li>${b}</li>`).join("")}</ul>`
-      : "";
-
-    const links = (it.links || []).map(l => {
-      const dl = l.download ? " download" : "";
-      const href = l.href || "#";
-      const label = l.text || href;
-      return `<a href="${href}"${dl}>${escapeHtml(label)}</a>`;
-    }).join("<br>");
-
-    return `
+  host.innerHTML = items
+    .map((it) => {
+      const title = it.notepadTitle || it.label || "Project";
+      const bullets = Array.isArray(it.bullets) ? it.bullets : [];
+      const bulletList = bullets.length ? `<ul class="project-bullets">${bullets.map((b) => `<li>${b}</li>`).join("")}</ul>` : "";
+      const links = (it.links || [])
+        .map((l) => {
+          const href = safeHref(l.href);
+          return `<a href="${escapeHtml(href)}"${linkAttrs(href, l.download)}>${escapeHtml(l.text || href)}</a>`;
+        })
+        .join("<br>");
+      return `
       <li class="project-item">
-      <h3>${escapeHtml(title)}</h3>
+        <h3>${escapeHtml(title)}</h3>
         <article>
+          ${it.meta ? `<p class="meta">${escapeHtml(it.meta)}</p>` : ""}
           ${bulletList}
           ${links ? `<p>${links}</p>` : ""}
         </article>
-      </li>
-    `;
-  }).join("");
+      </li>`;
+    })
+    .join("");
 }
 
 function renderEducation() {
   setText("education-title", CV?.about?.education?.title || "Education");
-
   const host = document.getElementById("education-body");
   if (!host) return;
 
-  // desktop JSON has education.html (with <br>).
-  // For the internet version we can reuse it.
   const eduHtml = CV?.about?.education?.html || "";
+  const awards = (CV?.about?.awards?.items || [])
+    .map((aw) => {
+      const links = (aw.links || [])
+        .map((l) => {
+          const href = safeHref(l.href);
+          return `<a href="${escapeHtml(href)}"${linkAttrs(href)}>${escapeHtml(l.text)}</a>`;
+        })
+        .join("<br>");
+      return `
+      <div class="award-box">
+        <p><span class="bold">${escapeHtml(aw.name)}</span></p>
+        <p>${escapeHtml(aw.for)}</p>
+        ${aw.thesis ? `<p>${escapeHtml(aw.thesis)}</p>` : ""}
+        ${links ? `<p>${links}</p>` : ""}
+      </div>`;
+    })
+    .join("");
+
   host.innerHTML = `
     <article>
-      <h3>${escapeHtml(CV?.internet?.educationHeading || "Bachelor in Information & Cyber Security")}</h3>
+      <h3>${escapeHtml(CV?.internet?.educationHeading || "Bachelor of Science in Information & Cyber Security")}</h3>
       <p>${eduHtml}</p>
-    </article>
-  `;
+      ${awards}
+    </article>`;
 }
 
 function renderFooterContact() {
   const host = document.getElementById("contact-footer");
   if (!host) return;
-
-  const email = CV?.contact?.email?.address || "codebymegan@gmail.com";
-  const linkedinUrl = CV?.contact?.linkedin?.url || "#";
+  const email = CV?.contact?.email?.address || "";
+  const linkedinUrl = safeHref(CV?.contact?.linkedin?.url || "#");
   const linkedinText = CV?.contact?.linkedin?.text || "LinkedIn";
-
   host.innerHTML = `
     <p>
-      Contact:
-      <a href="mailto:${escapeHtml(email)}">${escapeHtml(email)}</a>
+      Contact: <a href="mailto:${escapeHtml(email)}">${escapeHtml(email)}</a>
       |
-      LinkedIn:
-      <a href="${linkedinUrl}">${escapeHtml(linkedinText)}</a>
-    </p>
-  `;
+      LinkedIn: <a href="${escapeHtml(linkedinUrl)}" target="_blank" rel="noopener noreferrer">${escapeHtml(linkedinText)}</a>
+    </p>`;
 }
 
 // ---------------------------
-// Skill bars (unchanged logic, but works with JSON-injected bars)
+// Skill bars
 // ---------------------------
 function initSkillBars() {
-  const skillBars = document.querySelectorAll(".language-bar");
-
-  const animateBar = (bar) => {
-    const percentage = bar.getAttribute("data-percentage");
-    bar.style.width = `${percentage}%`;
+  const bars = document.querySelectorAll(".language-bar");
+  const animate = (bar) => {
+    bar.style.width = `${Math.min(100, Number(bar.getAttribute("data-percentage")) || 0)}%`;
     bar.classList.add("hovered");
   };
-
-  const observer = new IntersectionObserver(
-    (entries, obs) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          animateBar(entry.target);
-          obs.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.5 }
-  );
-
-  skillBars.forEach((bar) => {
+  if (!("IntersectionObserver" in window)) {
+    bars.forEach(animate);
+    return;
+  }
+  const observer = new IntersectionObserver((entries, obs) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        animate(entry.target);
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.3 });
+  bars.forEach((bar) => {
     bar.style.width = "0%";
     observer.observe(bar);
   });
 }
 
 // ---------------------------
-// Experience Carousel (updated to be safe with dynamic slide count)
+// Experience carousel (buttons, keyboard, swipe)
 // ---------------------------
 let currentIndex = 0;
 
+function slideCount() {
+  return document.querySelectorAll(".experience-inner article").length;
+}
+
 function updateExperience() {
-  const experienceInner = document.querySelector(".experience-inner");
-  const experiences = document.querySelectorAll(".experience-inner article");
-  if (!experienceInner || experiences.length === 0) return;
+  const inner = document.querySelector(".experience-inner");
+  if (!inner || slideCount() === 0) return;
+  inner.style.transform = `translateX(${-currentIndex * 100}%)`;
+  document.querySelectorAll("#scroll-indicator .indicator-dot").forEach((dot, i) => dot.classList.toggle("active", i === currentIndex));
+}
 
-  const offset = -currentIndex * 100;
-  experienceInner.style.transform = `translateX(${offset}%)`;
-
-  const dots = document.querySelectorAll("#scroll-indicator .indicator-dot");
-  dots.forEach((dot, index) => dot.classList.toggle("active", index === currentIndex));
+function step(delta) {
+  const n = slideCount();
+  if (!n) return;
+  currentIndex = (currentIndex + delta + n) % n;
+  updateExperience();
 }
 
 function setupExperienceCarousel() {
@@ -282,64 +253,65 @@ function setupExperienceCarousel() {
 
   const nextBtn = document.getElementById("next-experience");
   const prevBtn = document.getElementById("prev-experience");
+  if (nextBtn) nextBtn.onclick = () => step(1);
+  if (prevBtn) prevBtn.onclick = () => step(-1);
 
-  if (nextBtn) {
-    nextBtn.onclick = () => {
-      const experiences = document.querySelectorAll(".experience-inner article");
-      if (experiences.length === 0) return;
-      currentIndex = (currentIndex + 1) % experiences.length;
-      updateExperience();
-    };
-  }
-
-  if (prevBtn) {
-    prevBtn.onclick = () => {
-      const experiences = document.querySelectorAll(".experience-inner article");
-      if (experiences.length === 0) return;
-      currentIndex = (currentIndex - 1 + experiences.length) % experiences.length;
-      updateExperience();
-    };
+  const carousel = document.getElementById("experience-carousel");
+  if (carousel && !carousel.dataset.swipeBound) {
+    carousel.dataset.swipeBound = "1";
+    let startX = null;
+    carousel.addEventListener("pointerdown", (e) => { startX = e.clientX; });
+    carousel.addEventListener("pointerup", (e) => {
+      if (startX === null) return;
+      const dx = e.clientX - startX;
+      startX = null;
+      if (Math.abs(dx) > 40) step(dx < 0 ? 1 : -1);
+    });
+    carousel.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowRight") step(1);
+      if (e.key === "ArrowLeft") step(-1);
+    });
+    carousel.tabIndex = 0;
   }
 }
 
 // ---------------------------
-// Matrix background effect
+// Matrix background
 // ---------------------------
 function startMatrix() {
   const canvas = document.getElementById("matrix-canvas");
   if (!canvas) return;
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
   const ctx = canvas.getContext("2d");
-
-  const matrixChars =
-    "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()*&^%+-/~{[|]}".split("");
+  const chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*(){}[]<>/\\|~".split("");
   const fontSize = 10;
-  let columns, drops;
+  let drops = [];
 
-  function resizeCanvas() {
+  function resize() {
     canvas.width = canvas.clientWidth;
     canvas.height = canvas.clientHeight;
-    columns = canvas.width / fontSize;
-    drops = Array(Math.floor(columns)).fill(1);
+    drops = Array(Math.floor(canvas.width / fontSize)).fill(1);
   }
 
-  function drawMatrix() {
+  function drawFrame() {
     ctx.fillStyle = "rgba(26, 26, 46, 0.2)";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
-
     ctx.fillStyle = "#39FF14";
-    ctx.font = fontSize + "px arial";
-
+    ctx.font = `${fontSize}px monospace`;
     drops.forEach((y, i) => {
-      const text = matrixChars[Math.floor(Math.random() * matrixChars.length)];
-      ctx.fillText(text, i * fontSize, y * fontSize);
+      ctx.fillText(chars[Math.floor(Math.random() * chars.length)], i * fontSize, y * fontSize);
       if (y * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
       drops[i]++;
     });
   }
 
-  window.addEventListener("resize", resizeCanvas);
-  resizeCanvas();
-  setInterval(drawMatrix, 35);
+  window.addEventListener("resize", resize);
+  resize();
+  let timer = setInterval(drawFrame, 35);
+  document.addEventListener("visibilitychange", () => {
+    clearInterval(timer);
+    if (!document.hidden) timer = setInterval(drawFrame, 35);
+  });
 }
 
 // ---------------------------
@@ -348,7 +320,6 @@ function startMatrix() {
 window.addEventListener("load", async () => {
   try {
     await loadContent();
-
     renderHeader();
     renderIntro();
     renderCurrentWork();
@@ -357,23 +328,15 @@ window.addEventListener("load", async () => {
     renderProjects();
     renderEducation();
     renderFooterContact();
-
-    // after languages are injected
     initSkillBars();
-
-    // background effect
-    startMatrix();
   } catch (e) {
     console.error(e);
-    // fail loudly in-page
     const intro = document.getElementById("intro-paragraphs");
     if (intro) {
       intro.innerHTML = `
         <p><strong>Could not load shared content.json</strong></p>
-        <pre style="white-space:pre-wrap; font-family: monospace;">${escapeHtml(e.message || String(e))}</pre>
-        <p>Check that ../content.json exists relative to /internet/cv.html.</p>
-      `;
+        <pre class="load-error">${escapeHtml(e.message || String(e))}</pre>`;
     }
-    startMatrix();
   }
+  startMatrix();
 });

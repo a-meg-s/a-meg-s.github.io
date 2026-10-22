@@ -3,278 +3,373 @@
 
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'; upgrade-insecure-requests" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <meta name="color-scheme" content="light" />
+  <meta name="theme-color" content="#008080" media="(min-width: 760px)" />
+  <meta name="theme-color" content="#23262b" media="(max-width: 759px)" />
+  <meta name="description" content="Andrea Megan Sustic, Security Analyst at scip AG in Zürich. BSc Information & Cyber Security (HSLU). Online CV." />
+  <meta name="author" content="Andrea Megan Sustic" />
   <title>Andrea M. Sustic</title>
 
-  <link rel="stylesheet" href="https://unpkg.com/98.css" />
+  <link rel="stylesheet" href="vendor/98.css" />
   <link rel="stylesheet" href="resume.css" />
+  <link rel="stylesheet" href="mobile.css" />
   <link rel="icon" type="image/png" href="img/pfp.png" />
+  <script src="frameguard.js"></script>
 </head>
 
 <body>
-  <div class="desktop-outer">
+  <!-- ============ DESKTOP SHELL (>= 760px) ============ -->
+  <div class="desktop-outer" id="desktop-outer">
+
+    <!-- Boot screen -->
+    <div id="boot-screen" class="boot-screen" aria-live="polite">
+      <pre class="boot-text" id="boot-text"></pre>
+      <div class="boot-hint">Press any key or click to skip</div>
+    </div>
+
     <div id="desktop-wrapper" class="desktop-wrapper">
-      <div class="desktop">
-        <div class="icon" onclick="openWindow('about')">
-          <img src="icons/resume.png" alt="Resume" />
+      <div class="desktop" id="desktop" role="group" aria-label="Desktop">
+        <button class="icon" type="button" data-open="about">
+          <img src="icons/resume.png" alt="" />
           <span>About Me</span>
-        </div>
+        </button>
 
-        <div class="icon" onclick="openWindow('experience')">
-          <img src="icons/folder.png" alt="Experience" />
+        <button class="icon" type="button" data-open="experience">
+          <img src="icons/folder.png" alt="" />
           <span>Experience</span>
-        </div>
+        </button>
 
-        <div class="icon" onclick="openWindow('projects')">
-          <img src="icons/folder.png" alt="Projects" />
+        <button class="icon" type="button" data-open="projects">
+          <img src="icons/folder.png" alt="" />
           <span>Projects</span>
-        </div>
+        </button>
 
-        <div class="icon" onclick="openWindow('contact')">
-          <img src="icons/contact.png" alt="Contact" />
+        <button class="icon" type="button" data-open="contact">
+          <img src="icons/contact.png" alt="" />
           <span>Contact</span>
-        </div>
+        </button>
 
-        <div class="icon" onclick="openInternetWindow()">
-          <img src="icons/internet.png" alt="Internet" />
+        <button class="icon" type="button" data-action="internet">
+          <img src="icons/internet.png" alt="" />
           <span>Internet</span>
-        </div>
+        </button>
 
-        <div class="icon" onclick="triggerVirus()">
-          <img src="icons/program.png" alt="Suspicious" />
+        <button class="icon" type="button" data-open="snake">
+          <img src="icons/keys.png" alt="" />
+          <span>snake.exe</span>
+        </button>
+
+        <button class="icon" type="button" data-open="invaders">
+          <img src="icons/world.png" alt="" />
+          <span>invaders.exe</span>
+        </button>
+
+        <button class="icon" type="button" data-action="virus">
+          <img src="icons/program.png" alt="" />
           <span>super-unsuspicious-file.vbs</span>
-        </div>
+        </button>
       </div>
 
       <!-- Welcome Modal -->
-      <div id="welcome-message" class="window modal">
+      <div id="welcome-message" class="window modal" role="dialog" aria-labelledby="welcome-title">
         <div class="title-bar">
           <div class="title-bar-text" id="welcome-title">Hello and welcome to my online CV!</div>
           <div class="title-bar-controls">
-            <button aria-label="Close" onclick="closeWindow('welcome-message')"></button>
+            <button aria-label="Close" data-close="welcome-message"></button>
           </div>
         </div>
         <div class="window-body">
           <div id="welcome-content"></div>
-          <button id="welcome-ok" onclick="closeWindow('welcome-message')">OK</button>
+          <div class="welcome-actions">
+            <button id="welcome-ok" data-close="welcome-message">OK</button>
+            <button data-open="about" data-close="welcome-message">About Me</button>
+          </div>
         </div>
       </div>
 
       <!-- Taskbar -->
       <div class="taskbar">
-        <button class="start-button" aria-haspopup="menu" aria-controls="start-menu">Start</button>
-        <div id="taskbar-clock" class="clock">12:00</div>
+        <button class="start-button" type="button" aria-haspopup="menu" aria-controls="start-menu" aria-expanded="false">
+          <img src="img/pfp1.png" alt="" class="start-logo" />Start
+        </button>
+        <div class="taskbar-divider" aria-hidden="true"></div>
+        <div id="taskbar-windows" class="taskbar-windows" role="group" aria-label="Open windows"></div>
+        <div class="tray">
+          <div id="taskbar-clock" class="clock" aria-live="off">12:00</div>
+        </div>
       </div>
 
       <!-- Start Menu -->
       <div id="start-menu" class="start-menu hidden" role="menu" aria-label="Start menu">
         <div class="start-header">
-          <img id="start-avatar" src="img/pfp.png" alt="User" />
+          <img id="start-avatar" src="img/pfp.png" alt="" />
           <div class="start-header-text">
             <strong id="start-name">Andrea Sustic</strong>
-            <small id="start-role">Information &amp; Cyber Security</small>
+            <small id="start-role">Security Analyst</small>
           </div>
         </div>
 
         <div class="start-grid">
-          <!-- Left column: main navigation -->
           <div class="start-col">
             <div class="menu-title">Programs</div>
 
-            <div class="menu-item" role="menuitem" data-app-id="about" onclick="openWindow('about')">
-              About Me
-            </div>
-            <div class="menu-item" role="menuitem" data-app-id="experience" onclick="openWindow('experience')">
-              Experience
-            </div>
-            <div class="menu-item" role="menuitem" data-app-id="projects" onclick="openWindow('projects')">
-              Projects
-            </div>
-            <div class="menu-item" role="menuitem" data-app-id="contact" onclick="openWindow('contact')">
-              Contact
-            </div>
+            <button class="menu-item" role="menuitem" data-app-id="about" data-open="about">About Me</button>
+            <button class="menu-item" role="menuitem" data-app-id="experience" data-open="experience">Experience</button>
+            <button class="menu-item" role="menuitem" data-app-id="projects" data-open="projects">Projects</button>
+            <button class="menu-item" role="menuitem" data-app-id="contact" data-open="contact">Contact</button>
 
             <div class="menu-sep"></div>
 
-            <div class="menu-item" role="menuitem" data-app-id="notepad" onclick="openResumeTxt()">
-              Resume.txt
-            </div>
-            <div class="menu-item" role="menuitem" data-app-id="internet-browser" onclick="openInternetWindow()">
-              Connect to Internet
-            </div>
+            <button class="menu-item" role="menuitem" data-app-id="notepad" data-action="resume-txt">Resume.txt</button>
+            <button class="menu-item" role="menuitem" data-app-id="internet-browser" data-action="internet">Connect to Internet</button>
+            <button class="menu-item" role="menuitem" data-app-id="snake" data-open="snake">Games: snake.exe</button>
+            <button class="menu-item" role="menuitem" data-app-id="invaders" data-open="invaders">Games: invaders.exe</button>
           </div>
 
-          <!-- Right column: compact utilities -->
           <div class="start-col start-col-right">
             <div class="menu-title">Quick</div>
 
-            <div class="menu-item compact" role="menuitem" onclick="openWindow('projects')">
-              View Projects
-            </div>
-            <div class="menu-item compact" role="menuitem" onclick="openCvDownload()">
-              Download CV
-            </div>
+            <button class="menu-item compact" role="menuitem" data-open="projects">View Projects</button>
+            <button class="menu-item compact" role="menuitem" data-action="request-cv">Request CV</button>
+            <a class="menu-item compact" role="menuitem" id="start-linkedin" href="https://www.linkedin.com/in/andrea-megan-sustic" target="_blank" rel="noopener noreferrer">LinkedIn</a>
 
-            <div class="menu-title" style="margin-top:6px;">Recent</div>
+            <div class="menu-title menu-title-gap">Recent</div>
             <div id="recent-apps" class="recent-list"></div>
           </div>
         </div>
 
-        <!-- Footer row: system -->
         <div class="start-footer">
-          <div class="menu-item compact" role="menuitem" data-app-id="task-manager"
-            onclick="openWindow('task-manager'); populateTaskList();">
-            Task Manager
+          <button class="menu-item compact" role="menuitem" data-app-id="task-manager" data-open="task-manager">Task Manager</button>
+          <button class="menu-item compact danger" role="menuitem" data-action="virus">Shutdown</button>
+        </div>
+      </div>
+
+      <!-- Task Manager -->
+      <div id="task-manager" class="window modal task-manager-window" role="dialog" aria-labelledby="task-manager-title">
+        <div class="title-bar">
+          <div class="title-bar-text" id="task-manager-title">Task Manager</div>
+          <div class="title-bar-controls">
+            <button aria-label="Minimize" data-minimize="task-manager"></button>
+            <button aria-label="Close" data-close="task-manager"></button>
           </div>
-          <div class="menu-item compact danger" role="menuitem" onclick="triggerVirus()">
-            Shutdown
+        </div>
+        <div class="window-body">
+          <p><strong>Task Manager</strong>: view all currently open windows and close them as needed.</p>
+          <hr />
+          <div id="task-list"></div>
+        </div>
+      </div>
+
+      <!-- About -->
+      <div id="about" class="window about-window" role="dialog" aria-labelledby="about-title">
+        <div class="title-bar">
+          <div class="title-bar-text" id="about-title">About Me</div>
+          <div class="title-bar-controls">
+            <button aria-label="Minimize" data-minimize="about"></button>
+            <button aria-label="Close" data-close="about"></button>
           </div>
         </div>
+        <div class="window-body scrollable">
+          <div id="about-content"></div>
+        </div>
+      </div>
+
+      <!-- Experience -->
+      <div id="experience" class="window explorer-window" role="dialog" aria-labelledby="experience-title">
+        <div class="title-bar">
+          <div class="title-bar-text" id="experience-title">Experience</div>
+          <div class="title-bar-controls">
+            <button aria-label="Minimize" data-minimize="experience"></button>
+            <button aria-label="Close" data-close="experience"></button>
+          </div>
+        </div>
+
+        <div class="menu-bar">
+          <span>File</span><span>Edit</span><span>View</span><span>Help</span>
+        </div>
+
+        <div class="explorer-body split">
+          <div class="sidebar" id="experience-sidebar"></div>
+          <div class="explorer-content">
+            <div class="file-grid" id="experience-grid"></div>
+          </div>
+        </div>
+
+        <div class="status-bar">
+          <span id="experience-status-left"></span>
+          <span id="experience-status-right"></span>
+        </div>
+      </div>
+
+      <!-- Notepad -->
+      <div id="notepad" class="window notepad-window" role="dialog" aria-labelledby="notepad-title">
+        <div class="title-bar">
+          <div id="notepad-title" class="title-bar-text">Untitled - Notepad</div>
+          <div class="title-bar-controls">
+            <button aria-label="Minimize" data-minimize="notepad"></button>
+            <button aria-label="Close" data-close="notepad"></button>
+          </div>
+        </div>
+        <div class="menu-bar">
+          <span>File</span><span>Edit</span><span>Format</span><span>View</span><span>Help</span>
+        </div>
+        <div class="window-body notepad-body">
+          <div id="notepad-content" class="notepad-html"></div>
+        </div>
+      </div>
+
+      <!-- Projects -->
+      <div id="projects" class="window explorer-window" role="dialog" aria-labelledby="projects-title">
+        <div class="title-bar">
+          <div class="title-bar-text" id="projects-title">Projects</div>
+          <div class="title-bar-controls">
+            <button aria-label="Minimize" data-minimize="projects"></button>
+            <button aria-label="Close" data-close="projects"></button>
+          </div>
+        </div>
+
+        <div class="menu-bar">
+          <span>File</span><span>Edit</span><span>View</span><span>Help</span>
+        </div>
+
+        <div class="explorer-body split">
+          <div class="sidebar" id="projects-sidebar"></div>
+          <div class="explorer-content">
+            <div class="file-grid" id="projects-grid"></div>
+          </div>
+        </div>
+
+        <div class="status-bar">
+          <span id="projects-status-left"></span>
+          <span id="projects-status-right"></span>
+        </div>
+      </div>
+
+      <!-- Contact -->
+      <div id="contact" class="window contact-window" role="dialog" aria-labelledby="contact-title">
+        <div class="title-bar">
+          <div class="title-bar-text" id="contact-title">Contact</div>
+          <div class="title-bar-controls">
+            <button aria-label="Minimize" data-minimize="contact"></button>
+            <button aria-label="Close" data-close="contact"></button>
+          </div>
+        </div>
+        <div class="window-body scrollable">
+          <div id="contact-content"></div>
+        </div>
+      </div>
+
+      <!-- Snake -->
+      <div id="snake" class="window snake-window" role="dialog" aria-labelledby="snake-title">
+        <div class="title-bar">
+          <div class="title-bar-text" id="snake-title">snake.exe</div>
+          <div class="title-bar-controls">
+            <button aria-label="Minimize" data-minimize="snake"></button>
+            <button aria-label="Close" data-close="snake"></button>
+          </div>
+        </div>
+        <div class="window-body snake-body">
+          <div class="snake-hud">
+            <span>Score: <strong id="snake-score-desktop">0</strong></span>
+            <span>Best: <strong id="snake-best-desktop">0</strong></span>
+            <span class="snake-help">Arrow keys or WASD. Eat the bits.</span>
+          </div>
+          <canvas id="snake-canvas-desktop" class="snake-canvas" width="320" height="240" tabindex="0" aria-label="Snake game"></canvas>
+          <div class="snake-actions">
+            <button type="button" id="snake-start-desktop">Start</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Invaders -->
+      <div id="invaders" class="window invaders-window" role="dialog" aria-labelledby="invaders-title">
+        <div class="title-bar">
+          <div class="title-bar-text" id="invaders-title">invaders.exe</div>
+          <div class="title-bar-controls">
+            <button aria-label="Minimize" data-minimize="invaders"></button>
+            <button aria-label="Close" data-close="invaders"></button>
+          </div>
+        </div>
+        <div class="window-body invaders-body">
+          <div class="invaders-hud">
+            <span>SCORE <strong id="invaders-score-desktop">0</strong></span>
+            <span>WAVE <strong id="invaders-wave-desktop">1</strong></span>
+            <span>BEST <strong id="invaders-best-desktop">0</strong></span>
+          </div>
+          <canvas id="invaders-canvas-desktop" class="invaders-canvas" width="320" height="240" tabindex="0" aria-label="Invaders game"></canvas>
+          <div class="invaders-actions">
+            <button type="button" id="invaders-start-desktop">Start</button>
+          </div>
+          <p class="invaders-help">Arrows or A/D move. Space fires, hold it to keep firing.</p>
+        </div>
+      </div>
+
+      <!-- Internet Explorer -->
+      <div id="internet-browser" class="window modal internet-window" role="dialog" aria-labelledby="internet-title">
+        <div class="title-bar">
+          <div class="title-bar-text" id="internet-title">Internet Explorer</div>
+          <div class="title-bar-controls">
+            <button aria-label="Minimize" data-minimize="internet-browser"></button>
+            <button aria-label="Close" data-close="internet-browser"></button>
+          </div>
+        </div>
+
+        <div class="window-body internet-body">
+          <div class="ie-address-bar">
+            <fieldset class="ie-fieldset">
+              <label for="fake-url">Address:</label>
+              <input id="fake-url" class="field" type="text" readonly value="http://andrea-m-sustic.internet/" />
+            </fieldset>
+          </div>
+
+          <div class="internet-frame">
+            <div id="internet-loader" class="internet-loader">Connecting to the Internet...</div>
+            <iframe id="internet-iframe" src="about:blank" class="internet-iframe" title="Andrea's older CV website"></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ PHONE SHELL (< 760px) ============ -->
+  <div id="phone" class="phone" hidden>
+    <div class="phone-status" aria-hidden="true">
+      <span class="signal"><i></i><i></i><i></i><i></i></span>
+      <span class="carrier" id="phone-carrier">ANDREA MEGAN SUSTIC</span>
+      <span class="phone-clock" id="phone-clock">12:00</span>
+      <span class="battery"><i></i></span>
     </div>
 
-
-    <!-- Task Manager -->
-    <div id="task-manager" class="window modal" style="display:none; width: 500px; height: 350px;">
-      <div class="title-bar">
-        <div class="title-bar-text">Task Manager</div>
-        <div class="title-bar-controls">
-          <button aria-label="Close" onclick="closeWindow('task-manager')">X</button>
-        </div>
-      </div>
-      <div class="window-body">
-        <p><strong>Task Manager</strong> – View all currently open windows and close them as needed.</p>
-        <hr />
-        <div id="task-list"></div>
-      </div>
+    <div class="lcd" id="lcd">
+      <div class="lcd-title" id="lcd-title">Menu</div>
+      <div class="lcd-screen" id="lcd-screen" tabindex="-1"></div>
+      <div class="lcd-scroll" id="lcd-scroll" aria-hidden="true"></div>
     </div>
 
-    <!-- About -->
-    <div id="about" class="window about-window" style="display: none;">
-      <div class="title-bar">
-        <div class="title-bar-text" id="about-title">About Me</div>
-        <div class="title-bar-controls">
-          <button aria-label="Close" onclick="closeWindow('about')"></button>
-        </div>
+    <div class="keypad">
+      <button type="button" class="softkey" id="sk-left">Select</button>
+      <div class="dpad" id="dpad" hidden>
+        <button type="button" data-dir="up" aria-label="Up">▲</button>
+        <button type="button" data-dir="left" aria-label="Left">◀</button>
+        <button type="button" data-dir="down" aria-label="Down">▼</button>
+        <button type="button" data-dir="right" aria-label="Right">▶</button>
       </div>
-      <div class="window-body scrollable">
-        <div id="about-content"></div>
+      <div class="nav-keys" id="nav-keys">
+        <button type="button" data-nav="up" aria-label="Previous item">▲</button>
+        <button type="button" data-nav="down" aria-label="Next item">▼</button>
       </div>
-    </div>
-
-    <!-- Experience -->
-    <div id="experience" class="window explorer-window">
-      <div class="title-bar">
-        <div class="title-bar-text" id="experience-title">Experience</div>
-        <div class="title-bar-controls">
-          <button aria-label="Close" onclick="closeWindow('experience')"></button>
-        </div>
-      </div>
-
-      <div class="menu-bar">
-        <span>File</span><span>Edit</span><span>View</span><span>Help</span>
-      </div>
-
-      <div class="explorer-body split">
-        <div class="sidebar" id="experience-sidebar"></div>
-        <div class="explorer-content">
-          <div class="file-grid" id="experience-grid"></div>
-        </div>
-      </div>
-
-      <div class="status-bar">
-        <span id="experience-status-left"></span>
-        <span id="experience-status-right"></span>
-      </div>
-    </div>
-
-    <!-- Notepad -->
-    <div id="notepad" class="window notepad-window" style="display:none;">
-      <div class="title-bar">
-        <div id="notepad-title" class="title-bar-text">Untitled - Notepad</div>
-        <div class="title-bar-controls">
-          <button aria-label="Close" onclick="closeWindow('notepad')"></button>
-        </div>
-      </div>
-      <div class="menu-bar">
-        <span>File</span><span>Edit</span><span>Format</span><span>View</span><span>Help</span>
-      </div>
-      <div class="window-body notepad-body">
-        <div id="notepad-content" class="notepad-html"></div>
-      </div>
-    </div>
-
-    <!-- Projects -->
-    <div id="projects" class="window explorer-window">
-      <div class="title-bar">
-        <div class="title-bar-text" id="projects-title">Projects</div>
-        <div class="title-bar-controls">
-          <button aria-label="Close" onclick="closeWindow('projects')"></button>
-        </div>
-      </div>
-
-      <div class="menu-bar">
-        <span>File</span><span>Edit</span><span>View</span><span>Help</span>
-      </div>
-
-      <div class="explorer-body split">
-        <div class="sidebar" id="projects-sidebar"></div>
-        <div class="explorer-content">
-          <div class="file-grid" id="projects-grid"></div>
-        </div>
-      </div>
-
-      <div class="status-bar">
-        <span id="projects-status-left"></span>
-        <span id="projects-status-right"></span>
-      </div>
-    </div>
-
-    <!-- Contact -->
-    <div id="contact" class="window" style="display: none;">
-      <div class="title-bar">
-        <div class="title-bar-text" id="contact-title">Contact</div>
-        <div class="title-bar-controls">
-          <button aria-label="Close" onclick="closeWindow('contact')"></button>
-        </div>
-      </div>
-      <div class="window-body scrollable">
-        <div id="contact-content"></div>
-      </div>
-    </div>
-
-    <!-- Internet Explorer -->
-    <div id="internet-browser" class="window modal" style="display:none; width: 95vw; height: 85vh;">
-      <div class="title-bar">
-        <div class="title-bar-text">Internet Explorer</div>
-        <div class="title-bar-controls">
-          <button aria-label="Close" onclick="closeWindow('internet-browser')">X</button>
-        </div>
-      </div>
-
-      <div class="window-body internet-body">
-        <div class="ie-address-bar">
-          <fieldset class="ie-fieldset">
-            <label for="fake-url">Address:</label>
-            <input id="fake-url" class="field" type="text" readonly value="http://andrea-m-sustic.internet/" />
-          </fieldset>
-        </div>
-
-        <div id="internet-loader" class="internet-loader">Connecting to the Internet...</div>
-        <iframe id="internet-iframe" src="" class="internet-iframe"></iframe>
-      </div>
-    </div>
-
-    <!-- Error Window (static) -->
-    <div class="window error-box">
-      <div class="title-bar">
-        <div class="title-bar-text">Error</div>
-      </div>
-      <div class="window-body">Something went wrong!</div>
+      <button type="button" class="softkey" id="sk-right">Back</button>
     </div>
   </div>
 
   <script src="resume.js"></script>
-  </div>
+  <script src="snake.js"></script>
+  <script src="invaders.js"></script>
+  <script src="mobile.js"></script>
 </body>
 
 </html>

@@ -4,105 +4,91 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self';
-             script-src 'self';
-             style-src 'self' https://fonts.googleapis.com;
-             font-src https://fonts.gstatic.com;">
+    <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'; upgrade-insecure-requests" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <meta name="description" content="Andrea Megan Sustic, Security Analyst at scip AG. Older single-page CV." />
 
     <title>Andrea M. Sustic</title>
-    <!-- <link rel="icon" type="image/png" href="/img/pfp.png" /> -->
+    <link rel="icon" type="image/png" href="../img/pfp.png" />
     <link rel="stylesheet" href="cv.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap"
-        rel="stylesheet" />
+    <script src="../frameguard.js"></script>
 </head>
 
 <body>
     <header>
         <div id="header-content">
-            <!-- JSON renders image src + name -->
-            <img id="profile-img" src="/img/pfp.png" alt="Pixel Art Profile Picture" width="130" height="130" />
+            <img id="profile-img" src="../img/pfp.png" alt="Pixel art portrait of Andrea" width="130" height="130" />
             <div id="personal-details">
                 <h1 id="person-name">Andrea Megan Sustic</h1>
+                <p id="person-role"></p>
             </div>
         </div>
     </header>
 
-    <!-- <nav id="navbar">
-        <a href="#skills">Current Update</a>
-        <a href="#languages">Languages</a>
+    <nav id="navbar" aria-label="Sections">
+        <a href="#skills">Welcome</a>
+        <a href="#current-work">Now</a>
         <a href="#experience">Experience</a>
         <a href="#projects">Projects</a>
         <a href="#education">Education</a>
         <a href="#contact">Contact</a>
-    </nav>-->
+    </nav>
 
-    <canvas id="matrix-canvas"></canvas>
+    <canvas id="matrix-canvas" aria-hidden="true"></canvas>
 
-    <!-- Intro / Welcome -->
     <section id="skills" class="intro-section">
         <h2 id="intro-title">Hello and welcome to my online CV</h2>
         <hr class="section-divider" />
         <div id="intro-paragraphs"></div>
     </section>
 
-    <!-- "Current Work" / Update -->
     <section id="current-work" class="retro-section">
         <h2 id="current-work-title">What I'm Currently Working On</h2>
         <hr class="section-divider" />
         <div id="current-work-body"></div>
     </section>
 
-    <!-- Languages -->
     <section id="languages" class="skill-container">
         <h2 id="languages-title">Languages</h2>
         <hr class="section-divider" />
         <div id="language-container"></div>
     </section>
 
-    <!-- Experience Carousel -->
     <section id="experience">
         <h2 id="experience-title">Experience</h2>
         <hr class="section-divider" />
         <div class="experience-container">
             <div class="experience-carousel-wrapper">
                 <div class="experience-navigation left">
-                    <button id="prev-experience" type="button">&lt;</button>
+                    <button id="prev-experience" type="button" aria-label="Previous entry">&lt;</button>
                 </div>
 
-                <div class="experience-carousel">
-                    <div class="experience-inner" id="experience-inner">
-                        <!-- JSON will inject <article> slides here -->
-                    </div>
+                <div class="experience-carousel" id="experience-carousel">
+                    <div class="experience-inner" id="experience-inner"></div>
                 </div>
 
                 <div class="experience-navigation right">
-                    <button id="next-experience" type="button">&gt;</button>
+                    <button id="next-experience" type="button" aria-label="Next entry">&gt;</button>
                 </div>
             </div>
 
-            <div id="scroll-indicator"></div>
+            <div id="scroll-indicator" aria-hidden="true"></div>
         </div>
     </section>
 
-    <!-- Projects -->
     <section id="projects">
         <h2 id="projects-title">Projects</h2>
-        <hr class="section-divider">
+        <hr class="section-divider" />
         <ul class="projects-list" id="projects-list"></ul>
-        </hr>
     </section>
 
-    <!-- Education -->
     <section id="education">
         <h2 id="education-title">Education</h2>
         <hr class="section-divider" />
         <div id="education-body"></div>
     </section>
 
-    <!-- Contact Footer -->
     <footer id="contact">
         <div id="contact-footer"></div>
     </footer>
