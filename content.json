@@ -45,7 +45,7 @@
     },
     "skills": {
       "title": "Skills",
-      "text": "Penetration testing (network, web application, mobile), vulnerability assessment and reporting, peer review of security reports, Python, Java, C, JavaScript, SQL, HTML and CSS, cloud security, SDNs, PKI and certificate management, AI tooling for red team workflows."
+      "text": "Penetration testing (network, web application, mobile, ...), vulnerability assessment and reporting, peer review of security reports, Python, Java, C, JavaScript, SQL, HTML and CSS, cloud security, SDNs, PKI and certificate management, AI tooling for red team workflows."
     },
     "languages": {
       "title": "Languages",
@@ -91,7 +91,7 @@
           "notepadTitle": "Security Analyst @ scip AG",
           "meta": "September 2026 – present, Zürich",
           "bullets": [
-            "Perform penetration tests on networks, web applications and mobile apps, from scanning and enumeration through exploitation to clear write-ups.",
+            "Perform penetration tests and security reviews.",
             "Write assessment reports and peer-review reports.",
             "Build internal software and tooling.",
             "Research and prototype AI systems that support red team workflows and processes."
